@@ -579,20 +579,24 @@
 
 
 
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-   <script type="text/javascript">
-        var gitalk = new Gitalk({
+  
+    
+      <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+      <script type="text/javascript">
+        const gitalk = new Gitalk({
           clientID: '2e2cf73ed68c84d23441',
           clientSecret: '809546c5d0b1b7151ee3dcaf6b57d0e5649a6444',
           repo: 'Gialk',
-          owner: '',
-          admin: [''],
-          id: location.pathname,
-          distractionFreeMode: ''
+          owner: 'zcyh147',
+          admin: 'zcyh147'.split(','),
+          pagerDirection: 'first',
+          // facebook-like distraction free mode
+          distractionFreeMode: false
         })
-        gitalk.render('gitalk-container')           
-       </script>
+        gitalk.render('gitalk-container')
+      </script>
+    
+  
 
 
   
