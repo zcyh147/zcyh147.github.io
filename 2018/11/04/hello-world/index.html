@@ -383,6 +383,24 @@
     
 
     
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    溪夜
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://xiye.art/2018/11/04/hello-world/" title="Hello World">http://xiye.art/2018/11/04/hello-world/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://xiye.art/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
 
     <footer class="post-footer">
       
@@ -424,6 +442,10 @@
 
           
 
+  
+    <div id="gitalk-container">
+    </div>
+    
   
 
 
@@ -740,6 +762,26 @@
 
 
 
+
+
+  
+    
+      <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+      <script type="text/javascript">
+        const gitalk = new Gitalk({
+          clientID: '2e2cf73ed68c84d23441',
+          clientSecret: '809546c5d0b1b7151ee3dcaf6b57d0e5649a6444',
+          repo: 'Gialk',
+          owner: 'zcyh147',
+          admin: 'zcyh147'.split(','),
+          pagerDirection: 'first',
+          // facebook-like distraction free mode
+          distractionFreeMode: false
+        })
+        gitalk.render('gitalk-container')
+      </script>
+    
+  
 
 
   
