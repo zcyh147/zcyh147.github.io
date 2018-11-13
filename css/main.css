@@ -1839,7 +1839,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #3b6674;
+  background: #ec4fff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2622,7 +2622,7 @@ embed {
 .custom-logo .site-title {
   margin: 10px auto 0;
   font-size: 24px;
-  color: #222;
+color
 }
 .custom-logo .site-title a {
   border: none;
@@ -2677,8 +2677,25 @@ embed {
 .links-of-blogroll-inline .links-of-blogroll-item {
   display: inline-block;
 }
-.header {
-  height: 26vh;
-  background: #f5f5f5 url("../../images/banner.jpg");
-  background-size: cover;
+::selection {
+  background: #00c4b6;
+  color: #f7f7f7;
+}
+::-moz-selection {
+  background: #00c4b6;
+  color: #f7f7f7;
+}
+.sidebar-nav .sidebar-nav-active {
+  color: #fc6423;
+  border-bottom-color: #fc6423;
+}
+.sidebar-nav .sidebar-nav-active:hover {
+  color: #fc6423;
+}
+.post-toc .nav .active > a {
+  color: #fc6423;
+  border-bottom-color: #fc6423;
+}
+.post-toc .nav .active-current > a {
+  color: #fc6423;
 }
