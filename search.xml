@@ -3,29 +3,6 @@
   
     
     <entry>
-      <title>test</title>
-      <link href="/2020/02/20/test/"/>
-      <url>/2020/02/20/test/</url>
-      
-        <content type="html"><![CDATA[<p>eeeeeee</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 测试 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Testing </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>Hello World</title>
       <link href="/2018/11/04/hello-world/"/>
       <url>/2018/11/04/hello-world/</url>
