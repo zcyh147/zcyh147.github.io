@@ -3,6 +3,17 @@
   
     
     <entry>
+      <title>游戏音频相关书籍推荐</title>
+      <link href="/2020/08/15/%E6%B8%B8%E6%88%8F%E9%9F%B3%E9%A2%91%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/"/>
+      <url>/2020/08/15/%E6%B8%B8%E6%88%8F%E9%9F%B3%E9%A2%91%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/</url>
+      
+        <content type="html"><![CDATA[<p>大家好，我是溪夜。在游戏音频与声音设计领域的探索过程中，发现国内的相关书籍非常匮乏。作为豆瓣音频类书籍条目的维护者，深感应该把最近一年多的挖掘与发现与大家分享，这也是本文创作的首要动机。<br>文中包括我认为值得推荐的书籍，顺便以此文表示本号的重启（16年注册后一直没发过东西）。<br>与著名的“保姆级” Unity 教程作者 Jasper Flick  相同，对<strong>知识应成体系的去分享</strong>这件事，我深以为然。<br>诚然，作为实践中才能获取更多经验的工作类型。无论是 Sound Designer 还是 Audio Programmer，绝大多数的经验都是难以从书籍中获取的。除非某一日出版《Wwise Implementation FAQ 要你命3000》、《游戏音效声音设计实例 For Dummies》、《21天成为 ReaScript 自动化大师》等史诗书籍……</p><blockquote><ul><li>本文的中英文符号与书名标记，根据《夹用英文的中文文本的标点符号用法（草案）》进行标准化，如英文书名一律使用斜体英文表示。</li><li>文中提到的绝大部分英文书籍可在 Amazon 购买实体书或 Kindle 版，亦可购买 Focal Press 或 CRC Press 等数字压制的 PDF 版本。中文书籍可轻松的在各大图书网站寻得，此处便不赘述。</li><li>本文不提供任何盗版获取方式，如有能力请支持正版。作为知识的载体，图书的价格已是低到不可想象。如暂时看了盗版，请记住日后有钱补票，这才是知识付费的正确循环。</li></ul></blockquote><h2 id="1-游戏音频导论"><a href="#1-游戏音频导论" class="headerlink" title="1. 游戏音频导论"></a>1. 游戏音频导论</h2><h2 id="2-声音设计"><a href="#2-声音设计" class="headerlink" title="2. 声音设计"></a>2. 声音设计</h2><h3 id="2-1-导论"><a href="#2-1-导论" class="headerlink" title="2.1 导论"></a>2.1 导论</h3><p><img src="/images/%E6%B8%B8%E6%88%8F%E9%9F%B3%E9%A2%91%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.jpg" alt="游戏音频完全指南"></p><h3 id="2-1-Foley"><a href="#2-1-Foley" class="headerlink" title="2.1 Foley"></a>2.1 Foley</h3><h3 id="2-2-Pure-Data"><a href="#2-2-Pure-Data" class="headerlink" title="2.2 Pure Data"></a>2.2 Pure Data</h3><h3 id="2-3-Reaktor"><a href="#2-3-Reaktor" class="headerlink" title="2.3 Reaktor"></a>2.3 Reaktor</h3><h3 id="2-4-合成器"><a href="#2-4-合成器" class="headerlink" title="2.4 合成器"></a>2.4 合成器</h3><h2 id="3-技术音频"><a href="#3-技术音频" class="headerlink" title="3. 技术音频"></a>3. 技术音频</h2><h3 id="3-1-导论"><a href="#3-1-导论" class="headerlink" title="3.1 导论"></a>3.1 导论</h3><h3 id="3-2-游戏引擎音频整合"><a href="#3-2-游戏引擎音频整合" class="headerlink" title="3.2 游戏引擎音频整合"></a>3.2 游戏引擎音频整合</h3><h3 id="3-3-插件开发"><a href="#3-3-插件开发" class="headerlink" title="3.3 插件开发"></a>3.3 插件开发</h3>]]></content>
+      
+      
+      
+    </entry>
+    
+    <entry>
       <title>Hello World</title>
       <link href="/2018/11/04/hello-world/"/>
       <url>/2018/11/04/hello-world/</url>
