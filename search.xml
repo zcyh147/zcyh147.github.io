@@ -3,11 +3,22 @@
   
     
     <entry>
-      <title>人人都能用 WAAPI（Wwise Authoring API）</title>
-      <link href="/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A/"/>
-      <url>/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A/</url>
+      <title>人人都能用 WAAPI（一）概述</title>
+      <link href="/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+      <url>/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/</url>
       
-        <content type="html"><![CDATA[<p>大家好，我是溪夜。</p>]]></content>
+        <content type="html"><![CDATA[<p>大家好，我是溪夜。<br>去年下半年我接触到了 WAAPI（Wwise Authoring API），作为 Wwise 2017.1 中的一个重要的功能补充。它所能做的极其丰富，从简单操作级的获取工程信息、导入音频文件、设定容器层级等，到声音引擎级的发送事件、设定 Game Sync 等操作均可完成，是 Wwise 音频设计师工作流的必要一环。利用好 WAAPI，能够节省大量时间，更好的把精力放在艺术创作工作上。<br>在本文发布的当下，可能仍有公司未对技术音频（Game Audio Programmer / Technical Sound Designer）这个职位进行配备。如果碰巧你是其中的一员，本文会对你很有帮助。<strong>我认为对工作中重复和可优化的步骤进行不断优化，这才是智慧的工作模式，与其等别人帮忙，不如自己上手。</strong><br>作为头脑不怎么灵光的非专业程序员，直面 WAMP、JSON 等陌生概念着实迷茫许久。除了官方文档，只有零星几个视频、文章和项目可参考。我自己又不太好意思麻烦别人，只好闷头研究，踩了不少坑。<br>我很认同 Linus 的一句话：</p><blockquote><p>In open source, we feel strongly that to really do something well, you have to get a lot of people involved.  — Linus Torvalds</p></blockquote><p>在这一年中断断续续的研究后，略有心得。<strong>思想只有被传播才能体现价值</strong>。为了体现开源精神，我会分享一系列 WAAPI 指南给大家。与 PySimpleGUI 的介绍不同，WAAPI 系列文章为体现功能性可能写的比较死板一些，感谢诸位耐心观看。</p><h2 id="最好的-API-浏览方法，思维导图"><a href="#最好的-API-浏览方法，思维导图" class="headerlink" title="最好的 API 浏览方法，思维导图"></a>最好的 API 浏览方法，思维导图</h2><h2 id="系列文章架构"><a href="#系列文章架构" class="headerlink" title="系列文章架构"></a>系列文章架构</h2><p>了解本文对 API 的分类方法后，之后是这系列文章的编写架构。因 WAAPI 功能分为 Functions（执行类）与 Topics（订阅类）两种，我会以这两者为主干，再以其下属分支进行拆分编写，本篇为概述，以下是系列架构：<br>第一部分（Functions）：</p><ol><li>wwise.core</li><li>wwise.ui, wwise.debug, wwise.waapi</li><li>soundengine</li></ol><p>第二部分（Topics）：</p><ol><li>wwise.core, wwise.debug, wwise.ui</li></ol><h2 id="WAAPI-简介"><a href="#WAAPI-简介" class="headerlink" title="WAAPI 简介"></a>WAAPI 简介</h2><h2 id="WAAPI-两种实例"><a href="#WAAPI-两种实例" class="headerlink" title="WAAPI 两种实例"></a>WAAPI 两种实例</h2>]]></content>
+      
+      
+      
+    </entry>
+    
+    <entry>
+      <title>人人都能用 WAAPI（二）wwise.core 分支</title>
+      <link href="/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+      <url>/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[]]></content>
       
       
       
