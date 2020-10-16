@@ -65,9 +65,9 @@
 <li>抽象出头脑中原型的逻辑，并寻找到可使用的 API</li>
 <li>完成功能代码</li>
 </ol>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>单纯的介绍是枯燥的，下面通过实例体验一下 WAAPI 的应用。<br><strong>因示例只考虑演示作用，故不会像真实项目中一样交互设计或者加入 GUI。</strong>所以这部分代码实际上是程序抽象出的核心功能代码，如果想要应用到自己的程序上，只需为其设计交互层即可。我会尽量覆盖到 <code>wwise.core</code> 分支下的 API，少量没用上的功能大家可自行研究，使用原理上区别不大。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>单纯的介绍是枯燥的，下面通过实例体验一下 WAAPI 的应用。<br><strong>因示例更注重功能代码实现，故不会像真实项中一样进行交互设计或者加入 GUI。</strong>所以这部分代码实际上是从程序里抽象出的核心功能代码，如果想要应用到自己的程序上，只需为其设计交互层即可。<br>在这里我会尽量覆盖到 <code>wwise.core</code> 分支下的 API，少量没用上的功能大家可自行研究，使用原理上区别不大。</p>
 <blockquote>
-<p>以下代码的重点是参数调用方法，当遇到奇怪的 Bug 时仔细看看你写的和示例的区别，可能就会在其中找到答案。<br>为了方便使用，我把每个功能都封装到了函数里，可自行在概述中 Functions（执行类）示例的基础上在本机试用。<br>Wwise 在 macOS 下的目录结构与 Windows 不同，因为其运行在 Wine 中，在 macOS 端进行尝试的同学请注意一下文件路径的问题（点击菜单中的 Project，在最近访问的工程处可查看 Wine 中 Wwise 的具体目录）。</p>
+<p>以下代码的重点是参数调用方法，当遇到奇怪的 Bug 时仔细看看你写的和示例的区别，应该就能找到问题所在。<br>为了方便使用，我把每个功能都封装到了函数里，可修改概述中 Functions（执行类）示例的执行代码以上在本机试用。<br>Wwise 在 macOS 下的目录结构与 Windows 不同，因为其运行在 Wine 中，在 macOS 端进行尝试的同学请注意一下文件路径的问题（点击菜单中的 Project，在最近访问的工程处可查看 Wine 中 Wwise 的具体目录）。</p>
 </blockquote>
 <h3 id="1-导入-Sound-SFX-并建立层级结构并设置一些属性，随后为这个-Sound-SFX-创建-Event-并设置动作类型。最后创建-SoundBank，并添加之前创建的-Event，并生成这个-SoundBank"><a href="#1-导入-Sound-SFX-并建立层级结构并设置一些属性，随后为这个-Sound-SFX-创建-Event-并设置动作类型。最后创建-SoundBank，并添加之前创建的-Event，并生成这个-SoundBank" class="headerlink" title="1. 导入 Sound SFX 并建立层级结构并设置一些属性，随后为这个 Sound SFX 创建 Event 并设置动作类型。最后创建 SoundBank，并添加之前创建的 Event，并生成这个 SoundBank"></a>1. 导入 Sound SFX 并建立层级结构并设置一些属性，随后为这个 Sound SFX 创建 Event 并设置动作类型。最后创建 SoundBank，并添加之前创建的 Event，并生成这个 SoundBank</h3><p><strong>快速导入音频文件到 Wwise 中并建立所需的音频层级，甚至建立 Event，这无疑会极大提高音频整合时的效率。</strong>在下面的实例中我们需要手工的在参数中填写文件路径、属性、层级等相关信息，在实际工作中可以发挥想象力，把工具中这部分繁琐的工序也解决掉。<br>比如通过规范的文件名代号、与数据库联动、正则表达式等方法让文件在导入前有足够的元数据准备，再通过你所使用的编程语言自动把这种格式化好的文件名格转化为 WAAPI 导入文件所需设置 JSON 参数，即可真正实现把音频快速导入 Wwise 工程的目的。</p>
 <h4 id="选定-API"><a href="#选定-API" class="headerlink" title="选定 API"></a>选定 API</h4><ul>
