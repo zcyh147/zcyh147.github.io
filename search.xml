@@ -105,23 +105,6 @@
     </entry>
     
     <entry>
-      <title>技术音频的 Unity Editor 脚本开发指北（一）</title>
-      <link href="/2020/09/30/Unity%20Editor%20%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-      <url>/2020/09/30/Unity%20Editor%20%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[<p>大家好，我是溪夜。<br><strong>技术音频设计师的工作到底有哪些？</strong>除了参考技术美术的职责，在游戏音频中解决具备技术与设计特点的工作外。还有一条最基本的工作责任，那就是从各种可能上改善音频管线的效率。<br>而 Unity Editor Scripting 正是个必备的研究方向，与引擎程序员的开发方向不同，我们不会在 Unity Editor 中创建关卡快速构建器这样的工具。作为技术音频设计师，改善并创建 Unity 与音频中间件集成时的相关工具才是本文的探讨方向。</p><blockquote><p>本系列文章阅读需要的前置知识：</p><ul><li>有一定的 Unity、Wwise、C# 基础，了解引擎使用、 Wwise 整合和 C# 基本语法等必备知识。</li><li>对 WAAPI 比较熟悉，了解在 C# 下的 WAAPI 调用。</li></ul></blockquote><p>本文目录：</p><p>[toc]</p><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="什么是-Editor-Scripting？"><a href="#什么是-Editor-Scripting？" class="headerlink" title="什么是 Editor Scripting？"></a>什么是 Editor Scripting？</h3><h3 id="为什么要用？"><a href="#为什么要用？" class="headerlink" title="为什么要用？"></a>为什么要用？</h3><h2 id="简单的-WAAPI-调用例子"><a href="#简单的-WAAPI-调用例子" class="headerlink" title="简单的 WAAPI 调用例子"></a>简单的 WAAPI 调用例子</h2><h3 id="创建-Hello-Wwise"><a href="#创建-Hello-Wwise" class="headerlink" title="创建 Hello Wwise"></a>创建 Hello Wwise</h3><h3 id="远程控制-Wwise-中的播放"><a href="#远程控制-Wwise-中的播放" class="headerlink" title="远程控制 Wwise 中的播放"></a>远程控制 Wwise 中的播放</h3><h2 id="关于效率优化的思考"><a href="#关于效率优化的思考" class="headerlink" title="关于效率优化的思考"></a>关于效率优化的思考</h2><h2 id="接下来讲什么？"><a href="#接下来讲什么？" class="headerlink" title="接下来讲什么？"></a>接下来讲什么？</h2>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> Unity </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>写给声音设计师的敏捷 GUI 开发大法（三）WAAPI Database</title>
       <link href="/2020/09/30/PySimpleGUI%20%20%E7%AC%AC%E4%B8%89%E7%AF%87/"/>
       <url>/2020/09/30/PySimpleGUI%20%20%E7%AC%AC%E4%B8%89%E7%AF%87/</url>
@@ -133,6 +116,23 @@
         <tags>
             
             <tag> 音频编程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>技术音频的 Unity Editor 脚本开发指北（一）</title>
+      <link href="/2020/09/30/Unity%20Editor%20%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+      <url>/2020/09/30/Unity%20Editor%20%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<p>大家好，我是溪夜。<br><strong>技术音频设计师的工作到底有哪些？</strong>除了参考技术美术的职责，在游戏音频中解决具备技术与设计特点的工作外。还有一条最基本的工作责任，那就是从各种可能上改善音频管线的效率。<br>而 Unity Editor Scripting 正是个必备的研究方向，与引擎程序员的开发方向不同，我们不会在 Unity Editor 中创建关卡快速构建器这样的工具。作为技术音频设计师，改善并创建 Unity 与音频中间件集成时的相关工具才是本文的探讨方向。</p><blockquote><p>本系列文章阅读需要的前置知识：</p><ul><li>有一定的 Unity、Wwise、C# 基础，了解引擎使用、 Wwise 整合和 C# 基本语法等必备知识。</li><li>对 WAAPI 比较熟悉，了解在 C# 下的 WAAPI 调用。</li></ul></blockquote><p>本文目录：</p><p>[toc]</p><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="什么是-Editor-Scripting？"><a href="#什么是-Editor-Scripting？" class="headerlink" title="什么是 Editor Scripting？"></a>什么是 Editor Scripting？</h3><h3 id="为什么要用？"><a href="#为什么要用？" class="headerlink" title="为什么要用？"></a>为什么要用？</h3><h2 id="简单的-WAAPI-调用例子"><a href="#简单的-WAAPI-调用例子" class="headerlink" title="简单的 WAAPI 调用例子"></a>简单的 WAAPI 调用例子</h2><h3 id="创建-Hello-Wwise"><a href="#创建-Hello-Wwise" class="headerlink" title="创建 Hello Wwise"></a>创建 Hello Wwise</h3><h3 id="远程控制-Wwise-中的播放"><a href="#远程控制-Wwise-中的播放" class="headerlink" title="远程控制 Wwise 中的播放"></a>远程控制 Wwise 中的播放</h3><h2 id="关于效率优化的思考"><a href="#关于效率优化的思考" class="headerlink" title="关于效率优化的思考"></a>关于效率优化的思考</h2><h2 id="接下来讲什么？"><a href="#接下来讲什么？" class="headerlink" title="接下来讲什么？"></a>接下来讲什么？</h2>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Unity </tag>
             
         </tags>
       
