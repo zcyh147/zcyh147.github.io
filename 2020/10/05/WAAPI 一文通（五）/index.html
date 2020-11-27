@@ -21,26 +21,27 @@
 <li>在 WAAPI 文档中搜寻想要的 API 时，无论是否使用本文曾提到的分类逻辑，可能都要费点劲去官方文档查一下。</li>
 </ol>
 <p>本着提高技术音频设计师效率的逻辑，我在思考能否进行一类<strong>元工具</strong>的开发。就像对待重复代码块写作时会用到 Snippets，尽可能的减少重复工作带来的时间浪费。<br>这也是 WAAPI Code Generator 诞生的动机，我的初衷就是希望把 WAAPI 的使用变的更加简单且工具化。<br><strong>独立运行的小程序终究不是很好的解决方法，在未来我会考虑将其开发为 VS Code 插件。不过因为 VS Code 的插件不支持完善的 UI，所以在交互上可能还需下一番功夫。</strong></p>
-<h3 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a>设计原理</h3><p>这里以 <code>ak.wwise.core.object.get</code> 为例，这个 API 正常的使用方法是这样的：</p>
+<h3 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a>设计原理</h3><p>这里以 <code>ak.wwise.core.object.get</code> 为例，正常的使用方法是这样的：</p>
 <ol>
-<li>根据文档选定使用方法，<code>form</code> 决定从何处获取，<code>transform</code> 决定如何变幻。此外，还可用 Options 决定返回值。</li>
-<li>书写 JSON 配置的基础结构。</li>
-<li>手动获取 GUID 或路径等信息，并复制到代码中对应的位置。</li>
+<li>根据文档选定使用参数，<code>form</code> 决定从何处获取，<code>transform</code> 决定如何变幻，此外还可通过 Options 决定返回值和平台。</li>
+<li>手动获取 GUID 或路径等信息。</li>
+<li>书写 JSON 配置的语法结构，把对应的参数放到正确的地方。</li>
 <li>执行代码。（如果 JSON 格式不小心写错，Debug 时间到！）</li>
 </ol>
 <p><strong>而在 WAAPI Code Generator 中，使用方法是这样的：</strong></p>
 <ol>
-<li>在左边第一栏中间选择需要的 WAAPI class（以我的分类逻辑分类），选中 <code>ak.wwise.core</code> 即可轻松找到 <code>ak.wwise.core.object.get</code>。</li>
-<li>在程序中间的第二栏下拉列表里选择所需的参数。不要怕不会用，右边会有官方文档及我所书写的注释。此时如果需要读取 GUID 或工程路径等信息，直接在左边第一栏下方即可浏览当前工程目录架构，随时可获取所需信息并自动添加到代码中。</li>
-<li>选中所需语言，即会按照默认的格式输出代码。点击 Generate，就会自动复制到复制到剪贴板，你也可以点击下面的选项人为复制其中的某些部分。</li>
+<li>在左边第一栏中间选择需要的 WAAPI class，选中 <code>ak.wwise.core</code> 即可轻松找到 <code>ak.wwise.core.object.get</code>。</li>
+<li>在程序中间第二栏的下拉列表里选择所需的参数。<strong>不要怕不会用，右边会有官方文档及我所书写的注释</strong>。此时如果需要使用 GUID 或工程路径等信息作为参数，直接在左边第一栏下方即可浏览当前工程目录架构，随时可获取所需信息并一键添加到配置参数中。</li>
+<li>选中所需语言，即会按照默认的格式生成代码。点击 Generate，代码就会自动复制到剪贴板，随后粘贴至你的代码编辑器内即可，就是这么简单！</li>
 </ol>
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>GitHub 地址：<a href="https://github.com/zcyh147/WAAPI-Code-Generator" target="_blank" rel="noopener">https://github.com/zcyh147/WAAPI-Code-Generator</a></p>
+<p>容易看出，我优化掉了 WAAPI 中繁琐的步骤，例如反复的翻阅文档、精心书写 JSON 格式、去 Wwise 内拷贝 GUID 等。</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>todo：添加图片、详细介绍<br>GitHub 地址：<a href="https://github.com/zcyh147/WAAPI-Code-Generator" target="_blank" rel="noopener">https://github.com/zcyh147/WAAPI-Code-Generator</a></p>
 <ol>
 <li>打开 GitHub 仓库，在 releases 中下载对应系统的最新版，解压到你喜欢的目录中</li>
 <li>根据 Wwise 内的 WAAPI 设置，填入服务器和端口号来连接 WAAPI 服务器。默认情况下不需修改，直接点击 Connect 按钮即可。</li>
 <li>本程序遵循 <em>Don’t Make Me Think</em> 原则，采用“左中右”三分栏的设计，用户从左到右进行顺序操作即可，非常简单。</li>
 </ol>
-<h2 id="WAAPI-Database"><a href="#WAAPI-Database" class="headerlink" title="WAAPI Database"></a>WAAPI Database</h2><h3 id="功能简述-1"><a href="#功能简述-1" class="headerlink" title="功能简述"></a>功能简述</h3><p><strong>从项目名 WAAPI Database 中不难看出，本程序的主要目的是对 Wwise 中各种信息进行抓取</strong>，其核心功能通过 <code>ak.wwise.core.object.get</code> 来实现。<br>抓取后的数据会使用 SQLite 保存在本地数据库之中，这是一款轻量且免配置的数据库工具。如果读者不熟悉数据库也没关系，可把数据库当做是一种结构更复杂但更易于管理的电子表格结构，暂时可不予深究。<br>WAAPI Database 的运行方式是借助 Wwise 在 SoundBank 生成时执行的 PostXXXX 行为，通过这个功能在生成 SoundBank 后执行一个 Command Line Tools 文件，从而触发 WAAPI Database 中的功能代码。<br><strong>在我的 GUI 版工具中，还有手动抓取的功能</strong>，即无需等 SoundBank 生成也可直接抓取当前工程的数据，作为 WAAPI Database 的功能补充。<br><strong>GitHub 地址：<a href="https://github.com/jazzlost/WaapiDatabase" target="_blank" rel="noopener">https://github.com/jazzlost/WaapiDatabase</a></strong></p>
+<h2 id="WAAPI-Database"><a href="#WAAPI-Database" class="headerlink" title="WAAPI Database"></a>WAAPI Database</h2><h3 id="功能简述-1"><a href="#功能简述-1" class="headerlink" title="功能简述"></a>功能简述</h3><p><strong>从项目名 WAAPI Database 中不难看出，程序的主要目的是对 Wwise 中各种信息进行抓取</strong>，其核心功能通过 <code>ak.wwise.core.object.get</code> 来实现。<br>抓取后的数据会使用 SQLite 保存在本地数据库之中，这是一款轻量且免配置的数据库工具。如果读者不熟悉数据库也没关系，可把数据库当做是一种结构更复杂但更易于管理的电子表格结构，暂不予深究。<br>WAAPI Database 的运行方式是借助 Wwise 在 SoundBank 生成时执行的 PostXXXX 行为，通过这个功能在生成 SoundBank 后执行一个 Command Line Tools 文件，从而触发 WAAPI Database 中的功能代码。<br><strong>在我的 GUI 版工具中，还有手动抓取的功能</strong>，即无需等 SoundBank 生成也可直接抓取当前工程的数据，作为 WAAPI Database 的功能补充。<br><strong>GitHub 地址：<a href="https://github.com/jazzlost/WaapiDatabase" target="_blank" rel="noopener">https://github.com/jazzlost/WaapiDatabase</a></strong></p>
 <h3 id="代码架构分析"><a href="#代码架构分析" class="headerlink" title="代码架构分析"></a>代码架构分析</h3><p>下面通过思维导图把项目中涉及到的所有文件列出其逻辑关系，以直白的展示程序的架构。<br><strong>以下代码解析基于 WAAPI Database V0.3，WAAPI 版本2019.2。</strong></p>
 <h3 id="WAAPI-代码模块拆解"><a href="#WAAPI-代码模块拆解" class="headerlink" title="WAAPI 代码模块拆解"></a>WAAPI 代码模块拆解</h3><p>代码文件中关于 <code>wd_sqlite_interface.py</code> 和 <code>wd_sqlite_utils.py</code> 的部分为 SQLite 相关的内容，在此不做讲解。</p>
 <h4 id="wd-client-py"><a href="#wd-client-py" class="headerlink" title="wd_client.py"></a>wd_client.py</h4><h4 id="wd-config-py"><a href="#wd-config-py" class="headerlink" title="wd_config.py"></a>wd_config.py</h4><h4 id="wd-parser-py"><a href="#wd-parser-py" class="headerlink" title="wd_parser.py"></a>wd_parser.py</h4><h4 id="wd-processor-py"><a href="#wd-processor-py" class="headerlink" title="wd_processor.py"></a>wd_processor.py</h4><h4 id="wd-args-py"><a href="#wd-args-py" class="headerlink" title="wd_args.py"></a>wd_args.py</h4><h4 id="waapi-config-json"><a href="#waapi-config-json" class="headerlink" title="waapi_config.json"></a>waapi_config.json</h4><h4 id="waapi-database-wcmdline"><a href="#waapi-database-wcmdline" class="headerlink" title="waapi_database.wcmdline"></a>waapi_database.wcmdline</h4><h4 id="wd-gui-py"><a href="#wd-gui-py" class="headerlink" title="wd_gui.py"></a>wd_gui.py</h4><h3 id="UI-设计"><a href="#UI-设计" class="headerlink" title="UI 设计"></a>UI 设计</h3><h4 id="原型设计"><a href="#原型设计" class="headerlink" title="原型设计"></a>原型设计</h4><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><h3 id="工作效果"><a href="#工作效果" class="headerlink" title="工作效果"></a>工作效果</h3><h2 id="接下来讲什么？"><a href="#接下来讲什么？" class="headerlink" title="接下来讲什么？"></a>接下来讲什么？</h2><p>之后如果我和我的朋友们还有优质的 WAAPI 开源项目，仍然会汇总后以文章的形式发布。<br>与此同时，<strong>建议大家看看现有的 WAAPI 项目实际应用</strong>，例如：</p>
