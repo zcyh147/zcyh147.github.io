@@ -21,18 +21,18 @@
 <li>无论是否遵循本文曾提到的分类逻辑，在文档中搜寻想要的 API 时都得在那些长长的 API 名中费劲挖掘一番。</li>
 </ol>
 <p>本着提高技术音频设计师效率的逻辑，我在思考能否进行一类<strong>元工具</strong>的开发。就像对待重复代码块写作时会用到 Code Snippets 一样，尽量减少重复工作带来的时间浪费。<br>这也是 WAAPI Code Generator 诞生的动机，我的初衷就是希望把 WAAPI 的使用变的更加简单且工具化。</p>
-<h3 id="1-2-设计原理"><a href="#1-2-设计原理" class="headerlink" title="1.2. 设计原理"></a>1.2. 设计原理</h3><p>这里以 <code>ak.wwise.core.object.get</code> 为例，正常的使用方法是这样的：</p>
+<h3 id="1-2-设计原理"><a href="#1-2-设计原理" class="headerlink" title="1.2. 设计原理"></a>1.2. 设计原理</h3><p>我们以 <code>ak.wwise.core.object.get</code> 为例，在 Python 中调用这个 API 需要：</p>
 <ol>
-<li>根据文档选定使用参数，<code>form</code> 决定从何处获取，<code>transform</code> 决定如何变幻，此外还可通过 Options 决定返回值和平台。</li>
-<li>手动获取 GUID 或路径等信息。</li>
+<li>根据文档选定需要使用的参数，<code>form</code> 决定从何处获取，<code>transform</code> 决定变换条件，此外还有可选参数 Options 决定返回值和平台。</li>
+<li>为 <code>form</code> 手动获取 GUID 或路径，其他的参数要按需从文档中获取正确的参数。</li>
 <li>书写 JSON 配置的语法结构，把对应的参数放到正确的地方。</li>
-<li>执行代码。（如果 JSON 格式不小心写错，Debug 时间到！）</li>
+<li>测试代码。（如果 JSON 格式不小心写错，Debug 时间到！）</li>
 </ol>
-<p><strong>而在 WAAPI Code Generator 中，使用方法是这样的：</strong></p>
+<p><strong>而在 WAAPI Code Generator 中你只需要：</strong></p>
 <ol>
-<li>在左边第一栏中间选择需要的 WAAPI class，选中 <code>ak.wwise.core</code> 即可轻松找到 <code>ak.wwise.core.object.get</code>。</li>
-<li>在程序中间第二栏的下拉列表里选择所需的参数。<strong>不要怕不会用，右边会有官方文档及我所书写的注释</strong>。此时如果需要使用 GUID 或工程路径等信息作为参数，直接在左边第一栏下方即可浏览当前工程目录架构，随时可获取所需信息并一键添加到配置参数中。</li>
-<li>选中所需语言，即会按照默认的格式生成代码。点击 Generate，代码就会自动复制到剪贴板，随后粘贴至你的代码编辑器内即可，就是这么简单！</li>
+<li>在左边第一栏中间选择需要的 WAAPI class，选中 <code>ak.wwise.core</code> 即可轻松在下面找到 <code>ak.wwise.core.object.get</code>。</li>
+<li>在程序中间第二栏的下拉列表里选择所需的参数。<strong>此时右边会有官方文档及我所书写的文档注释</strong>。如果需要使用 GUID 或工程路径等信息作为参数，直接在左边下方的工程浏览器里可清晰看到当前工程的完整目录架构，随时获取所需信息并添加到配置参数中。</li>
+<li>选中所需的语言，即会按照该语言所需的参数格式生成代码。点击 Generate，代码默认会自动复制到剪贴板，随后粘贴至你的代码编辑器内即可。</li>
 </ol>
 <p>容易看出，我优化掉了 WAAPI 中繁琐的步骤，例如反复的翻阅文档、精心书写 JSON 格式、去 Wwise 内拷贝 GUID 等。</p>
 <h3 id="1-3-使用方法"><a href="#1-3-使用方法" class="headerlink" title="1.3. 使用方法"></a>1.3. 使用方法</h3><p>todo：添加图片、详细介绍<br>GitHub 地址：<a href="https://github.com/zcyh147/WAAPI-Code-Generator" target="_blank" rel="noopener">https://github.com/zcyh147/WAAPI-Code-Generator</a></p>
