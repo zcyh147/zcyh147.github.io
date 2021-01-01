@@ -20,6 +20,23 @@
     </entry>
     
     <entry>
+      <title>Wwise 文档与官网使用指南</title>
+      <link href="/2021/01/20/Wwise%20%E6%96%87%E6%A1%A3%E9%98%85%E8%AF%BB%E6%8C%87%E5%8D%97/"/>
+      <url>/2021/01/20/Wwise%20%E6%96%87%E6%A1%A3%E9%98%85%E8%AF%BB%E6%8C%87%E5%8D%97/</url>
+      
+        <content type="html"><![CDATA[<p>大家好，我是溪夜。<br>Wwise 作为市面三大商业音频中间件中我最喜欢的那个，最主要原因就是因为<strong>它有着最详实的文档体系。</strong><br>作为阶段性的总结，我想用一篇文章谈谈对于初学者和初中级用户来说，有什么好方法能够更好的利用起这份完善的文档。<br>在文中后续，还会简单就如何高效利用官网的其他部分进行简单讨论 。</p><p>本文目录：</p><p>[toc]</p><h2 id="Wwise-文档阅读指南"><a href="#Wwise-文档阅读指南" class="headerlink" title="Wwise 文档阅读指南"></a>Wwise 文档阅读指南</h2><h3 id="文档的几种打开方法"><a href="#文档的几种打开方法" class="headerlink" title="文档的几种打开方法"></a>文档的几种打开方法</h3><h4 id="在线版"><a href="#在线版" class="headerlink" title="在线版"></a>在线版</h4><h4 id="内建-CHM-格式文档"><a href="#内建-CHM-格式文档" class="headerlink" title="内建 CHM 格式文档"></a>内建 CHM 格式文档</h4><h4 id="内建-PDF-格式文档"><a href="#内建-PDF-格式文档" class="headerlink" title="内建 PDF 格式文档"></a>内建 PDF 格式文档</h4><h3 id="Wwise-文档不同模块的功能"><a href="#Wwise-文档不同模块的功能" class="headerlink" title="Wwise 文档不同模块的功能"></a>Wwise 文档不同模块的功能</h3><h4 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h4><h4 id="Wwise-SDK（底层-SDK）"><a href="#Wwise-SDK（底层-SDK）" class="headerlink" title="Wwise SDK（底层 SDK）"></a>Wwise SDK（底层 SDK）</h4><h4 id="Wwise-Help（完整帮助文档）"><a href="#Wwise-Help（完整帮助文档）" class="headerlink" title="Wwise Help（完整帮助文档）"></a>Wwise Help（完整帮助文档）</h4><h4 id="安装和迁移指南（基础安装与迁移文档）"><a href="#安装和迁移指南（基础安装与迁移文档）" class="headerlink" title="安装和迁移指南（基础安装与迁移文档）"></a>安装和迁移指南（基础安装与迁移文档）</h4><h4 id="Wwise-基础知识（基础概述文档）"><a href="#Wwise-基础知识（基础概述文档）" class="headerlink" title="Wwise 基础知识（基础概述文档）"></a>Wwise 基础知识（基础概述文档）</h4><h4 id="Cube-Integration（Cube-游戏整合简介）"><a href="#Cube-Integration（Cube-游戏整合简介）" class="headerlink" title="Cube Integration（Cube 游戏整合简介）"></a>Cube Integration（Cube 游戏整合简介）</h4><h4 id="Sample-Project（示例工程简介）"><a href="#Sample-Project（示例工程简介）" class="headerlink" title="Sample Project（示例工程简介）"></a>Sample Project（示例工程简介）</h4><h4 id="Wwise-Unity-集成（Unity-集成文档）"><a href="#Wwise-Unity-集成（Unity-集成文档）" class="headerlink" title="Wwise Unity 集成（Unity 集成文档）"></a>Wwise Unity 集成（Unity 集成文档）</h4><h4 id="Wwise-Unreal-Integration（Unreal-Engine-集成文档）"><a href="#Wwise-Unreal-Integration（Unreal-Engine-集成文档）" class="headerlink" title="Wwise Unreal Integration（Unreal Engine 集成文档）"></a>Wwise Unreal Integration（Unreal Engine 集成文档）</h4><h2 id="其它部分"><a href="#其它部分" class="headerlink" title="其它部分"></a>其它部分</h2><h3 id="Wwise-示例"><a href="#Wwise-示例" class="headerlink" title="Wwise 示例"></a>Wwise 示例</h3><h3 id="Wwise-问答区"><a href="#Wwise-问答区" class="headerlink" title="Wwise 问答区"></a>Wwise 问答区</h3><h3 id="Wwise-博客"><a href="#Wwise-博客" class="headerlink" title="Wwise 博客"></a>Wwise 博客</h3>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 游戏音频 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>人人都能用 WAAPI（四）Beyond WAAPI</title>
       <link href="/2021/01/15/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%BA%94%EF%BC%89/"/>
       <url>/2021/01/15/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%BA%94%EF%BC%89/</url>
