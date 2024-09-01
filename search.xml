@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search> 
   
+  
     
     <entry>
       <title>人人都能用 WAAPI（六）数据抓取工具：WAAPI Database</title>
@@ -19,6 +20,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>写给声音设计师的极速 GUI 开发大法（三）实例：WAAPI Code Generator 与 WAAPI Database</title>
       <link href="/2021/01/30/PySimpleGUI%20%20%E7%AC%AC%E4%B8%89%E7%AF%87/"/>
@@ -35,6 +38,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>Wwise 文档与官网使用指南</title>
@@ -53,6 +58,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>人人都能用 WAAPI（五）WAAPI 进阶使用</title>
       <link href="/2021/01/15/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%BA%94%EF%BC%89/"/>
@@ -69,6 +76,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>人人都能用 WAAPI（四）“元工具”：WAAPI Code Generator</title>
@@ -87,6 +96,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>iOS 音乐制作导论</title>
       <link href="/2021/01/10/iOS%20%E9%9F%B3%E4%B9%90%E5%88%B6%E4%BD%9C%E5%AF%BC%E8%AE%BA/"/>
@@ -103,6 +114,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>Pure Data 简易效果器搭建（一）Reverb</title>
@@ -121,6 +134,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>WAAPI is for Everyone | Part 2 wwise.core</title>
       <link href="/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/"/>
@@ -137,6 +152,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>写给声音设计师的 GUI 开发大法（二）进阶篇（第二版）</title>
@@ -155,6 +172,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>我所理解的技术音频技能路线（第二版）</title>
       <link href="/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/"/>
@@ -171,6 +190,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>WAAPI is for Everyone | Part 1 Overview</title>
@@ -189,6 +210,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>极简搭建（三）空间音频试验场</title>
       <link href="/2020/10/30/%E6%9E%81%E7%AE%80%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%89%EF%BC%89/"/>
@@ -205,6 +228,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>极简搭建（二）利用 WAAPI 搭建 CI 系统</title>
@@ -223,6 +248,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>极简搭建（一）从零构建 Wwise + Unity 的手游热更系统</title>
       <link href="/2020/10/20/%E6%9E%81%E7%AE%80%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%80%EF%BC%89/"/>
@@ -239,6 +266,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>技术音频的 Unity 编辑器工具开发实践（一）概述</title>
@@ -257,6 +286,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>补完 REAPER 效率链的最后一环（三）Command Line 详解</title>
       <link href="/2020/09/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20ReaScript%20%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%94%B9%E5%96%84%20Reaper%20%E6%95%88%E7%8E%87%EF%BC%9F%EF%BC%88%E4%B8%89%EF%BC%89/"/>
@@ -273,6 +304,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>人人都能用 WAAPI（三）Functions（执行类 API）剩余部分及 Topics（订阅类 API）</title>
@@ -291,6 +324,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>补完 REAPER 效率链的最后一环（二）使用 reapy</title>
       <link href="/2020/09/21/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20ReaScript%20%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%94%B9%E5%96%84%20Reaper%20%E6%95%88%E7%8E%87%EF%BC%9F%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
@@ -307,6 +342,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>补完 REAPER 效率链的最后一环（一）ReaScript 基础</title>
@@ -325,6 +362,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>人人都能用 WAAPI（二）wwise.core 分支</title>
       <link href="/2020/09/05/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
@@ -341,6 +380,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>公众号 FAQ</title>
@@ -359,6 +400,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>浅谈阅读路线、以及阅读和做笔记的方法</title>
       <link href="/2020/09/02/%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E9%80%82%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B9%A6%E4%BB%A5%E5%8F%8A%E6%80%8E%E4%B9%88%E8%AF%BB/"/>
@@ -375,6 +418,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>人人都能用 WAAPI（一）概述</title>
@@ -393,6 +438,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>如何在30天内彻底搞定声音设计英文 Keyword？</title>
       <link href="/2020/08/28/%E4%B8%80%E7%AF%87%E6%96%87%E7%AA%81%E7%A0%B4%E9%9F%B3%E6%95%88%E5%8D%95%E8%AF%8D%E9%9A%9C%E7%A2%8D/"/>
@@ -409,6 +456,8 @@
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>写给声音设计师的极速 GUI 开发大法（一）基础篇（第二版）</title>
@@ -427,6 +476,8 @@
       
     </entry>
     
+    
+    
     <entry>
       <title>游戏音频与声音设计相关书籍推荐（第三版）</title>
       <link href="/2020/08/15/%E6%B8%B8%E6%88%8F%E9%9F%B3%E9%A2%91%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/"/>
@@ -438,15 +489,17 @@
       
         <tags>
             
-            <tag> 音频编程 </tag>
-            
             <tag> 游戏音频 </tag>
+            
+            <tag> 音频编程 </tag>
             
             <tag> 声音设计 </tag>
             
         </tags>
       
     </entry>
+    
+    
     
     <entry>
       <title>Hello World</title>
@@ -470,6 +523,7 @@
         </tags>
       
     </entry>
+    
     
   
   
