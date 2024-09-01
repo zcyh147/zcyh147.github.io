@@ -4,63 +4,6 @@
   
     
     <entry>
-      <title>写给声音设计师的极速 GUI 开发大法（三）实例：WAAPI Code Generator 与 WAAPI Database</title>
-      <link href="/2021/01/30/PySimpleGUI%20%20%E7%AC%AC%E4%B8%89%E7%AF%87/"/>
-      <url>/2021/01/30/PySimpleGUI%20%20%E7%AC%AC%E4%B8%89%E7%AF%87/</url>
-      
-        <content type="html"><![CDATA[<p>大家好，我是溪夜。<br>在《写给声音设计师的极速 GUI 开发大法》第三篇中，会详解两个实际项目中的 UI 设计。<br><strong>其一是我的个人项目 WAAPI Code Generator，其二是我和光子工作室的技术音频李AA老师合作的项目 WAAPI Database。</strong><br>作为两个实用级的 WAAPI 项目，虽然不算什么复杂的设计，但可以通过对它们让大家了解 PySimpleGUI 在实际开发中的应用方法。<strong>出于我一贯的讲解习惯，本文会尽量对除 Python 基础逻辑之外的每一行代码都进行注释，希望通过这样解答大家所有可能存在的疑惑。</strong></p><p>本文目录：</p><p>[toc]</p><h2 id="WAAPI-Code-Generator-概述"><a href="#WAAPI-Code-Generator-概述" class="headerlink" title="WAAPI Code Generator 概述"></a>WAAPI Code Generator 概述</h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1. 概述"></a>1.1. 概述</h3><p>在系列文章《人人都能用 WAAPI》的实例篇中，WAAPI Code Generator 作为一个提高 WAAPI 使用效率的工具介绍给了大家。<br>它的主要目的是为了优化 WAAPI 调用时繁琐的 JSON 格式配置构建，把这一部分繁琐的操作抽离出来，彻底把 WAAPI 的使用参数化。</p><h3 id="1-2-技术栈"><a href="#1-2-技术栈" class="headerlink" title="1.2. 技术栈"></a>1.2. 技术栈</h3><p><strong>WAAPI Code Generator 全部代码均通过 Python 完成，使用了两个库：</strong></p><ol><li>调用 WAAPI 的 waapi-client</li><li>GUI 实现的 PySimpleGUI</li></ol><p><strong>本文将会着重讲解程序中 GUI 设计的部分，</strong>故有关 WAAPI 使用的代码不会讲解。<br>在 GitHub 仓库中 WAAPI Code Generator 的所有代码都有完善的注释和 Docstrings，有兴趣的朋友欢迎自行查阅。<br><strong>如果认可我的程序，请不要在 GitHub 吝啬您的 Star！</strong></p><h3 id="1-3-GUI-原型设计"><a href="#1-3-GUI-原型设计" class="headerlink" title="1.3. GUI 原型设计"></a>1.3. GUI 原型设计</h3><p>在设计 WAAPI Code Generator 的布局时，我面临了很多挑战。<br>出于小工具体量的考量，<strong>我为其设计了从左至右、从上至下的“瀑布”信号流逻辑</strong>，颇有录音棚中机架信号流的使用风格。符合 “Don’t make me think” 的 UX 设计原则，用户只需要从左至右按照自然理解顺序逐块调用功能即可。</p><h4 id="1-3-1-第一栏"><a href="#1-3-1-第一栏" class="headerlink" title="1.3.1. 第一栏"></a>1.3.1. 第一栏</h4><p>第一栏中包括 WAMP 连接模块、API 分类选择模块、工程浏览模块三部分。<br>其中 WAMP 连接模块和 API 分类模块的实现都非常简单，不值得一提。<br>工程浏览模块实现起来稍复杂，PySimpleGUI 的 Tree 元素所需的 TreeData 数据格式是这样的：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义根节点</span></span><br><span class="line"> : root</span><br><span class="line">    <span class="comment"># 每个缩进代表更高一级的目录。其中每行 : 的前面为这行 Tree 元素储存的内容，可以为任何值，: 后面为这行在 Tree 浏览器中显示出的内容</span></span><br><span class="line">    /Users/xiye/Downloads/Treetest/.DS_Store : .DS_Store</span><br><span class="line">    /Users/xiye/Downloads/Treetest/Folder2 : Folder2</span><br><span class="line">    /Users/xiye/Downloads/Treetest/Folder3 : Folder3</span><br><span class="line">        <span class="comment"># 第二个缩进，缩进中为 Folder3 的子节点</span></span><br><span class="line">        /Users/xiye/Downloads/Treetest/Folder3/.DS_Store : .DS_Store</span><br><span class="line">        /Users/xiye/Downloads/Treetest/Folder3/Filer1.jpg : Filer1.jpg</span><br><span class="line">        /Users/xiye/Downloads/Treetest/Folder3/Folder11 : Folder11</span><br><span class="line">            <span class="comment"># 第三个缩进，缩进中为 Folder11 的子节点</span></span><br><span class="line">            /Users/xiye/Downloads/Treetest/Folder3/Folder11/Filer111.jpg : Filer111.jpg</span><br><span class="line">    /Users/xiye/Downloads/Treetest/Filer1.jpg : Filer1.jpg</span><br><span class="line">    /Users/xiye/Downloads/Treetest/Folder1 : Folder1</span><br><span class="line">        /Users/xiye/Downloads/Treetest/Folder1/.DS_Store : .DS_Store</span><br><span class="line">        /Users/xiye/Downloads/Treetest/Folder1/Filer1.jpg : Filer1.jpg</span><br><span class="line">        /Users/xiye/Downloads/Treetest/Folder1/Folder11 : Folder11</span><br><span class="line">            /Users/xiye/Downloads/Treetest/Folder1/Folder11/Filer111.jpg : Filer111.jpg</span><br></pre></td></tr></table></figure><br>WAAPI 中如果想要获取工程所有标签页内的每一项内容，需要用 <code>ak.wwise.core.object.get</code> 进行大量的调用，既麻烦又低效率。<br>因此在这部分我设计了一种获取算法，直接读取工程文件夹内的 .wwu 文件，从其中直接获取整套工程的架构（包括层级与所有的 Name、GUID、Short ID）。</p><h4 id="1-3-2-第二栏"><a href="#1-3-2-第二栏" class="headerlink" title="1.3.2. 第二栏"></a>1.3.2. 第二栏</h4><p>PySimpleGUI（包括 Qt 版的 PySimpleGUIQt）不能实现类似原生 Qt 中的 Tree 元素嵌套 ComboBox 元素（即 TreeComboBox，树状列表中的节点可变为下拉选择框）的自定义控件，所以在这部分我使用了一种变通的方法来解决这个问题。<br>首先根据使用情况分析可能用到的元素数（选用参数尽可能多的 API 进行分析）：</p><ul><li><code>ak.wwise.core.object.get</code> 最多需要五个参数。必备参数有：<code>form</code> 为查询的起点（必备参数，可用 ComboBox）加具体参数（可用 InputText）。可选参数有：<code>transform</code> 为对 <code>form</code> 参数的变换，可以指定多项（可用 ComboBox）及其值（可用 InputText）。<code>options</code> 中分别是 <code>platform</code> 查询平台（可用 ComboBox），<code>return</code> 返回值（可用多选框），<code>language</code> 平台语言（可用 ComboBox）。</li><li><code>ak.wwise.core.object.create</code> 最多需要八个的参数。必备参数有：<code>name</code> 为新创建的对象名（可用 InputText），<code>parent</code> 为父对象的信息（可用 InputText），<code>children</code> 为子对象信息（可能涉及多层嵌套，比较复杂），<code>type</code> 为对象类型（可用 ComboBox）。可选参数有：<code>platform</code> 为创建对象所在的平台（可用 ComboBox），<code>notes</code> 为备注（可用 InputText）， <code>autoAddToSourceControl</code> 为版本控制添加选项（可用 ComboBox），<code>onNameConflict</code> 为名称冲突解决方案（可用 ComboBox）。</li></ul><p>可以看到参数中除了有选项型或输入型参数外，还会有 <code>children</code> 这种需用户自行决定层级深度的结构。<br>为了把这种参数模式抽象出来，<strong>我设计了一种变通的方法，即把当前 API 所需要的所有属性放在 Tree 元素中，点击每个属性名即可在右边设置它的属性。</strong><br>【配图】<br>如上图所示，其设计原则为：</p><ol><li>对于普通的属性来说，无论它是选项型还是输入型参数，它获取的属性指派会以子节点的形式显示在当前属性节点的下方。</li><li>对于 <code>children</code> 这种树结构，它在 Tree 中会直接显示节点的信息，而工程架构依然以树形显示。此外在属性设置页面会增加 Add、Remove 两个按钮，以实现树中节点的创建。</li></ol><h4 id="1-3-3-第三栏"><a href="#1-3-3-第三栏" class="headerlink" title="1.3.3. 第三栏"></a>1.3.3. 第三栏</h4><p>第三栏很简单，是代码的生成区。<br>我对默认生成的代码设计了自动复制到剪贴板的逻辑，并且提供了单独拷贝参数与函数调用的语句，能够应对用户不同情况下的需求。</p><h3 id="1-4-GUI-代码实现"><a href="#1-4-GUI-代码实现" class="headerlink" title="1.4. GUI 代码实现"></a>1.4. GUI 代码实现</h3><p>自定义主题，以获得跟 Wwise 黑暗模式一样的 GUI 融合：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></p><h2 id="WAAPI-Database-概述"><a href="#WAAPI-Database-概述" class="headerlink" title="WAAPI Database 概述"></a>WAAPI Database 概述</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1. 概述"></a>2.1. 概述</h3><p>WAAPI Database 的主要功能是在 Wwise 生成 SoundBank 后抓取工程中的信息并存入数据库中，数据库中的内容可供分析之用。<br>在 GUI 设计时，我为 WAAPI Database 增加了手工抓取的功能，这样不用生成 SoundBank 也可以随时进行数据抓取。还实现了一个简易的 SQLite Viewer，可以让用户在程序内直接进行数据库内数据的检视，并可实现 CSV、XLSX 格式的导出，以方便用户有数据导出的需求。</p><h3 id="2-2-技术栈"><a href="#2-2-技术栈" class="headerlink" title="2.2. 技术栈"></a>2.2. 技术栈</h3><p><strong>WAAPI Database 全部代码均通过 Python 完成，使用了三个库：</strong></p><ol><li>负责数据库的 SQLite</li><li>负责 GUI 实现的 PySimpleGUI </li><li>负责调用 WAAPI 的 waapi-client</li></ol><p>WAAPI Database 还有一个在 UE4 内运行版本，此版本暂时不考虑开源。<br><strong>本文将会着重讲解我在这个程序中 GUI 设计的部分，</strong>故有关 WAAPI 和 SQLite 使用的代码不会进行分析。如果对 WAAPI 部分的代码有兴趣，可以在《人人都能用 WAAPI（四）Beyond WAAPI》文中查看到具体的代码讲解，WAAPI Database 在文中作为实例分析了代码的结构设计。<br>如果认可我和李 AA 老师的代码，请不要在 GitHub 吝啬您的 Star！</p><h3 id="2-3-GUI-原型设计"><a href="#2-3-GUI-原型设计" class="headerlink" title="2.3. GUI 原型设计"></a>2.3. GUI 原型设计</h3><h3 id="2-4-GUI-代码实现"><a href="#2-4-GUI-代码实现" class="headerlink" title="2.4. GUI 代码实现"></a>2.4. GUI 代码实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><h3 id="3-1-布局构建"><a href="#3-1-布局构建" class="headerlink" title="3.1. 布局构建"></a>3.1. 布局构建</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><h3 id="3-2-程序连接"><a href="#3-2-程序连接" class="headerlink" title="3.2. 程序连接"></a>3.2. 程序连接</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><h3 id="3-3-执行效果"><a href="#3-3-执行效果" class="headerlink" title="3.3. 执行效果"></a>3.3. 执行效果</h3><h2 id="接下来讲什么？"><a href="#接下来讲什么？" class="headerlink" title="接下来讲什么？"></a>接下来讲什么？</h2>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 音频编程 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Wwise 文档与官网使用指南</title>
-      <link href="/2021/01/20/Wwise%20%E6%96%87%E6%A1%A3%E9%98%85%E8%AF%BB%E6%8C%87%E5%8D%97/"/>
-      <url>/2021/01/20/Wwise%20%E6%96%87%E6%A1%A3%E9%98%85%E8%AF%BB%E6%8C%87%E5%8D%97/</url>
-      
-        <content type="html"><![CDATA[<p>大家好，我是溪夜。<br>Wwise 有着非常详细的社区资源和官方文档体系，但初学者往往容易在这庞大的知识结构中绕晕。<br>作为我个人一个阶段性的总结，这篇文章会塔伦初学者有什么好方法能够更好的利用起这份完善的文档，<strong>并以此更好的掌握 Wwise</strong>。<br>如何阅读文档？要不要通读文档？文档里有些东西到底是干什么的？如何更好的查询文档？<br>本文会着重对这些问题分享我个人的经验。<br>在文章的后半部分，还会就如何高效利用官网的其它部分进行简单讨论，并分享一些文档学习使用的效率技巧，希望能够对大家有所帮助。</p><p>本文目录：</p><p>[toc]</p><h2 id="1-Wwise-文档阅读指南"><a href="#1-Wwise-文档阅读指南" class="headerlink" title="1. Wwise 文档阅读指南"></a>1. Wwise 文档阅读指南</h2><h3 id="1-1-文档的四种浏览方式"><a href="#1-1-文档的四种浏览方式" class="headerlink" title="1.1 文档的四种浏览方式"></a>1.1 文档的四种浏览方式</h3><h4 id="1-1-1-在线文档"><a href="#1-1-1-在线文档" class="headerlink" title="1.1.1 在线文档"></a>1.1.1 在线文档</h4><h4 id="1-1-2-本地-CHM-格式文档"><a href="#1-1-2-本地-CHM-格式文档" class="headerlink" title="1.1.2 本地 CHM 格式文档"></a>1.1.2 本地 CHM 格式文档</h4><p>Wwise 中内建了 Property Help 窗口，除了在 Designer Layout 下默认作为页面布局元素之一，在其他 Layout 中也可通过 Ctrl + H 呼出 Property Help 窗口。但 Property Help 内所显示的文档内容仅局限于当前聚焦的元素上，无法满足本机中阅读完整文档的需求。<br>为此，Wwise 还提供了 CHM 格式的帮助文档可供无网络时阅读，</p><h4 id="1-1-3-本地-PDF-格式文档"><a href="#1-1-3-本地-PDF-格式文档" class="headerlink" title="1.1.3 本地 PDF 格式文档"></a>1.1.3 本地 PDF 格式文档</h4><h4 id="1-1-4-WAAPI-反射函数（Reflection-Function）"><a href="#1-1-4-WAAPI-反射函数（Reflection-Function）" class="headerlink" title="1.1.4 WAAPI 反射函数（Reflection Function）"></a>1.1.4 WAAPI 反射函数（Reflection Function）</h4><h3 id="1-2-文档中不同模块的阅读方法（以在线文档为例）"><a href="#1-2-文档中不同模块的阅读方法（以在线文档为例）" class="headerlink" title="1.2 文档中不同模块的阅读方法（以在线文档为例）"></a>1.2 文档中不同模块的阅读方法（以在线文档为例）</h3><h4 id="1-2-1-总览（思维导图）"><a href="#1-2-1-总览（思维导图）" class="headerlink" title="1.2.1 总览（思维导图）"></a>1.2.1 总览（思维导图）</h4><h4 id="1-2-2-Wwise-SDK（底层-SDK）"><a href="#1-2-2-Wwise-SDK（底层-SDK）" class="headerlink" title="1.2.2 Wwise SDK（底层 SDK）"></a>1.2.2 Wwise SDK（底层 SDK）</h4><p><a href="https://en.wikipedia.org/wiki/List_of_game_engines">https://en.wikipedia.org/wiki/List_of_game_engines</a><br><a href="https://www.audiokinetic.com/qa/139/can-wwise-integrated-into-game-made-java-eclipse-and-libgdx">https://www.audiokinetic.com/qa/139/can-wwise-integrated-into-game-made-java-eclipse-and-libgdx</a></p><h4 id="1-2-3-Wwise-Help（完整帮助文档）"><a href="#1-2-3-Wwise-Help（完整帮助文档）" class="headerlink" title="1.2.3 Wwise Help（完整帮助文档）"></a>1.2.3 Wwise Help（完整帮助文档）</h4><h4 id="1-2-4-安装和迁移指南（基础安装与迁移文档）"><a href="#1-2-4-安装和迁移指南（基础安装与迁移文档）" class="headerlink" title="1.2.4 安装和迁移指南（基础安装与迁移文档）"></a>1.2.4 安装和迁移指南（基础安装与迁移文档）</h4><h4 id="1-2-5-Wwise-基础知识（基础概述文档）"><a href="#1-2-5-Wwise-基础知识（基础概述文档）" class="headerlink" title="1.2.5 Wwise 基础知识（基础概述文档）"></a>1.2.5 Wwise 基础知识（基础概述文档）</h4><h4 id="1-2-6-Cube-Integration（Cube-游戏整合简介）"><a href="#1-2-6-Cube-Integration（Cube-游戏整合简介）" class="headerlink" title="1.2.6 Cube Integration（Cube 游戏整合简介）"></a>1.2.6 Cube Integration（Cube 游戏整合简介）</h4><p>为什么 Cube 作为 Wwise-101 认证课程中的示例游戏，文档还要在这里专门开章节讲它的 Wwise 整合呢？<br>其实是因为 Cube 并没有选用常见的商业引擎开发（毕竟是一款快20年前的游戏），而是使用了作者自己开发的 Cube Engine（引擎采用 C++ 开发，图形库使用了 OpenGL 与 SDL）。<br>这也导致了想要对 Cube 从零进行 Wwise 整合，就要通过 SDK 把声音引擎代码写入游戏才可以让 Wwise 正常工作，这也是这部分文档中所介绍的内容。从某些意义上来说，Cube </p><h4 id="1-2-7-Sample-Project（示例工程简介）"><a href="#1-2-7-Sample-Project（示例工程简介）" class="headerlink" title="1.2.7 Sample Project（示例工程简介）"></a>1.2.7 Sample Project（示例工程简介）</h4><h4 id="1-2-8-Wwise-Unity-Integration（Unity-引擎集成）"><a href="#1-2-8-Wwise-Unity-Integration（Unity-引擎集成）" class="headerlink" title="1.2.8 Wwise Unity Integration（Unity 引擎集成）"></a>1.2.8 Wwise Unity Integration（Unity 引擎集成）</h4><h4 id="1-2-9-Wwise-Unreal-Integration（Unreal-引擎集成）"><a href="#1-2-9-Wwise-Unreal-Integration（Unreal-引擎集成）" class="headerlink" title="1.2.9 Wwise Unreal Integration（Unreal 引擎集成）"></a>1.2.9 Wwise Unreal Integration（Unreal 引擎集成）</h4><h4 id="1-2-10-Wwise-Audio-Lab（Wwise-音频实验室）"><a href="#1-2-10-Wwise-Audio-Lab（Wwise-音频实验室）" class="headerlink" title="1.2.10 Wwise Audio Lab（Wwise 音频实验室）"></a>1.2.10 Wwise Audio Lab（Wwise 音频实验室）</h4><h3 id="1-3-其它官网资源"><a href="#1-3-其它官网资源" class="headerlink" title="1.3 其它官网资源"></a>1.3 其它官网资源</h3><h4 id="1-3-1-Wwise-资源"><a href="#1-3-1-Wwise-资源" class="headerlink" title="1.3.1 Wwise 资源"></a>1.3.1 Wwise 资源</h4><p><a href="https://www.audiokinetic.com/zh/learn/knowledge-base">https://www.audiokinetic.com/zh/learn/knowledge-base</a></p><h4 id="1-3-2-Community-Q-amp-A"><a href="#1-3-2-Community-Q-amp-A" class="headerlink" title="1.3.2 Community Q&amp;A"></a>1.3.2 Community Q&amp;A</h4><h4 id="1-3-3-Audiokinetic-Blog"><a href="#1-3-3-Audiokinetic-Blog" class="headerlink" title="1.3.3 Audiokinetic Blog"></a>1.3.3 Audiokinetic Blog</h4><h4 id="1-3-4-认证课程（101，201，251，301）"><a href="#1-3-4-认证课程（101，201，251，301）" class="headerlink" title="1.3.4 认证课程（101，201，251，301）"></a>1.3.4 认证课程（101，201，251，301）</h4><p>略。</p><h2 id="2-如何更高效的利用文档？"><a href="#2-如何更高效的利用文档？" class="headerlink" title="2. 如何更高效的利用文档？"></a>2. 如何更高效的利用文档？</h2><h3 id="2-1-是否有通读所有文档？"><a href="#2-1-是否有通读所有文档？" class="headerlink" title="2.1 是否有通读所有文档？"></a>2.1 是否有通读所有文档？</h3><h3 id="2-2-使用-RSS-订阅文档更新及-Community-Q-amp-A-问题动态"><a href="#2-2-使用-RSS-订阅文档更新及-Community-Q-amp-A-问题动态" class="headerlink" title="2.2 使用 RSS 订阅文档更新及 Community Q&amp;A 问题动态"></a>2.2 使用 RSS 订阅文档更新及 Community Q&amp;A 问题动态</h3><h3 id="2-3-使用-Marginnote-3-或其它-PDF-工具进行文档整理"><a href="#2-3-使用-Marginnote-3-或其它-PDF-工具进行文档整理" class="headerlink" title="2.3 使用 Marginnote 3 或其它 PDF 工具进行文档整理"></a>2.3 使用 Marginnote 3 或其它 PDF 工具进行文档整理</h3><h3 id="2-4-创建常用文档的阅读“快捷方式”"><a href="#2-4-创建常用文档的阅读“快捷方式”" class="headerlink" title="2.4 创建常用文档的阅读“快捷方式”"></a>2.4 创建常用文档的阅读“快捷方式”</h3><h3 id="2-5-获取本文思维导图"><a href="#2-5-获取本文思维导图" class="headerlink" title="2.5 获取本文思维导图"></a>2.5 获取本文思维导图</h3>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 游戏音频 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>人人都能用 WAAPI（四）“元工具”：WAAPI Code Generator</title>
-      <link href="/2021/01/15/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E5%9B%9B%EF%BC%89/"/>
-      <url>/2021/01/15/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[<p>大家好，我是溪夜。<br>在《人人都能用 WAAPI》第四篇中会分享一个用于提升 WAAPI 开发效率的程序，作为一名从小就接触了编程的人，我始终认为使用代码优化工作中的任何重复都是非常必要的，这也是 WAAPI Code Generator 开发的最初愿景。<br>这个程序的设计理念与本系列文章的主题《人人都能用 WAAPI》颇为接近，是一个编写 WAAPI 代码的“元工具”。<strong>我设计了一种优雅且一站式的编码方案，以此提高 WAAPI 使用时的效率。</strong><br>除了对程序的使用方法进行介绍外，本文还会对程序内涉及 WAAPI 的代码进行简介，以方便大家参考在生产环境中的代码用法。</p><p>本文目录：</p><p>[toc]</p><h2 id="对现有-WAAPI-编码流程的思考"><a href="#对现有-WAAPI-编码流程的思考" class="headerlink" title="对现有 WAAPI 编码流程的思考"></a>对现有 WAAPI 编码流程的思考</h2><p><strong>在使用 WAAPI 时很容易遇到这样的痛点：</strong></p><ol><li>面对 <code>ak.wwise.core.object.get</code> 或 <code>ak.wwise.core.object.create</code> 这种选项繁杂的 API，手写 JSON 格式的配置代码块时体验不是很好，一不小心写错了符号或缩进很容易程序就无法正确执行了。</li><li>无论是否参考第一篇中曾提到的分类逻辑，在文档中搜寻想要的 API 时都要翻阅一番。</li><li>获取 GUID、Path 等参数时，首先需要切回 Wwise 中，按住 Shift 再右键点击对象后，在弹出的菜单中才能找到拷贝选项。</li></ol><p>在“能偷懒则偷懒”这条核心逻辑的驱使下，我在思考能否进行一类<strong>元工具</strong>的开发。就像重复代码块写作时会用到 Code Snippets 一样，尽量减少重复工作带来的时间浪费。<br>这也是 WAAPI Code Generator 诞生的动机，我的初衷就是希望把 WAAPI 的使用变的更加简单且工具化。</p><h2 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h2><h3 id="2-1-起因：如何进一步偷懒？"><a href="#2-1-起因：如何进一步偷懒？" class="headerlink" title="2.1. 起因：如何进一步偷懒？"></a>2.1. 起因：如何进一步偷懒？</h3><p>以 <code>ak.wwise.core.object.get</code> 为例，在任何编程语言中调用这个 API 需要以下步骤：</p><ol><li>根据文档选定需要使用的参数，例如 <code>form</code> 决定从何处获取数据，<code>transform</code> 决定获取数据的变换条件，此外还有可选参数 Options 决定返回值及平台等。</li><li>对于<code>form</code> 来说，需要手动获取 GUID 或 Wwise 工程中的路径参数，而其他可能涉及的参数也得哦按需从文档中获取。</li><li>书写 JSON 语法的配置信息，把对应的参数放到 JSON 那层叠括号中的正确位置里。</li><li>测试代码。（如果 JSON 格式的配置一不小心写错了点什么，恭喜你，愉快的 Debug 开始了！）</li></ol><p><strong>而在 WAAPI Code Generator 中你只需要：</strong></p><ol><li>确保已连接到 WAMP 服务器，在左边第一栏中间选择需要的 WAAPI 分类。例如在本例中需点选 <code>(Functions) Object Operation</code> 类，之后即可轻松在下面的 API 列表中找到 <code>ak.wwise.core.object.get</code>。</li><li>在程序中间第二栏的下拉列表里选择所需的参数。<strong>此时右边会有官方文档及我所书写的文档注释</strong>。如果需要使用 GUID 或工程路径等信息作为参数，可通过程序中复刻的 Wwise Project Explorer 查看当前工程的完整架构，点击 Add 即可把所需参数添加到代码中。</li><li>选中所需的编程语言，点击 Generate，即可自动生成当前语言对应的代码。默认情况下生成的所有代码都会自动复制到剪贴板，如果需要代码中一部分，也可点击对应的按钮选择所需的部分。</li></ol><p>容易看出，这个程序中优化掉了 WAAPI 使用中繁琐的步骤，例如需反复的翻阅文档、费心书写 JSON 格式参数、去 Wwise 内拷贝所需数据等操作。</p><h3 id="2-2-目的：解放记忆力并实现快速开发"><a href="#2-2-目的：解放记忆力并实现快速开发" class="headerlink" title="2.2. 目的：解放记忆力并实现快速开发"></a>2.2. 目的：解放记忆力并实现快速开发</h3><p>有一句流行语“懒惰是第一生产力”，说的正是通过技术的进步，降低了用户获得最终结果的成本。<br>这也是我开发 WAAPI Code Generator 的首要动机，<strong>通过解放记忆力把 WAAPI 工具化，将更多精力投入到工具的逻辑架构上。</strong><br>但只有脚本或后端代码是远远不够的，不仅其他非程序出身成员的使用体验非常糟糕，我自己也无法忍受没有图形界面带来的缺失感。GUI 作为现代计算机与人类之间沟通的桥梁，交互体验无疑是特别重要的一部分。<br><img src="/images/GUI%20Gap%202020.png" alt="GUI Gap 2020"><br>连接 “GUI Gap”（图片来源于 PySimpleGUI 介绍文档）<br><strong>如何解决前端问题呢？</strong><br>工业级软件生产中常见的桌面平台开发框架有使用 C# 的 WPF 或 UWP，使用 C++ 的 Qt（Python 也可以使用 PyQt），基于 Web 为代表的 Electron 等等。关于各种框架的性能、打包体积、跨平台等优缺点在这里就不展开讨论了，但无疑都存在一个问题，上手相对较慢，开发流程不够简单直接。<br><img src="/images/Rapid%20Mass%20Production%20WAAPI%20Tool-2.png" alt="Rapid Mass Production WAAPI Tool"><br>WAAPI Tool 量产架构图<br>WAAPI Code Generator 是使用 PySimpleGUI 开发的，也是我个人对此框架开发潜力的探索尝试之一。它的优点是简单易用、开发效率快、跨平台、UI 设计语言审美还不错。当然缺点也有很多，例如大型生产环境中没见到任何人使用、macOS 下打包麻烦、无法实现 MVC、MVVM 等复杂架构等等。<br>但这并不妨碍它作为一个低开发成本 GUI 框架的存在，尤其在快速为 Python 脚本创建一个原型级的 GUI 时，别有一番优势。<strong>对简单逻辑的小程序而言，用熟了 PySimpleGUI 后在半小时内即可为你的脚本设计一套说得过去的交互及 GUI</strong>。<br>作为轻生产需求或 Demo 工具开发而言，这无疑是 Python 用户们最适用的一个入门 GUI 框架，在下一节中我会演示一下如何为 WAAPI Code Generator 生成的代码快速加上基于 PySimpleGUI 的 GUI 代码。</p><h3 id="2-3-构建原型"><a href="#2-3-构建原型" class="headerlink" title="2.3. 构建原型"></a>2.3. 构建原型</h3><p>在这里我使用的是跨平台原型设计软件 Pencil（注：虽然此工具跨平台且开源，但许久未更新，并非代表这是原型设计的最优解）画出简单的原型设计，作为 One Page 应用，我们只需要一个页面作为主原型即可，如下图所示：</p><p>Project Explorer 作为一个简单的附属页面，在这里就不把其算作单独的一个 Page 了，如下图所示：</p><h3 id="2-4-设计-UI"><a href="#2-4-设计-UI" class="headerlink" title="2.4. 设计 UI"></a>2.4. 设计 UI</h3><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>todo：添加图片、详细介绍</p><h3 id="3-1-下载与运行"><a href="#3-1-下载与运行" class="headerlink" title="3.1. 下载与运行"></a>3.1. 下载与运行</h3><p>GitHub 地址：<a href="https://github.com/zcyh147/WAAPI-Code-Generator">https://github.com/zcyh147/WAAPI-Code-Generator</a></p><ol><li>打开 GitHub 仓库，在 releases 中下载所需版本的压缩包，解压到你喜欢的目录中。仓库中根据系统与帮助文档的不同，总共分为四个版本，请注意压缩包的后缀。</li><li>根据 Wwise 内的 WAAPI 设置，填入程序中所设置的服务器和端口号来连接 WAAPI 服务器，没修改过设置的话直接点击 Connect 按钮即可。</li><li>本程序遵循 <em>Don’t Make Me Think</em> 原则，采用“左中右”三分栏的设计，用户从左到右进行顺序操作即可，非常简单。</li></ol><h3 id="3-2-示例约定"><a href="#3-2-示例约定" class="headerlink" title="3.2. 示例约定"></a>3.2. 示例约定</h3><p><strong>关于参数中的 Args 和 Opts：在本程序中将两者统一称为“参数”，不再进行区分。</strong></p><h3 id="3-3-代码生成示例1：不需要参数的-API"><a href="#3-3-代码生成示例1：不需要参数的-API" class="headerlink" title="3.3. 代码生成示例1：不需要参数的 API"></a>3.3. 代码生成示例1：不需要参数的 API</h3><h3 id="3-4-代码生成示例2：需要工程内数据作为参数的-API"><a href="#3-4-代码生成示例2：需要工程内数据作为参数的-API" class="headerlink" title="3.4. 代码生成示例2：需要工程内数据作为参数的 API"></a>3.4. 代码生成示例2：需要工程内数据作为参数的 API</h3><h3 id="3-5-代码生成示例3：一个参数存在多个值的-API"><a href="#3-5-代码生成示例3：一个参数存在多个值的-API" class="headerlink" title="3.5. 代码生成示例3：一个参数存在多个值的 API"></a>3.5. 代码生成示例3：一个参数存在多个值的 API</h3><h3 id="3-6-代码生成示例4：一个参数存在多组值的-API"><a href="#3-6-代码生成示例4：一个参数存在多组值的-API" class="headerlink" title="3.6. 代码生成示例4：一个参数存在多组值的 API"></a>3.6. 代码生成示例4：一个参数存在多组值的 API</h3><h3 id="3-7-小工具示例：简单的截图程序"><a href="#3-7-小工具示例：简单的截图程序" class="headerlink" title="3.7. 小工具示例：简单的截图程序"></a>3.7. 小工具示例：简单的截图程序</h3><h2 id="程序中所用到的-WAAPI-函数简介"><a href="#程序中所用到的-WAAPI-函数简介" class="headerlink" title="程序中所用到的 WAAPI 函数简介"></a>程序中所用到的 WAAPI 函数简介</h2><p>WAAPI Code Generator 中用到了 WAAPI 中的：</p><ol><li>ak.wwise.waapi.getFunctions</li><li>ak.wwise.waapi.getSchema</li><li>ak.wwise.waapi.getTopics</li><li>ak.wwise.core.object.get</li><li>ak.wwise.ui.commands.getCommands</li></ol><p>因程序的其它部分都是 Python 的自带或第三方拓展库，整体的源码就不占用文章版面做过多分析了。<br>在 GitHub 仓库中的源码具有完善的代码注释和 Docstring，读者诸君如有需要可自行参考。</p><h3 id="4-1-WAAPI-反射函数的使用"><a href="#4-1-WAAPI-反射函数的使用" class="headerlink" title="4.1. WAAPI 反射函数的使用"></a>4.1. WAAPI 反射函数的使用</h3><p>WAAPI 反射函数即以下三个 API，它们的作用如下：</p><ol><li>ak.wwise.waapi.getFunctions</li><li>ak.wwise.waapi.getSchema</li><li>ak.wwise.waapi.getTopics</li></ol><h3 id="4-2-信息获取函数-ak-wwise-core-object-get"><a href="#4-2-信息获取函数-ak-wwise-core-object-get" class="headerlink" title="4.2. 信息获取函数 ak.wwise.core.object.get"></a>4.2. 信息获取函数 <code>ak.wwise.core.object.get</code></h3><h3 id="4-3-当前版本可用命令函数-ak-wwise-ui-commands-getCommands"><a href="#4-3-当前版本可用命令函数-ak-wwise-ui-commands-getCommands" class="headerlink" title="4.3. 当前版本可用命令函数 ak.wwise.ui.commands.getCommands"></a>4.3. 当前版本可用命令函数 <code>ak.wwise.ui.commands.getCommands</code></h3><h2 id="接下来讲什么？"><a href="#接下来讲什么？" class="headerlink" title="接下来讲什么？"></a>接下来讲什么？</h2><p>在下一篇文章中，会就 WAAPI 中比较进阶的使用方法进行讨论，例如其他语言的 WAAPI 调用示例，游戏引擎中的 WAAPI 调用等。</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 音频编程 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>iOS 音乐制作导论</title>
       <link href="/2021/01/10/iOS%20%E9%9F%B3%E4%B9%90%E5%88%B6%E4%BD%9C%E5%AF%BC%E8%AE%BA/"/>
       <url>/2021/01/10/iOS%20%E9%9F%B3%E4%B9%90%E5%88%B6%E4%BD%9C%E5%AF%BC%E8%AE%BA/</url>
@@ -72,25 +15,6 @@
         <tags>
             
             <tag> iOS 音乐制作 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Pure Data 简易效果器搭建（一）Reverb</title>
-      <link href="/2020/12/01/Pure%20Data%20%E7%AE%80%E6%98%93%E6%95%88%E6%9E%9C%E5%99%A8%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-      <url>/2020/12/01/Pure%20Data%20%E7%AE%80%E6%98%93%E6%95%88%E6%9E%9C%E5%99%A8%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[<p>大家好，我是溪夜。<br>关于 Pure Data 的入门，实在是没什么好谈的。在我的书单《游戏音频和声音设计相关书籍推荐》中提到的几本书都可以参考一下，并且 Pure Data 的官网文档本身也是个很好的资源。<br>我们都知道，Heavy 编译器可以把符合条件的 Pure Data 程序编译成 Dll 文件，间接的让 Pure Data 有能力为 Wwise 制作效果器。<br>在这篇文章里，我们就先解决一个老大难问题，实现 Reverb（混响）效果器。</p><p>本文目录：</p><p>[toc]</p><h2 id="Pure-Data-基础配置"><a href="#Pure-Data-基础配置" class="headerlink" title="Pure Data 基础配置"></a>Pure Data 基础配置</h2><h2 id="Freeverb-法"><a href="#Freeverb-法" class="headerlink" title="Freeverb 法"></a>Freeverb 法</h2><h3 id="什么是-Freeverb"><a href="#什么是-Freeverb" class="headerlink" title="什么是 Freeverb"></a>什么是 Freeverb</h3><h3 id="为-Freeverb-设定端口"><a href="#为-Freeverb-设定端口" class="headerlink" title="为 Freeverb 设定端口"></a>为 Freeverb 设定端口</h3><h3 id="构建混响-UI"><a href="#构建混响-UI" class="headerlink" title="构建混响 UI"></a>构建混响 UI</h3><h3 id="Heavy-编译"><a href="#Heavy-编译" class="headerlink" title="Heavy 编译"></a>Heavy 编译</h3><h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><h2 id="底层实现法"><a href="#底层实现法" class="headerlink" title="底层实现法"></a>底层实现法</h2><h3 id="混响算法"><a href="#混响算法" class="headerlink" title="混响算法"></a>混响算法</h3><h4 id="Schroeder’s-Reverberator"><a href="#Schroeder’s-Reverberator" class="headerlink" title="Schroeder’s Reverberator"></a>Schroeder’s Reverberator</h4><p><a href="http://msp.ucsd.edu/techniques/v0.11/book-html/node161.html">http://msp.ucsd.edu/techniques/v0.11/book-html/node161.html</a></p><h4 id="Moorer’s-Reverberator"><a href="#Moorer’s-Reverberator" class="headerlink" title="Moorer’s Reverberator"></a>Moorer’s Reverberator</h4><h3 id="Pure-Data-中实现的过程"><a href="#Pure-Data-中实现的过程" class="headerlink" title="Pure Data 中实现的过程"></a>Pure Data 中实现的过程</h3><h2 id="接下来讲什么？"><a href="#接下来讲什么？" class="headerlink" title="接下来讲什么？"></a>接下来讲什么？</h2>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 音频编程 </tag>
             
         </tags>
       
@@ -167,82 +91,6 @@
         <tags>
             
             <tag> 音频编程 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>极简搭建（三）空间音频试验场</title>
-      <link href="/2020/10/30/%E6%9E%81%E7%AE%80%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%89%EF%BC%89/"/>
-      <url>/2020/10/30/%E6%9E%81%E7%AE%80%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 极简搭建 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>极简搭建（二）利用 WAAPI 搭建 CI 系统</title>
-      <link href="/2020/10/25/%E6%9E%81%E7%AE%80%E6%90%AD%E5%BB%BA%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
-      <url>/2020/10/25/%E6%9E%81%E7%AE%80%E6%90%AD%E5%BB%BA%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 极简搭建 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>极简搭建（一）从零构建 Wwise + Unity 的手游热更系统</title>
-      <link href="/2020/10/20/%E6%9E%81%E7%AE%80%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-      <url>/2020/10/20/%E6%9E%81%E7%AE%80%E6%90%AD%E5%BB%BA%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[<p>大家好，我是溪夜。<br>在新的系列文《极简搭建》中，我将会针对这两类问题进行讨论：一类是对于其它工种来说属于日常工作，但针对声音设计师有些难度的。另一类是通过例子理解起来更为有效的。<br><strong>当然，如果职位定位是技术音频，我认为这些问题的掌握是理所当然的。</strong><br>第一篇文章中需要讨论的就是如何实现手游热更，鉴于本人暂时对 FMOD 及虚幻不够熟悉，关于 Wwise + UE 及 FMOD + 两大引擎的热更搭建会在我学会之后再更。</p><blockquote><p>本系列文章阅读需要的前置知识：</p><ul><li>足够的 Unity 和 Wwise 基础。</li><li>了解基本的 Android 和 iOS 开发。</li><li>了解 C# 和 Lua。</li></ul></blockquote><p>本文目录：</p><p>[toc]</p><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="什么是热更新？"><a href="#什么是热更新？" class="headerlink" title="什么是热更新？"></a>什么是热更新？</h3><p>热更新（Hotfix）是典型的那种不懂之前很迷茫，懂之后很简单的概念。<br>在一开始先不要考虑那么多实现过程，<strong>热更新的本质就是一句话：绕过商店直接在 App 内更新代码或资源。</strong><br>游戏开始加载时如果存在校验服务器与本地资源版本的差异，那就是在执行热更检测。<br>与之对应的是大版本更新（注意这可不叫“冷更”），两者区别如下：</p><table><thead><tr><th></th><th>大版本号</th><th>资源版本号</th><th>包体变化</th></tr></thead><tbody><tr><td>大版本更新</td><td>改变</td><td>不变</td><td>由 A 变为 B</td></tr><tr><td>热更新</td><td>不变</td><td>改变</td><td>由 A 变为 A + A1 + A2 etc.</td></tr></tbody></table><p>热更新有很多坑，比如代码热更新和资源热更新就有不同，前者会涉及到代码是否在更新前解析执行等，还需要考虑是否能通过商店审核之类的问题。我无心探讨热更新技术的好坏（xLua，slua，tolua，ILRuntime，jsb等），毕竟也不是干这个的。<br>但对于资源和代码如何正确的实现现有技术框架下的热更新，这是必掌握的能力。</p><h3 id="作为声音设计师我学它干嘛？"><a href="#作为声音设计师我学它干嘛？" class="headerlink" title="作为声音设计师我学它干嘛？"></a>作为声音设计师我学它干嘛？</h3><p>不妨声音设计师们设身处地的为引擎程序员想想。对于程序员而言，热更属于已经搭好的一个系统。<strong>无论性能如何，只要不想被开除，这个热更系统至少是能保证可用的。</strong><br>而 Wwise 作为音频中间件，是在 Unity 中通过一些修改来实现替换掉本身的音频系统来实现功能的。<br><strong>问题来了，引擎程序员怎么知道在热更时哪些文件需要以哪种方法处理，从而能满足 Wwise 正常获取新资源的需求呢？</strong>毕竟游戏资源更新了，新内容的音频资源必须跟上。<br>为了满足这些，就需要按照本文所说的方法理解 Wwise 热更新的实现方法。这样声音设计师可以更好的理解程序员的工作流程以提供正确的新包，对技术音频设计师而言这也是个必备的知识点。<br>相信所有游戏宏观的热更新方案不会轮到音频部门来做决定，音频人员更重要的是利用好当前项目决定的热更技术方案以保证 Wwise 的稳定运行。</p><h2 id="搭建一个基本的-Unity-工程"><a href="#搭建一个基本的-Unity-工程" class="headerlink" title="搭建一个基本的 Unity 工程"></a>搭建一个基本的 Unity 工程</h2><p>在接着讲之前，我们先搭建一个最基本的 Unity 工程。</p><h3 id="新建工程并接入-Wwise"><a href="#新建工程并接入-Wwise" class="headerlink" title="新建工程并接入 Wwise"></a>新建工程并接入 Wwise</h3><h3 id="创建所需场景"><a href="#创建所需场景" class="headerlink" title="创建所需场景"></a>创建所需场景</h3><h2 id="配置热更所需信息"><a href="#配置热更所需信息" class="headerlink" title="配置热更所需信息"></a>配置热更所需信息</h2><h3 id="修改-Wwise-DLC-路径"><a href="#修改-Wwise-DLC-路径" class="headerlink" title="修改 Wwise DLC 路径"></a>修改 Wwise DLC 路径</h3><h3 id="修改热更代码"><a href="#修改热更代码" class="headerlink" title="修改热更代码"></a>修改热更代码</h3><h2 id="生成-Android-端并测试热更效果"><a href="#生成-Android-端并测试热更效果" class="headerlink" title="生成 Android 端并测试热更效果"></a>生成 Android 端并测试热更效果</h2><h3 id="生成-Android-客户端"><a href="#生成-Android-客户端" class="headerlink" title="生成 Android 客户端"></a>生成 Android 客户端</h3><h3 id="搭建热更服务器"><a href="#搭建热更服务器" class="headerlink" title="搭建热更服务器"></a>搭建热更服务器</h3><h3 id="测试效果"><a href="#测试效果" class="headerlink" title="测试效果"></a>测试效果</h3><h2 id="生成-iOS-端并测试热更效果"><a href="#生成-iOS-端并测试热更效果" class="headerlink" title="生成 iOS 端并测试热更效果"></a>生成 iOS 端并测试热更效果</h2><h3 id="生成-iOS-服务器"><a href="#生成-iOS-服务器" class="headerlink" title="生成 iOS 服务器"></a>生成 iOS 服务器</h3><h3 id="搭建热更服务器-1"><a href="#搭建热更服务器-1" class="headerlink" title="搭建热更服务器"></a>搭建热更服务器</h3><h3 id="测试效果-1"><a href="#测试效果-1" class="headerlink" title="测试效果"></a>测试效果</h3><h2 id="接下来讲什么？"><a href="#接下来讲什么？" class="headerlink" title="接下来讲什么？"></a>接下来讲什么？</h2><p>在第二篇中我们会聊聊如何借用 WAAPI 的订阅功能实现 CI 系统，作为自动化搭建和测试的系统，CI 系统在实际工作中具有极大的重要性。<br>那么会搭建 CI 系统对声音设计师或技术音频有什么用呢？其实就是方便测试与构建自动化流程，这对技术有追求的人来说怎么可能不学。</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 极简搭建 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>技术音频的 Unity 编辑器工具开发实践（一）概述</title>
-      <link href="/2020/09/30/Unity%20Editor%20%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-      <url>/2020/09/30/Unity%20Editor%20%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-      
-        <content type="html"><![CDATA[<p>大家好，我是溪夜。<br><strong>对技术音频设计师而言，开发新工具无疑是最基本且重要的一项能力。</strong><br>在之前的文章中，我们已经聊过使用 PySimpleGUI 为 Python 脚本快速添 GUI 的详细方法。<strong>PySimpleGUI 系列文章所讨论的工具开发，是独立于游戏和声音引擎之外的工具。</strong><br>而在这一系列文章中，会分享通过 Unity 的 Editor Scripting 在游戏引擎中开发自定义工具的实践方法。<br>与纯引擎程序员的开发方向不同，技术音频设计师一般不会在 Unity Editor 中创建关卡快速构建器这样的工具。改善并创建 Unity 与音频中间件集成时的有关工具，才会是我们主要的学习方向。<br><strong>作为偏实战的技术分享，在这系列文章结束后你会完成几个简单和一个稍复杂的 Unity 技术音频类工具的制作。</strong></p><blockquote><p>本系列文章阅读需要的前置知识：</p><ul><li>了解游戏引擎使用、 Wwise Unity 整合和 C# 基本语法等必备知识。</li><li>对 WAAPI 比较熟悉，了解在 C# 下的 WAAPI 调用。</li></ul></blockquote><p>本文目录：</p><p>[toc]</p><h2 id="Unity-Editor-Scripting-基础概念"><a href="#Unity-Editor-Scripting-基础概念" class="headerlink" title="Unity Editor Scripting 基础概念"></a>Unity Editor Scripting 基础概念</h2><h3 id="这是什么？"><a href="#这是什么？" class="headerlink" title="这是什么？"></a>这是什么？</h3><h3 id="为什么要使用它？"><a href="#为什么要使用它？" class="headerlink" title="为什么要使用它？"></a>为什么要使用它？</h3><h3 id="它的实现原理是什么？"><a href="#它的实现原理是什么？" class="headerlink" title="它的实现原理是什么？"></a>它的实现原理是什么？</h3><h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><h3 id="2-1-Hello-World"><a href="#2-1-Hello-World" class="headerlink" title="2.1. Hello World"></a>2.1. Hello World</h3><h3 id="2-2-接收用户输入的值"><a href="#2-2-接收用户输入的值" class="headerlink" title="2.2. 接收用户输入的值"></a>2.2. 接收用户输入的值</h3><h3 id="2-3-重写-GUI-显示方法"><a href="#2-3-重写-GUI-显示方法" class="headerlink" title="2.3. 重写 GUI 显示方法"></a>2.3. 重写 GUI 显示方法</h3><h3 id="2-4-常见控件"><a href="#2-4-常见控件" class="headerlink" title="2.4. 常见控件"></a>2.4. 常见控件</h3><h2 id="代码管理"><a href="#代码管理" class="headerlink" title="代码管理"></a>代码管理</h2><h3 id="3-1-把编辑器代码放到单独的文件与文件夹中"><a href="#3-1-把编辑器代码放到单独的文件与文件夹中" class="headerlink" title="3.1. 把编辑器代码放到单独的文件与文件夹中"></a>3.1. 把编辑器代码放到单独的文件与文件夹中</h3><h3 id="3-2-使用代码前缀避免其被编译"><a href="#3-2-使用代码前缀避免其被编译" class="headerlink" title="3.2. 使用代码前缀避免其被编译"></a>3.2. 使用代码前缀避免其被编译</h3><h2 id="简单的-WAAPI-调用例子"><a href="#简单的-WAAPI-调用例子" class="headerlink" title="简单的 WAAPI 调用例子"></a>简单的 WAAPI 调用例子</h2><h3 id="4-1-Hello-Wwise"><a href="#4-1-Hello-Wwise" class="headerlink" title="4.1. Hello Wwise"></a>4.1. Hello Wwise</h3><h3 id="4-2-控制-Wwise-Event-的播放"><a href="#4-2-控制-Wwise-Event-的播放" class="headerlink" title="4.2. 控制 Wwise Event 的播放"></a>4.2. 控制 Wwise Event 的播放</h3><h2 id="接下来讲什么？"><a href="#接下来讲什么？" class="headerlink" title="接下来讲什么？"></a>接下来讲什么？</h2>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> Unity </tag>
             
         </tags>
       
@@ -451,9 +299,9 @@
       
         <tags>
             
-            <tag> 音频编程 </tag>
-            
             <tag> 游戏音频 </tag>
+            
+            <tag> 音频编程 </tag>
             
             <tag> 声音设计 </tag>
             
