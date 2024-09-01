@@ -1,7 +1,7 @@
 $(function () {
-  var imgList = $('.recent-post-item img')
+  var imgList = $('.recent-post-item img').not('.no-fancybox')
   if (imgList.length === 0) {
-    imgList = $('#post-content img')
+    imgList = $('#post-content img').not('.no-fancybox')
   }
   for (var i = 0; i < imgList.length; i++) {
     var $a = $(
@@ -21,7 +21,8 @@ $(function () {
   $().fancybox({
     selector: '[data-fancybox]',
     loop: true,
-    transitionEffect: 'slide'
+    transitionEffect: 'slide',
+    buttons: ['share', 'slideShow', 'fullScreen', 'download', 'thumbs', 'close']
   })
 
   var galleryItem = $('.gallery-item')
