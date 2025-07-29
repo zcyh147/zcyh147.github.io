@@ -1,14 +1,170 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="WAAPI is for Everyone | Part 2 wwise.core"><meta name="keywords" content="音频编程"><meta name="author" content="溪夜"><meta name="copyright" content="溪夜"><title>WAAPI is for Everyone | Part 2 wwise.core | 溪夜的音频博客</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  hexoVersion: '7.3.0'
-} </script><meta name="generator" content="Hexo 7.3.0"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#wwise-core-Overview"><span class="toc-number">1.</span> <span class="toc-text">wwise.core Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#audio-Importing-Audio-Files-and-Creating-Wwise-Objects"><span class="toc-number">2.</span> <span class="toc-text">audio (Importing Audio Files and Creating Wwise Objects)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features"><span class="toc-number">2.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage"><span class="toc-number">2.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#audioSourcePeaks-Getting-Peak-Values"><span class="toc-number">3.</span> <span class="toc-text">audioSourcePeaks (Getting Peak Values)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-1"><span class="toc-number">3.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-1"><span class="toc-number">3.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-Object-Operations"><span class="toc-number">4.</span> <span class="toc-text">Object (Object Operations)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-2"><span class="toc-number">4.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#create-copy-delete-move-Basic-Object-Operations"><span class="toc-number">4.1.1.</span> <span class="toc-text">create, copy, delete, move (Basic Object Operations)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setReference-setRandomizer-setAttenuationCurve-setName-setNotes-setProperty-Setting-Object-Properties"><span class="toc-number">4.1.2.</span> <span class="toc-text">setReference, setRandomizer, setAttenuationCurve, setName, setNotes, setProperty (Setting Object Properties)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get-getTypes-getPropertyInfo-getAttenuationCurve-getPropertyAndReferenceNames-Getting-Object-Properties"><span class="toc-number">4.1.3.</span> <span class="toc-text">get, getTypes, getPropertyInfo, getAttenuationCurve, getPropertyAndReferenceNames (Getting Object Properties)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-2"><span class="toc-number">4.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getInfo-and-log-get-Getting-Project-Info-and-Logs"><span class="toc-number">5.</span> <span class="toc-text">getInfo and log.get (Getting Project Info and Logs)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-3"><span class="toc-number">5.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-3"><span class="toc-number">5.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#profiler-Profiler-Operations"><span class="toc-number">6.</span> <span class="toc-text">profiler (Profiler Operations)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-4"><span class="toc-number">6.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#startCapture-stopCapture-Switching-On-Off-Capture"><span class="toc-number">6.1.1.</span> <span class="toc-text">startCapture, stopCapture (Switching On&#x2F;Off Capture)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getBusses-getCursorTime-getRTPCs-getVoiceContributions-getVoices-Getting-Info-at-A-Specific-Profiler-Capture-Time"><span class="toc-number">6.1.2.</span> <span class="toc-text">getBusses, getCursorTime, getRTPCs, getVoiceContributions, getVoices (Getting Info at A Specific Profiler Capture Time)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-4"><span class="toc-number">6.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#project-save-Saving-Projects"><span class="toc-number">7.</span> <span class="toc-text">project.save (Saving Projects)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-5"><span class="toc-number">7.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-5"><span class="toc-number">7.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#remote-Remote-Connecting-to-Game"><span class="toc-number">8.</span> <span class="toc-text">remote (Remote Connecting to Game)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-6"><span class="toc-number">8.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#connect-disconnect-Switch-On-Off-Connection"><span class="toc-number">8.1.1.</span> <span class="toc-text">connect, disconnect (Switch On&#x2F;Off Connection)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getAvailableConsoles-getConnectionStatus-Getting-Available-Consoles-and-Checking-Connection-Status"><span class="toc-number">8.1.2.</span> <span class="toc-text">getAvailableConsoles, getConnectionStatus (Getting Available Consoles and Checking Connection Status)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-6"><span class="toc-number">8.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#soundbank-SoundBank-Generation-and-Settings"><span class="toc-number">9.</span> <span class="toc-text">soundbank (SoundBank Generation and Settings)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-7"><span class="toc-number">9.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-7"><span class="toc-number">9.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#switchContainer-Switch-Container-Operations"><span class="toc-number">10.</span> <span class="toc-text">switchContainer (Switch Container Operations)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-8"><span class="toc-number">10.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-8"><span class="toc-number">10.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transport-Transport-Control"><span class="toc-number">11.</span> <span class="toc-text">transport (Transport Control)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-9"><span class="toc-number">11.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#create-destroy-executeAction"><span class="toc-number">11.1.1.</span> <span class="toc-text">create, destroy, executeAction</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getList-getState"><span class="toc-number">11.1.2.</span> <span class="toc-text">getList, getState</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-9"><span class="toc-number">11.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undo-Undo"><span class="toc-number">12.</span> <span class="toc-text">undo (Undo)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-10"><span class="toc-number">12.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-10"><span class="toc-number">12.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">13.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-Cases"><span class="toc-number">14.</span> <span class="toc-text">Use Cases</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-You-import-a-Sound-SFX-object-build-the-hierarchies-set-the-properties-create-an-Event-and-set-the-action-type-Then-you-create-a-SoundBank-add-the-newly-created-Event-and-generate-that-SoundBank"><span class="toc-number">14.1.</span> <span class="toc-text">1. You import a Sound SFX object, build the hierarchies, set the properties, create an Event, and set the action type. Then you create a SoundBank, add the newly created Event, and generate that SoundBank.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs"><span class="toc-number">14.1.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code"><span class="toc-number">14.1.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-You-get-the-global-info-of-the-current-project-as-well-as-the-Sound-SFX-size-and-SoundBank-path"><span class="toc-number">14.2.</span> <span class="toc-text">2. You get the global info of the current project as well as the Sound SFX size and SoundBank path.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs-1"><span class="toc-number">14.2.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code-1"><span class="toc-number">14.2.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-You-re-create-a-Soundcaster-Session-and-control-the-playback-behavior"><span class="toc-number">14.3.</span> <span class="toc-text">3. You re-create a Soundcaster Session and control the playback behavior.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs-2"><span class="toc-number">14.3.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code-2"><span class="toc-number">14.3.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-You-capture-the-Profiler-data-and-generate-a-report"><span class="toc-number">14.4.</span> <span class="toc-text">4. You capture the Profiler data and generate a report.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs-3"><span class="toc-number">14.4.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code-3"><span class="toc-number">14.4.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What%E2%80%99s-Next"><span class="toc-number">15.</span> <span class="toc-text">What’s Next?</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">溪夜</div><div class="author-info__description text-center">一个 Technical Sound Designer / Sound Engineer / iOS Music Maker / Gearslut / Synth-Lover / Extreme Metal Vocalist / Guitarist / LLer / 惠海人 / 明日香老缠粉 / 音频行业恐怖分子</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">17</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">7</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">1</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友情链接</div><a class="author-info-links__name text-center" href="https://sololand.moe/">zpan的独奏乡</a><a class="author-info-links__name text-center" href="http://jazzlost.me/">李AA的博客</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.cnn.com/cnnnext/dam/assets/170407220916-04-iconic-mountains-matterhorn-restricted.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">溪夜的音频博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/about">About Me</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">WAAPI is for Everyone | Part 2 wwise.core</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-11-28</time><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">5.1k</span><span class="post-meta__separator">|</span><span>阅读时长: 31 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>Hello. I’m Thomas Wang (also known as Xi Ye).<br>In Part 1, I used mind maps to summarize WAAPI essentials. With the development environment configured, I wrote several short scripts with Python. And we had a first taste of the power of WAAPI.<br>Starting from Part 2, we will go through all the branches of WAAPI. To make this easier to read, I will do my best to describe them as simply as possible and demonstrate real API use cases.<br>I also created a repository on GitHub for easy access. You will find all the code referred to in this blog series.<br><a href="https://github.com/zcyh147/Everyone-can-use-WAAPI">https://github.com/zcyh147/Everyone-can-use-WAAPI</a></p>
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Hello. I’m Thomas Wang (also known as Xi Ye).In Part 1, I used mind maps to summarize WAAPI essentials. With the development environment configured, I wrote several short scripts with Python. And we h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WAAPI is for Everyone | Part 2 wwise.core">
+<meta property="og:url" content="http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/index.html">
+<meta property="og:site_name" content="溪夜的音频博客">
+<meta property="og:description" content="Hello. I’m Thomas Wang (also known as Xi Ye).In Part 1, I used mind maps to summarize WAAPI essentials. With the development environment configured, I wrote several short scripts with Python. And we h">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xiye.art/images/wwisecore.png">
+<meta property="article:published_time" content="2020-11-28T10:46:00.000Z">
+<meta property="article:modified_time" content="2020-11-27T20:59:31.720Z">
+<meta property="article:author" content="溪夜">
+<meta property="article:tag" content="音频编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xiye.art/images/wwisecore.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>WAAPI is for Everyone | Part 2 wwise.core</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2021/01/10/iOS%20%E9%9F%B3%E4%B9%90%E5%88%B6%E4%BD%9C%E5%AF%BC%E8%AE%BA/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2020/11/19/PySimpleGUI%20%E7%AC%AC%E4%BA%8C%E7%AF%87/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&text=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&title=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&is_video=false&description=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WAAPI is for Everyone | Part 2 wwise.core&body=Check out this article: http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&title=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&title=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&title=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&title=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&name=WAAPI is for Everyone | Part 2 wwise.core&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&t=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#wwise-core-Overview"><span class="toc-number">1.</span> <span class="toc-text">wwise.core Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#audio-Importing-Audio-Files-and-Creating-Wwise-Objects"><span class="toc-number">2.</span> <span class="toc-text">audio (Importing Audio Files and Creating Wwise Objects)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features"><span class="toc-number">2.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage"><span class="toc-number">2.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#audioSourcePeaks-Getting-Peak-Values"><span class="toc-number">3.</span> <span class="toc-text">audioSourcePeaks (Getting Peak Values)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-1"><span class="toc-number">3.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-1"><span class="toc-number">3.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-Object-Operations"><span class="toc-number">4.</span> <span class="toc-text">Object (Object Operations)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-2"><span class="toc-number">4.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#create-copy-delete-move-Basic-Object-Operations"><span class="toc-number">4.1.1.</span> <span class="toc-text">create, copy, delete, move (Basic Object Operations)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setReference-setRandomizer-setAttenuationCurve-setName-setNotes-setProperty-Setting-Object-Properties"><span class="toc-number">4.1.2.</span> <span class="toc-text">setReference, setRandomizer, setAttenuationCurve, setName, setNotes, setProperty (Setting Object Properties)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get-getTypes-getPropertyInfo-getAttenuationCurve-getPropertyAndReferenceNames-Getting-Object-Properties"><span class="toc-number">4.1.3.</span> <span class="toc-text">get, getTypes, getPropertyInfo, getAttenuationCurve, getPropertyAndReferenceNames (Getting Object Properties)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-2"><span class="toc-number">4.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getInfo-and-log-get-Getting-Project-Info-and-Logs"><span class="toc-number">5.</span> <span class="toc-text">getInfo and log.get (Getting Project Info and Logs)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-3"><span class="toc-number">5.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-3"><span class="toc-number">5.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#profiler-Profiler-Operations"><span class="toc-number">6.</span> <span class="toc-text">profiler (Profiler Operations)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-4"><span class="toc-number">6.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#startCapture-stopCapture-Switching-On-Off-Capture"><span class="toc-number">6.1.1.</span> <span class="toc-text">startCapture, stopCapture (Switching On&#x2F;Off Capture)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getBusses-getCursorTime-getRTPCs-getVoiceContributions-getVoices-Getting-Info-at-A-Specific-Profiler-Capture-Time"><span class="toc-number">6.1.2.</span> <span class="toc-text">getBusses, getCursorTime, getRTPCs, getVoiceContributions, getVoices (Getting Info at A Specific Profiler Capture Time)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-4"><span class="toc-number">6.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#project-save-Saving-Projects"><span class="toc-number">7.</span> <span class="toc-text">project.save (Saving Projects)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-5"><span class="toc-number">7.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-5"><span class="toc-number">7.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#remote-Remote-Connecting-to-Game"><span class="toc-number">8.</span> <span class="toc-text">remote (Remote Connecting to Game)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-6"><span class="toc-number">8.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#connect-disconnect-Switch-On-Off-Connection"><span class="toc-number">8.1.1.</span> <span class="toc-text">connect, disconnect (Switch On&#x2F;Off Connection)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getAvailableConsoles-getConnectionStatus-Getting-Available-Consoles-and-Checking-Connection-Status"><span class="toc-number">8.1.2.</span> <span class="toc-text">getAvailableConsoles, getConnectionStatus (Getting Available Consoles and Checking Connection Status)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-6"><span class="toc-number">8.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#soundbank-SoundBank-Generation-and-Settings"><span class="toc-number">9.</span> <span class="toc-text">soundbank (SoundBank Generation and Settings)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-7"><span class="toc-number">9.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-7"><span class="toc-number">9.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#switchContainer-Switch-Container-Operations"><span class="toc-number">10.</span> <span class="toc-text">switchContainer (Switch Container Operations)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-8"><span class="toc-number">10.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-8"><span class="toc-number">10.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transport-Transport-Control"><span class="toc-number">11.</span> <span class="toc-text">transport (Transport Control)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-9"><span class="toc-number">11.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#create-destroy-executeAction"><span class="toc-number">11.1.1.</span> <span class="toc-text">create, destroy, executeAction</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getList-getState"><span class="toc-number">11.1.2.</span> <span class="toc-text">getList, getState</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-9"><span class="toc-number">11.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undo-Undo"><span class="toc-number">12.</span> <span class="toc-text">undo (Undo)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-10"><span class="toc-number">12.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-10"><span class="toc-number">12.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">13.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-Cases"><span class="toc-number">14.</span> <span class="toc-text">Use Cases</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-You-import-a-Sound-SFX-object-build-the-hierarchies-set-the-properties-create-an-Event-and-set-the-action-type-Then-you-create-a-SoundBank-add-the-newly-created-Event-and-generate-that-SoundBank"><span class="toc-number">14.1.</span> <span class="toc-text">1. You import a Sound SFX object, build the hierarchies, set the properties, create an Event, and set the action type. Then you create a SoundBank, add the newly created Event, and generate that SoundBank.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs"><span class="toc-number">14.1.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code"><span class="toc-number">14.1.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-You-get-the-global-info-of-the-current-project-as-well-as-the-Sound-SFX-size-and-SoundBank-path"><span class="toc-number">14.2.</span> <span class="toc-text">2. You get the global info of the current project as well as the Sound SFX size and SoundBank path.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs-1"><span class="toc-number">14.2.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code-1"><span class="toc-number">14.2.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-You-re-create-a-Soundcaster-Session-and-control-the-playback-behavior"><span class="toc-number">14.3.</span> <span class="toc-text">3. You re-create a Soundcaster Session and control the playback behavior.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs-2"><span class="toc-number">14.3.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code-2"><span class="toc-number">14.3.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-You-capture-the-Profiler-data-and-generate-a-report"><span class="toc-number">14.4.</span> <span class="toc-text">4. You capture the Profiler data and generate a report.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs-3"><span class="toc-number">14.4.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code-3"><span class="toc-number">14.4.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What%E2%80%99s-Next"><span class="toc-number">15.</span> <span class="toc-text">What’s Next?</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        WAAPI is for Everyone | Part 2 wwise.core
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">溪夜</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-11-28T10:46:00.000Z" class="dt-published" itemprop="datePublished">2020-11-28</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E9%9F%B3%E9%A2%91%E7%BC%96%E7%A8%8B/" rel="tag">音频编程</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>Hello. I’m Thomas Wang (also known as Xi Ye).<br>In Part 1, I used mind maps to summarize WAAPI essentials. With the development environment configured, I wrote several short scripts with Python. And we had a first taste of the power of WAAPI.<br>Starting from Part 2, we will go through all the branches of WAAPI. To make this easier to read, I will do my best to describe them as simply as possible and demonstrate real API use cases.<br>I also created a repository on GitHub for easy access. You will find all the code referred to in this blog series.<br><a href="https://github.com/zcyh147/Everyone-can-use-WAAPI">https://github.com/zcyh147/Everyone-can-use-WAAPI</a></p>
 <blockquote>
 <p>Before we proceed, there a few things things that I want to clarify:</p>
 <ul>
@@ -94,16 +250,148 @@
 </ul>
 <h4 id="Writing-Code-3"><a href="#Writing-Code-3" class="headerlink" title="Writing Code"></a>Writing Code</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. Start profiler data acquisition, and return to the start time</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">start_capture</span>():</span><br><span class="line">    <span class="keyword">return</span> client.call(<span class="string">&quot;ak.wwise.core.profiler.startCapture&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. End Profiler data acquisition and return the time</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">stop_capture</span>():</span><br><span class="line">    <span class="keyword">return</span> client.call(<span class="string">&quot;ak.wwise.core.profiler.startCapture&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Obtain information from the captured data. Note that the value range of &#x27;cursor_time&#x27; needs to be between &#x27;start_capture()&#x27; and &#x27;stop_capture()&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">capture_log_query</span>(<span class="params">cursor_time</span>):</span><br><span class="line">    <span class="comment"># Set the time point to query</span></span><br><span class="line">    args_times = &#123;</span><br><span class="line">        <span class="string">&quot;time&quot;</span>: cursor_time</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Get the name of the voice at the current time point, whether it is a Virtual, and the name and ID of the game object related to it</span></span><br><span class="line">    opts_get_voices = &#123;</span><br><span class="line">        <span class="string">&quot;return&quot;</span>: [</span><br><span class="line">            <span class="string">&quot;objectName&quot;</span>, <span class="string">&quot;isVirtual&quot;</span>, <span class="string">&quot;gameObjectName&quot;</span>, <span class="string">&quot;gameObjectID&quot;</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Get the Bus that exists at the current point in time</span></span><br><span class="line">    opts_get_busses = &#123;</span><br><span class="line">        <span class="string">&quot;return&quot;</span>: [</span><br><span class="line">            <span class="string">&quot;objectName&quot;</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Returns the currently active RTPC ID and value</span></span><br><span class="line">    log_rtpcs = client.call(<span class="string">&quot;ak.wwise.core.profiler.getRTPCs&quot;</span>, args_times)[<span class="string">&quot;return&quot;</span>]</span><br><span class="line">    log_voices = client.call(<span class="string">&quot;ak.wwise.core.profiler.getVoices&quot;</span>, args_times, options=opts_get_voices)[<span class="string">&quot;return&quot;</span>]</span><br><span class="line">    log_busses = client.call(<span class="string">&quot;ak.wwise.core.profiler.getBusses&quot;</span>, args_times, options=opts_get_busses)[<span class="string">&quot;return&quot;</span>]</span><br></pre></td></tr></table></figure>
 <h2 id="What’s-Next"><a href="#What’s-Next" class="headerlink" title="What’s Next?"></a>What’s Next?</h2><p>In Part 3, we will talk about the remaining execution APIs, including wwise.ui, wwise.waapi, wwise.debug and soundengine.</p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">溪夜</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://xiye.art/2020/11/28/WAAPI is for Everyone P2/">http://xiye.art/2020/11/28/WAAPI is for Everyone P2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiye.art">溪夜的音频博客</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9F%B3%E9%A2%91%E7%BC%96%E7%A8%8B/">音频编程</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/01/10/iOS%20%E9%9F%B3%E4%B9%90%E5%88%B6%E4%BD%9C%E5%AF%BC%E8%AE%BA/"><i class="fa fa-chevron-left">  </i><span>iOS 音乐制作导论</span></a></div><div class="next-post pull-right"><a href="/2020/11/19/PySimpleGUI%20%E7%AC%AC%E4%BA%8C%E7%AF%87/"><span>写给声音设计师的 GUI 开发大法（二）进阶篇（第二版）</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="lv-container" data-id="city" data-uid="MTAyMC80MDk4Ny8xNzUxMg=="><script>(function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-    if (typeof LivereTower === 'function') { return; }
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-    e.parentNode.insertBefore(j, e);
-})(document, 'script');</script></div></div></div><footer class="footer-bg" style="background-image: url(https://cdn.cnn.com/cnnnext/dam/assets/170407220916-04-iconic-mountains-matterhorn-restricted.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2024 By 溪夜</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
-  $('#nav').addClass('is-mobile')
-  $('footer').addClass('is-mobile')
-  $('#top-container').addClass('is-mobile')
-}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#wwise-core-Overview"><span class="toc-number">1.</span> <span class="toc-text">wwise.core Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#audio-Importing-Audio-Files-and-Creating-Wwise-Objects"><span class="toc-number">2.</span> <span class="toc-text">audio (Importing Audio Files and Creating Wwise Objects)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features"><span class="toc-number">2.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage"><span class="toc-number">2.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#audioSourcePeaks-Getting-Peak-Values"><span class="toc-number">3.</span> <span class="toc-text">audioSourcePeaks (Getting Peak Values)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-1"><span class="toc-number">3.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-1"><span class="toc-number">3.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-Object-Operations"><span class="toc-number">4.</span> <span class="toc-text">Object (Object Operations)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-2"><span class="toc-number">4.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#create-copy-delete-move-Basic-Object-Operations"><span class="toc-number">4.1.1.</span> <span class="toc-text">create, copy, delete, move (Basic Object Operations)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setReference-setRandomizer-setAttenuationCurve-setName-setNotes-setProperty-Setting-Object-Properties"><span class="toc-number">4.1.2.</span> <span class="toc-text">setReference, setRandomizer, setAttenuationCurve, setName, setNotes, setProperty (Setting Object Properties)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get-getTypes-getPropertyInfo-getAttenuationCurve-getPropertyAndReferenceNames-Getting-Object-Properties"><span class="toc-number">4.1.3.</span> <span class="toc-text">get, getTypes, getPropertyInfo, getAttenuationCurve, getPropertyAndReferenceNames (Getting Object Properties)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-2"><span class="toc-number">4.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getInfo-and-log-get-Getting-Project-Info-and-Logs"><span class="toc-number">5.</span> <span class="toc-text">getInfo and log.get (Getting Project Info and Logs)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-3"><span class="toc-number">5.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-3"><span class="toc-number">5.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#profiler-Profiler-Operations"><span class="toc-number">6.</span> <span class="toc-text">profiler (Profiler Operations)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-4"><span class="toc-number">6.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#startCapture-stopCapture-Switching-On-Off-Capture"><span class="toc-number">6.1.1.</span> <span class="toc-text">startCapture, stopCapture (Switching On&#x2F;Off Capture)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getBusses-getCursorTime-getRTPCs-getVoiceContributions-getVoices-Getting-Info-at-A-Specific-Profiler-Capture-Time"><span class="toc-number">6.1.2.</span> <span class="toc-text">getBusses, getCursorTime, getRTPCs, getVoiceContributions, getVoices (Getting Info at A Specific Profiler Capture Time)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-4"><span class="toc-number">6.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#project-save-Saving-Projects"><span class="toc-number">7.</span> <span class="toc-text">project.save (Saving Projects)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-5"><span class="toc-number">7.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-5"><span class="toc-number">7.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#remote-Remote-Connecting-to-Game"><span class="toc-number">8.</span> <span class="toc-text">remote (Remote Connecting to Game)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-6"><span class="toc-number">8.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#connect-disconnect-Switch-On-Off-Connection"><span class="toc-number">8.1.1.</span> <span class="toc-text">connect, disconnect (Switch On&#x2F;Off Connection)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getAvailableConsoles-getConnectionStatus-Getting-Available-Consoles-and-Checking-Connection-Status"><span class="toc-number">8.1.2.</span> <span class="toc-text">getAvailableConsoles, getConnectionStatus (Getting Available Consoles and Checking Connection Status)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-6"><span class="toc-number">8.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#soundbank-SoundBank-Generation-and-Settings"><span class="toc-number">9.</span> <span class="toc-text">soundbank (SoundBank Generation and Settings)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-7"><span class="toc-number">9.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-7"><span class="toc-number">9.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#switchContainer-Switch-Container-Operations"><span class="toc-number">10.</span> <span class="toc-text">switchContainer (Switch Container Operations)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-8"><span class="toc-number">10.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-8"><span class="toc-number">10.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transport-Transport-Control"><span class="toc-number">11.</span> <span class="toc-text">transport (Transport Control)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-9"><span class="toc-number">11.1.</span> <span class="toc-text">Features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#create-destroy-executeAction"><span class="toc-number">11.1.1.</span> <span class="toc-text">create, destroy, executeAction</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getList-getState"><span class="toc-number">11.1.2.</span> <span class="toc-text">getList, getState</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-9"><span class="toc-number">11.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undo-Undo"><span class="toc-number">12.</span> <span class="toc-text">undo (Undo)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Features-10"><span class="toc-number">12.1.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage-10"><span class="toc-number">12.2.</span> <span class="toc-text">Usage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">13.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-Cases"><span class="toc-number">14.</span> <span class="toc-text">Use Cases</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-You-import-a-Sound-SFX-object-build-the-hierarchies-set-the-properties-create-an-Event-and-set-the-action-type-Then-you-create-a-SoundBank-add-the-newly-created-Event-and-generate-that-SoundBank"><span class="toc-number">14.1.</span> <span class="toc-text">1. You import a Sound SFX object, build the hierarchies, set the properties, create an Event, and set the action type. Then you create a SoundBank, add the newly created Event, and generate that SoundBank.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs"><span class="toc-number">14.1.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code"><span class="toc-number">14.1.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-You-get-the-global-info-of-the-current-project-as-well-as-the-Sound-SFX-size-and-SoundBank-path"><span class="toc-number">14.2.</span> <span class="toc-text">2. You get the global info of the current project as well as the Sound SFX size and SoundBank path.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs-1"><span class="toc-number">14.2.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code-1"><span class="toc-number">14.2.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-You-re-create-a-Soundcaster-Session-and-control-the-playback-behavior"><span class="toc-number">14.3.</span> <span class="toc-text">3. You re-create a Soundcaster Session and control the playback behavior.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs-2"><span class="toc-number">14.3.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code-2"><span class="toc-number">14.3.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-You-capture-the-Profiler-data-and-generate-a-report"><span class="toc-number">14.4.</span> <span class="toc-text">4. You capture the Profiler data and generate a report.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-APIs-3"><span class="toc-number">14.4.1.</span> <span class="toc-text">Choosing APIs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Writing-Code-3"><span class="toc-number">14.4.2.</span> <span class="toc-text">Writing Code</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What%E2%80%99s-Next"><span class="toc-number">15.</span> <span class="toc-text">What’s Next?</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&text=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&title=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&is_video=false&description=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WAAPI is for Everyone | Part 2 wwise.core&body=Check out this article: http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&title=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&title=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&title=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&title=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&name=WAAPI is for Everyone | Part 2 wwise.core&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://xiye.art/2020/11/28/WAAPI%20is%20for%20Everyone%20P2/&t=WAAPI is for Everyone | Part 2 wwise.core"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2025
+    溪夜
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,14 +1,173 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="我所理解的技术音频技能路线（第二版）"><meta name="keywords" content="音频编程"><meta name="author" content="溪夜"><meta name="copyright" content="溪夜"><title>我所理解的技术音频技能路线（第二版） | 溪夜的音频博客</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  hexoVersion: '7.3.0'
-} </script><meta name="generator" content="Hexo 7.3.0"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%8C%E4%B8%9A%E5%AE%9A%E4%B9%89%E7%9A%84%E6%80%9D%E7%B4%A2"><span class="toc-number">1.</span> <span class="toc-text">职业定义的思索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Technical-Audio-Designer-%E6%88%96-Technical-Sound-Designer%EF%BC%88%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E8%AE%BE%E8%AE%A1%E5%B8%88%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. Technical Audio Designer 或 Technical Sound Designer（技术音频设计师）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Game-Audio-Programmer%EF%BC%88%E9%9F%B3%E9%A2%91%E7%A8%8B%E5%BA%8F%E5%91%98%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. Game Audio Programmer（音频程序员）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%8F%8A%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E8%83%BD"><span class="toc-number">2.</span> <span class="toc-text">游戏引擎及中间件技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 游戏引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E5%BC%95%E6%93%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1. 引擎使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-%E6%97%A0%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E9%9F%B3%E9%A2%91%E9%9B%86%E6%88%90"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2. 无中间件的音频集成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-%E7%83%AD%E6%9B%B4%E6%96%B0"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.1.3. 热更新</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%9F%B3%E9%A2%91%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 音频中间件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%BD%BF%E7%94%A8"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1. 中间件使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E9%9F%B3%E9%A2%91%E6%95%B4%E5%90%88%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2. 音频整合与优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E8%AF%AD%E9%9F%B3%E5%AF%B9%E7%99%BD"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3. 语音对白</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E7%8E%87%E4%BC%98%E5%8C%96%E6%8A%80%E8%83%BD"><span class="toc-number">3.</span> <span class="toc-text">效率优化技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 游戏引擎脚本工具开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-Unity-Editor-Scripting"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1. Unity Editor Scripting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-Unreal-Engine-Editor-Scripting"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2. Unreal Engine Editor Scripting</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%95%88%E7%8E%87%E5%BC%80%E5%8F%91"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 中间件效率开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-WAAPI-Wwise-Authoring-API"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1. WAAPI (Wwise Authoring API)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-FMOD-Scripting"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2. FMOD Scripting</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-DAW-%E6%95%88%E7%8E%87%E5%BC%80%E5%8F%91"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. DAW 效率开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-REAPER-ReaScript"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1. REAPER + ReaScript</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-Cubase-Nuendo-Logical-Editor"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.3.2. Cubase &#x2F; Nuendo + Logical Editor</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E9%80%9A%E7%94%A8%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%EF%BC%88GUI-%E5%BC%80%E5%8F%91%EF%BC%89"><span class="toc-number">3.4.</span> <span class="toc-text">3.4. 通用工具开发（GUI 开发）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-Python"><span class="toc-number">3.4.1.</span> <span class="toc-text">3.4.1. Python</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-Electron"><span class="toc-number">3.4.2.</span> <span class="toc-text">3.4.2. Electron</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-MFC-WPF-and-more%E2%80%A6"><span class="toc-number">3.4.3.</span> <span class="toc-text">3.4.3. MFC, WPF and more…</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%94%B9%E8%BF%9B"><span class="toc-number">3.5.</span> <span class="toc-text">3.5. 日常工作流改进</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1-StreamDeck"><span class="toc-number">3.5.1.</span> <span class="toc-text">3.5.1. StreamDeck</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-2-Metagrid-Keyboard-Maestro"><span class="toc-number">3.5.2.</span> <span class="toc-text">3.5.2. Metagrid + Keyboard Maestro</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-3-TouchOSC-%E4%B8%8E-MIDI-Designer"><span class="toc-number">3.5.3.</span> <span class="toc-text">3.5.3. TouchOSC 与 MIDI Designer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-4-Auto-HotKey"><span class="toc-number">3.5.4.</span> <span class="toc-text">3.5.4. Auto HotKey</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E6%8A%80%E8%83%BD"><span class="toc-number">4.</span> <span class="toc-text">项目管理技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%B7%A5%E7%A8%8B%E6%9E%B6%E6%9E%84%E5%88%9B%E5%BB%BA"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 工程架构创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3%E4%B8%8E-Wiki-%E5%86%99%E4%BD%9C"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 技术文档与 Wiki 写作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1. 思维导图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0%E3%80%81OneNote%E3%80%81%E6%9C%89%E9%81%93%E4%BA%91%E7%AC%94%E8%AE%B0%E3%80%81%E4%B8%BA%E7%9F%A5%E7%AC%94%E8%AE%B0%E5%8F%8A-Notion-%E7%AD%89"><span class="toc-number">4.2.2.</span> <span class="toc-text">4.2.2. 印象笔记、OneNote、有道云笔记、为知笔记及 Notion 等</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-%E6%8A%80%E6%9C%AF-Wiki"><span class="toc-number">4.2.3.</span> <span class="toc-text">4.2.3. 技术 Wiki</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 版本管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E6%8A%80%E8%83%BD"><span class="toc-number">5.</span> <span class="toc-text">编程技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Python"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. Python</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-C-%E4%B8%8E-C"><span class="toc-number">5.2.</span> <span class="toc-text">5.2. C# 与 C++</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-Lua"><span class="toc-number">5.3.</span> <span class="toc-text">5.4. Lua</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-JavaScript"><span class="toc-number">5.4.</span> <span class="toc-text">5.5. JavaScript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-%E4%BA%86%E8%A7%A3-SDK"><span class="toc-number">5.5.</span> <span class="toc-text">5.6. 了解 SDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-7-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83-todo"><span class="toc-number">5.6.</span> <span class="toc-text">5.7. 编码规范 todo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E5%BF%85%E5%A4%87%E6%8A%80%E8%83%BD"><span class="toc-number">6.</span> <span class="toc-text">其它必备技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E9%9F%B3%E4%B9%90%E5%9F%BA%E7%A1%80%E3%80%81%E7%94%B5%E8%84%91%E9%9F%B3%E4%B9%90%E5%88%B6%E4%BD%9C%E3%80%81%E5%BD%95%E9%9F%B3%E3%80%81%E6%B7%B7%E9%9F%B3%E5%8F%8A%E5%A3%B0%E9%9F%B3%E8%AE%BE%E8%AE%A1%E7%AD%89"><span class="toc-number">6.1.</span> <span class="toc-text">6.1. 音乐基础、电脑音乐制作、录音、混音及声音设计等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E9%9F%B3%E9%A2%91%E6%8A%80%E6%9C%AF"><span class="toc-number">6.2.</span> <span class="toc-text">6.2. 音频技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-DSP"><span class="toc-number">6.3.</span> <span class="toc-text">6.3. DSP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-%E8%8B%B1%E6%96%87"><span class="toc-number">6.4.</span> <span class="toc-text">6.4. 英文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2%E4%B8%8E%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98"><span class="toc-number">6.5.</span> <span class="toc-text">6.5. 信息检索与解决问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#One-More-Thing"><span class="toc-number">7.</span> <span class="toc-text">One More Thing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%B4%E8%B0%A2"><span class="toc-number">8.</span> <span class="toc-text">致谢</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">溪夜</div><div class="author-info__description text-center">一个 Technical Sound Designer / Sound Engineer / iOS Music Maker / Gearslut / Synth-Lover / Extreme Metal Vocalist / Guitarist / LLer / 惠海人 / 明日香老缠粉 / 音频行业恐怖分子</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">17</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">7</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">1</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友情链接</div><a class="author-info-links__name text-center" href="https://sololand.moe/">zpan的独奏乡</a><a class="author-info-links__name text-center" href="http://jazzlost.me/">李AA的博客</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.cnn.com/cnnnext/dam/assets/170407220916-04-iconic-mountains-matterhorn-restricted.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">溪夜的音频博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/about">About Me</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">我所理解的技术音频技能路线（第二版）</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-11-19</time><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">7.1k</span><span class="post-meta__separator">|</span><span>阅读时长: 21 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>大家好，我是溪夜。<br><strong>游戏技术音频领域一直是我非常感兴趣的方向</strong>，这也是在书单《游戏音频与声音设计相关书籍推荐》文中专门列出技术音频相关书目的原因。<br>近日有感于希辰老师的<strong>《游戏音频设计师、技术音频设计师和音频程序员》</strong>一文，想谈谈我认为的“游戏技术音频”相关定义和技能路线。<br>这篇文章包含我最近一年多对技术音频职业的思考，及已经掌握和正准备学习的技能。希望能在国内这个相对较新的职业领域中分享一份我自己的总结，如有遗漏欢迎指出，期待与大家共同交流。</p>
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="大家好，我是溪夜。游戏技术音频领域一直是我非常感兴趣的方向，这也是在书单《游戏音频与声音设计相关书籍推荐》文中专门列出技术音频相关书目的原因。近日有感于希辰老师的《游戏音频设计师、技术音频设计师和音频程序员》一文，想谈谈我认为的“游戏技术音频”相关定义和技能路线。这篇文章包含我最近一年多对技术音频职业的思考，及已经掌握和正准备学习的技能。希望能在国内这个相对较新的职业领域中分享一份我自己的总结，如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我所理解的技术音频技能路线（第二版）">
+<meta property="og:url" content="http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/index.html">
+<meta property="og:site_name" content="溪夜的音频博客">
+<meta property="og:description" content="大家好，我是溪夜。游戏技术音频领域一直是我非常感兴趣的方向，这也是在书单《游戏音频与声音设计相关书籍推荐》文中专门列出技术音频相关书目的原因。近日有感于希辰老师的《游戏音频设计师、技术音频设计师和音频程序员》一文，想谈谈我认为的“游戏技术音频”相关定义和技能路线。这篇文章包含我最近一年多对技术音频职业的思考，及已经掌握和正准备学习的技能。希望能在国内这个相对较新的职业领域中分享一份我自己的总结，如">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xiye.art/images/streamdeck.jpg">
+<meta property="og:image" content="http://xiye.art/images/metagrid.jpg">
+<meta property="og:image" content="http://xiye.art/images/TouchOSC.jpg">
+<meta property="og:image" content="http://xiye.art/images/midi%20designer.jpg">
+<meta property="article:published_time" content="2020-11-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-13T16:05:46.440Z">
+<meta property="article:author" content="溪夜">
+<meta property="article:tag" content="音频编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xiye.art/images/streamdeck.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>我所理解的技术音频技能路线（第二版）</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2020/11/19/PySimpleGUI%20%E7%AC%AC%E4%BA%8C%E7%AF%87/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2020/11/14/WAAPI%20is%20for%20Everyone%20P1/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&text=我所理解的技术音频技能路线（第二版）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&title=我所理解的技术音频技能路线（第二版）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&is_video=false&description=我所理解的技术音频技能路线（第二版）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=我所理解的技术音频技能路线（第二版）&body=Check out this article: http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&title=我所理解的技术音频技能路线（第二版）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&title=我所理解的技术音频技能路线（第二版）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&title=我所理解的技术音频技能路线（第二版）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&title=我所理解的技术音频技能路线（第二版）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&name=我所理解的技术音频技能路线（第二版）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&t=我所理解的技术音频技能路线（第二版）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%8C%E4%B8%9A%E5%AE%9A%E4%B9%89%E7%9A%84%E6%80%9D%E7%B4%A2"><span class="toc-number">1.</span> <span class="toc-text">职业定义的思索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Technical-Audio-Designer-%E6%88%96-Technical-Sound-Designer%EF%BC%88%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E8%AE%BE%E8%AE%A1%E5%B8%88%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. Technical Audio Designer 或 Technical Sound Designer（技术音频设计师）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Game-Audio-Programmer%EF%BC%88%E9%9F%B3%E9%A2%91%E7%A8%8B%E5%BA%8F%E5%91%98%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. Game Audio Programmer（音频程序员）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%8F%8A%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E8%83%BD"><span class="toc-number">2.</span> <span class="toc-text">游戏引擎及中间件技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 游戏引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E5%BC%95%E6%93%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1. 引擎使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-%E6%97%A0%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E9%9F%B3%E9%A2%91%E9%9B%86%E6%88%90"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2. 无中间件的音频集成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-%E7%83%AD%E6%9B%B4%E6%96%B0"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.1.3. 热更新</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%9F%B3%E9%A2%91%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 音频中间件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%BD%BF%E7%94%A8"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1. 中间件使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E9%9F%B3%E9%A2%91%E6%95%B4%E5%90%88%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2. 音频整合与优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E8%AF%AD%E9%9F%B3%E5%AF%B9%E7%99%BD"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3. 语音对白</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E7%8E%87%E4%BC%98%E5%8C%96%E6%8A%80%E8%83%BD"><span class="toc-number">3.</span> <span class="toc-text">效率优化技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 游戏引擎脚本工具开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-Unity-Editor-Scripting"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1. Unity Editor Scripting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-Unreal-Engine-Editor-Scripting"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2. Unreal Engine Editor Scripting</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%95%88%E7%8E%87%E5%BC%80%E5%8F%91"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 中间件效率开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-WAAPI-Wwise-Authoring-API"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1. WAAPI (Wwise Authoring API)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-FMOD-Scripting"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2. FMOD Scripting</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-DAW-%E6%95%88%E7%8E%87%E5%BC%80%E5%8F%91"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. DAW 效率开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-REAPER-ReaScript"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1. REAPER + ReaScript</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-Cubase-Nuendo-Logical-Editor"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.3.2. Cubase &#x2F; Nuendo + Logical Editor</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E9%80%9A%E7%94%A8%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%EF%BC%88GUI-%E5%BC%80%E5%8F%91%EF%BC%89"><span class="toc-number">3.4.</span> <span class="toc-text">3.4. 通用工具开发（GUI 开发）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-Python"><span class="toc-number">3.4.1.</span> <span class="toc-text">3.4.1. Python</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-Electron"><span class="toc-number">3.4.2.</span> <span class="toc-text">3.4.2. Electron</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-MFC-WPF-and-more%E2%80%A6"><span class="toc-number">3.4.3.</span> <span class="toc-text">3.4.3. MFC, WPF and more…</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%94%B9%E8%BF%9B"><span class="toc-number">3.5.</span> <span class="toc-text">3.5. 日常工作流改进</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1-StreamDeck"><span class="toc-number">3.5.1.</span> <span class="toc-text">3.5.1. StreamDeck</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-2-Metagrid-Keyboard-Maestro"><span class="toc-number">3.5.2.</span> <span class="toc-text">3.5.2. Metagrid + Keyboard Maestro</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-3-TouchOSC-%E4%B8%8E-MIDI-Designer"><span class="toc-number">3.5.3.</span> <span class="toc-text">3.5.3. TouchOSC 与 MIDI Designer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-4-Auto-HotKey"><span class="toc-number">3.5.4.</span> <span class="toc-text">3.5.4. Auto HotKey</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E6%8A%80%E8%83%BD"><span class="toc-number">4.</span> <span class="toc-text">项目管理技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%B7%A5%E7%A8%8B%E6%9E%B6%E6%9E%84%E5%88%9B%E5%BB%BA"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 工程架构创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3%E4%B8%8E-Wiki-%E5%86%99%E4%BD%9C"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 技术文档与 Wiki 写作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1. 思维导图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0%E3%80%81OneNote%E3%80%81%E6%9C%89%E9%81%93%E4%BA%91%E7%AC%94%E8%AE%B0%E3%80%81%E4%B8%BA%E7%9F%A5%E7%AC%94%E8%AE%B0%E5%8F%8A-Notion-%E7%AD%89"><span class="toc-number">4.2.2.</span> <span class="toc-text">4.2.2. 印象笔记、OneNote、有道云笔记、为知笔记及 Notion 等</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-%E6%8A%80%E6%9C%AF-Wiki"><span class="toc-number">4.2.3.</span> <span class="toc-text">4.2.3. 技术 Wiki</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 版本管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E6%8A%80%E8%83%BD"><span class="toc-number">5.</span> <span class="toc-text">编程技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Python"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. Python</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-C-%E4%B8%8E-C"><span class="toc-number">5.2.</span> <span class="toc-text">5.2. C# 与 C++</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-Lua"><span class="toc-number">5.3.</span> <span class="toc-text">5.4. Lua</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-JavaScript"><span class="toc-number">5.4.</span> <span class="toc-text">5.5. JavaScript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-%E4%BA%86%E8%A7%A3-SDK"><span class="toc-number">5.5.</span> <span class="toc-text">5.6. 了解 SDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-7-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83-todo"><span class="toc-number">5.6.</span> <span class="toc-text">5.7. 编码规范 todo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E5%BF%85%E5%A4%87%E6%8A%80%E8%83%BD"><span class="toc-number">6.</span> <span class="toc-text">其它必备技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E9%9F%B3%E4%B9%90%E5%9F%BA%E7%A1%80%E3%80%81%E7%94%B5%E8%84%91%E9%9F%B3%E4%B9%90%E5%88%B6%E4%BD%9C%E3%80%81%E5%BD%95%E9%9F%B3%E3%80%81%E6%B7%B7%E9%9F%B3%E5%8F%8A%E5%A3%B0%E9%9F%B3%E8%AE%BE%E8%AE%A1%E7%AD%89"><span class="toc-number">6.1.</span> <span class="toc-text">6.1. 音乐基础、电脑音乐制作、录音、混音及声音设计等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E9%9F%B3%E9%A2%91%E6%8A%80%E6%9C%AF"><span class="toc-number">6.2.</span> <span class="toc-text">6.2. 音频技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-DSP"><span class="toc-number">6.3.</span> <span class="toc-text">6.3. DSP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-%E8%8B%B1%E6%96%87"><span class="toc-number">6.4.</span> <span class="toc-text">6.4. 英文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2%E4%B8%8E%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98"><span class="toc-number">6.5.</span> <span class="toc-text">6.5. 信息检索与解决问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#One-More-Thing"><span class="toc-number">7.</span> <span class="toc-text">One More Thing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%B4%E8%B0%A2"><span class="toc-number">8.</span> <span class="toc-text">致谢</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        我所理解的技术音频技能路线（第二版）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">溪夜</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-11-18T16:00:00.000Z" class="dt-published" itemprop="datePublished">2020-11-19</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E9%9F%B3%E9%A2%91%E7%BC%96%E7%A8%8B/" rel="tag">音频编程</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>大家好，我是溪夜。<br><strong>游戏技术音频领域一直是我非常感兴趣的方向</strong>，这也是在书单《游戏音频与声音设计相关书籍推荐》文中专门列出技术音频相关书目的原因。<br>近日有感于希辰老师的<strong>《游戏音频设计师、技术音频设计师和音频程序员》</strong>一文，想谈谈我认为的“游戏技术音频”相关定义和技能路线。<br>这篇文章包含我最近一年多对技术音频职业的思考，及已经掌握和正准备学习的技能。希望能在国内这个相对较新的职业领域中分享一份我自己的总结，如有遗漏欢迎指出，期待与大家共同交流。</p>
 <blockquote>
 <p>附《游戏音频设计师、技术音频设计师和音频程序员》阅读地址：<a href="https://zhuanlan.zhihu.com/p/295783076">https://zhuanlan.zhihu.com/p/295783076</a></p>
 </blockquote>
@@ -62,16 +221,148 @@
 <h3 id="6-5-信息检索与解决问题"><a href="#6-5-信息检索与解决问题" class="headerlink" title="6.5. 信息检索与解决问题"></a>6.5. 信息检索与解决问题</h3><p><strong>信息检索和解决问题的能力应该是现代人立足职场之本。</strong><br>我几乎所有的研究与写作都是靠自己完成的，致谢中虽然提到了一些同行老师的名字，但我所获取的更多只是一些“<strong>关键词</strong>”。<br><strong>举个例子，在去年了解有技术音频这个职业名称后，不仅顺藤摸瓜找到了诸如 Guy Somberg、Damian Kastbauer 等老师的书及演讲视频等资料，更是靠自己检索出了整套《游戏音频与声音设计相关书籍推荐》书单（除少数几本是朋友推荐）。</strong><br>而对于解决问题的能力，除了要有极强的文档（RTFM）和 Google 检索能力外，更应该学会如何正确的提问（可参考 <em>How To Ask Questions The Smart Way</em>）。在掌握了解决问题的诸多技巧后，我所遇到的提问题的场景变得越来越少。<strong>相反，在自我提问并自我解答的这个过程中，反而收获了越发广阔的视野。</strong><br>我想这也是元认知、复利、独立思考等思维技巧带来的综合结果，<strong>它们使人愈思考愈智慧，而不是成为一个简单的伸手党。</strong></p>
 <h2 id="One-More-Thing"><a href="#One-More-Thing" class="headerlink" title="One More Thing"></a>One More Thing</h2><p>创办亥姆霍兹实验室这个公众号的动机非常简单，就是为了分享自己的一些研究和思考。<strong>不敢自吹自擂说能推动行业进步，但至少挂了之后能给世界留下一点点有用的文字。</strong><br>我的短期计划（两三年内）有一部分，就是<strong>希望把本文中提到但目前没有特别好的文章去讲解的部分技能写成文章与大家分享。</strong>与此同时，随着我对技术音频设计师理解的更加深刻，这份清单的技能树也还会继续完善。</p>
 <h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>在这篇文章中包含了直接或间接从同行老师的言谈、文章、朋友圈等地方学到的知识，在这里列出诸位的名字，感谢他们的鼓励与分享！<br>以下排名不分先后（以拼音顺序）：<br><strong>侯晨钟，胡磊（Moy），李AA，沈希辰，岳豪，杨磊，zpan</strong></p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">溪夜</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://xiye.art/2020/11/19/技术音频的技能路线/">http://xiye.art/2020/11/19/技术音频的技能路线/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiye.art">溪夜的音频博客</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9F%B3%E9%A2%91%E7%BC%96%E7%A8%8B/">音频编程</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/11/19/PySimpleGUI%20%E7%AC%AC%E4%BA%8C%E7%AF%87/"><i class="fa fa-chevron-left">  </i><span>写给声音设计师的 GUI 开发大法（二）进阶篇（第二版）</span></a></div><div class="next-post pull-right"><a href="/2020/11/14/WAAPI%20is%20for%20Everyone%20P1/"><span>WAAPI is for Everyone | Part 1 Overview</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="lv-container" data-id="city" data-uid="MTAyMC80MDk4Ny8xNzUxMg=="><script>(function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-    if (typeof LivereTower === 'function') { return; }
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-    e.parentNode.insertBefore(j, e);
-})(document, 'script');</script></div></div></div><footer class="footer-bg" style="background-image: url(https://cdn.cnn.com/cnnnext/dam/assets/170407220916-04-iconic-mountains-matterhorn-restricted.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2024 By 溪夜</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
-  $('#nav').addClass('is-mobile')
-  $('footer').addClass('is-mobile')
-  $('#top-container').addClass('is-mobile')
-}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%8C%E4%B8%9A%E5%AE%9A%E4%B9%89%E7%9A%84%E6%80%9D%E7%B4%A2"><span class="toc-number">1.</span> <span class="toc-text">职业定义的思索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Technical-Audio-Designer-%E6%88%96-Technical-Sound-Designer%EF%BC%88%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E8%AE%BE%E8%AE%A1%E5%B8%88%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. Technical Audio Designer 或 Technical Sound Designer（技术音频设计师）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Game-Audio-Programmer%EF%BC%88%E9%9F%B3%E9%A2%91%E7%A8%8B%E5%BA%8F%E5%91%98%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. Game Audio Programmer（音频程序员）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%8F%8A%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E8%83%BD"><span class="toc-number">2.</span> <span class="toc-text">游戏引擎及中间件技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 游戏引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E5%BC%95%E6%93%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1. 引擎使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-%E6%97%A0%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E9%9F%B3%E9%A2%91%E9%9B%86%E6%88%90"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2. 无中间件的音频集成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-%E7%83%AD%E6%9B%B4%E6%96%B0"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.1.3. 热更新</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%9F%B3%E9%A2%91%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 音频中间件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%BD%BF%E7%94%A8"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1. 中间件使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E9%9F%B3%E9%A2%91%E6%95%B4%E5%90%88%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2. 音频整合与优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E8%AF%AD%E9%9F%B3%E5%AF%B9%E7%99%BD"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3. 语音对白</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E7%8E%87%E4%BC%98%E5%8C%96%E6%8A%80%E8%83%BD"><span class="toc-number">3.</span> <span class="toc-text">效率优化技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 游戏引擎脚本工具开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-Unity-Editor-Scripting"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1. Unity Editor Scripting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-Unreal-Engine-Editor-Scripting"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2. Unreal Engine Editor Scripting</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%95%88%E7%8E%87%E5%BC%80%E5%8F%91"><span class="toc-number">3.2.</span> <span class="toc-text">3.2. 中间件效率开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-WAAPI-Wwise-Authoring-API"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1. WAAPI (Wwise Authoring API)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-FMOD-Scripting"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2. FMOD Scripting</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-DAW-%E6%95%88%E7%8E%87%E5%BC%80%E5%8F%91"><span class="toc-number">3.3.</span> <span class="toc-text">3.3. DAW 效率开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-REAPER-ReaScript"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1. REAPER + ReaScript</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-Cubase-Nuendo-Logical-Editor"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.3.2. Cubase &#x2F; Nuendo + Logical Editor</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E9%80%9A%E7%94%A8%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%EF%BC%88GUI-%E5%BC%80%E5%8F%91%EF%BC%89"><span class="toc-number">3.4.</span> <span class="toc-text">3.4. 通用工具开发（GUI 开发）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-Python"><span class="toc-number">3.4.1.</span> <span class="toc-text">3.4.1. Python</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-Electron"><span class="toc-number">3.4.2.</span> <span class="toc-text">3.4.2. Electron</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-MFC-WPF-and-more%E2%80%A6"><span class="toc-number">3.4.3.</span> <span class="toc-text">3.4.3. MFC, WPF and more…</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%94%B9%E8%BF%9B"><span class="toc-number">3.5.</span> <span class="toc-text">3.5. 日常工作流改进</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1-StreamDeck"><span class="toc-number">3.5.1.</span> <span class="toc-text">3.5.1. StreamDeck</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-2-Metagrid-Keyboard-Maestro"><span class="toc-number">3.5.2.</span> <span class="toc-text">3.5.2. Metagrid + Keyboard Maestro</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-3-TouchOSC-%E4%B8%8E-MIDI-Designer"><span class="toc-number">3.5.3.</span> <span class="toc-text">3.5.3. TouchOSC 与 MIDI Designer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-4-Auto-HotKey"><span class="toc-number">3.5.4.</span> <span class="toc-text">3.5.4. Auto HotKey</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E6%8A%80%E8%83%BD"><span class="toc-number">4.</span> <span class="toc-text">项目管理技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%B7%A5%E7%A8%8B%E6%9E%B6%E6%9E%84%E5%88%9B%E5%BB%BA"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 工程架构创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3%E4%B8%8E-Wiki-%E5%86%99%E4%BD%9C"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 技术文档与 Wiki 写作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1. 思维导图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0%E3%80%81OneNote%E3%80%81%E6%9C%89%E9%81%93%E4%BA%91%E7%AC%94%E8%AE%B0%E3%80%81%E4%B8%BA%E7%9F%A5%E7%AC%94%E8%AE%B0%E5%8F%8A-Notion-%E7%AD%89"><span class="toc-number">4.2.2.</span> <span class="toc-text">4.2.2. 印象笔记、OneNote、有道云笔记、为知笔记及 Notion 等</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-%E6%8A%80%E6%9C%AF-Wiki"><span class="toc-number">4.2.3.</span> <span class="toc-text">4.2.3. 技术 Wiki</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 版本管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E6%8A%80%E8%83%BD"><span class="toc-number">5.</span> <span class="toc-text">编程技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Python"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. Python</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-C-%E4%B8%8E-C"><span class="toc-number">5.2.</span> <span class="toc-text">5.2. C# 与 C++</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-Lua"><span class="toc-number">5.3.</span> <span class="toc-text">5.4. Lua</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-JavaScript"><span class="toc-number">5.4.</span> <span class="toc-text">5.5. JavaScript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-%E4%BA%86%E8%A7%A3-SDK"><span class="toc-number">5.5.</span> <span class="toc-text">5.6. 了解 SDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-7-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83-todo"><span class="toc-number">5.6.</span> <span class="toc-text">5.7. 编码规范 todo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E5%BF%85%E5%A4%87%E6%8A%80%E8%83%BD"><span class="toc-number">6.</span> <span class="toc-text">其它必备技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E9%9F%B3%E4%B9%90%E5%9F%BA%E7%A1%80%E3%80%81%E7%94%B5%E8%84%91%E9%9F%B3%E4%B9%90%E5%88%B6%E4%BD%9C%E3%80%81%E5%BD%95%E9%9F%B3%E3%80%81%E6%B7%B7%E9%9F%B3%E5%8F%8A%E5%A3%B0%E9%9F%B3%E8%AE%BE%E8%AE%A1%E7%AD%89"><span class="toc-number">6.1.</span> <span class="toc-text">6.1. 音乐基础、电脑音乐制作、录音、混音及声音设计等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E9%9F%B3%E9%A2%91%E6%8A%80%E6%9C%AF"><span class="toc-number">6.2.</span> <span class="toc-text">6.2. 音频技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-DSP"><span class="toc-number">6.3.</span> <span class="toc-text">6.3. DSP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-%E8%8B%B1%E6%96%87"><span class="toc-number">6.4.</span> <span class="toc-text">6.4. 英文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2%E4%B8%8E%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98"><span class="toc-number">6.5.</span> <span class="toc-text">6.5. 信息检索与解决问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#One-More-Thing"><span class="toc-number">7.</span> <span class="toc-text">One More Thing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%B4%E8%B0%A2"><span class="toc-number">8.</span> <span class="toc-text">致谢</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&text=我所理解的技术音频技能路线（第二版）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&title=我所理解的技术音频技能路线（第二版）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&is_video=false&description=我所理解的技术音频技能路线（第二版）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=我所理解的技术音频技能路线（第二版）&body=Check out this article: http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&title=我所理解的技术音频技能路线（第二版）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&title=我所理解的技术音频技能路线（第二版）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&title=我所理解的技术音频技能路线（第二版）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&title=我所理解的技术音频技能路线（第二版）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&name=我所理解的技术音频技能路线（第二版）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://xiye.art/2020/11/19/%E6%8A%80%E6%9C%AF%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/&t=我所理解的技术音频技能路线（第二版）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2025
+    溪夜
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

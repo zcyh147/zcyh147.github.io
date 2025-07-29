@@ -1,14 +1,183 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="人人都能用 WAAPI（一）概述"><meta name="keywords" content="音频编程"><meta name="author" content="溪夜"><meta name="copyright" content="溪夜"><title>人人都能用 WAAPI（一）概述 | 溪夜的音频博客</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  hexoVersion: '7.3.0'
-} </script><meta name="generator" content="Hexo 7.3.0"></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-WAAPI%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">为什么要用 WAAPI？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E8%AF%B7%E9%97%AE%E4%BD%A0%E5%9C%A8%E7%94%A8-Wwise-%E6%97%B6%E6%80%80%E7%96%91%E8%BF%87%E4%BB%A5%E4%B8%8B%E4%BA%BA%E7%94%9F%E5%90%97%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 请问你在用 Wwise 时怀疑过以下人生吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-WAAPI-%E7%9A%84%E7%9B%AE%E7%9A%84%EF%BC%9A%E8%A7%A3%E6%94%BE%E7%B9%81%E7%90%90%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. WAAPI 的目的：解放繁琐的工作流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%AE%98%E6%96%B9%E7%9A%84%E8%B5%84%E6%96%99%E4%B8%8D%E5%A4%9F%E5%85%A8%E5%90%97%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. 官方的资料不够全吗？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%99%E7%94%A8%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E6%95%B4%E7%90%86-WAAPI"><span class="toc-number">2.</span> <span class="toc-text">妙用思维导图整理 WAAPI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%80%9A%E8%BF%87%E5%AF%BC%E5%9B%BE%E7%90%86%E6%B8%85-WAAPI-%E8%84%89%E7%BB%9C"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 通过导图理清 WAAPI 脉络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AF%BC%E5%85%A5%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BF%9B%E8%A1%8C%E7%9F%A5%E8%AF%86%E5%AE%8C%E5%A4%87"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 导入知识库进行知识完备</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">系列文章架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAAPI-%E5%9F%BA%E7%A1%80"><span class="toc-number">4.</span> <span class="toc-text">WAAPI 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E4%BB%80%E4%B9%88%E6%98%AF-WAAPI%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 什么是 WAAPI？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-WAAPI-%E6%94%AF%E6%8C%81%E7%9A%84%E8%AF%AD%E8%A8%80%E7%B1%BB%E5%9E%8B%E5%92%8C%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. WAAPI 支持的语言类型和使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80"><span class="toc-number">4.2.1.</span> <span class="toc-text">可用的编程语言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">4.2.2.</span> <span class="toc-text">使用方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%85%8D%E7%BD%AE%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 配置开发环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Anaconda"><span class="toc-number">4.3.1.</span> <span class="toc-text">安装 Anaconda</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Anaconda-%E5%B9%B6%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E4%B8%AD%E9%80%9A%E8%BF%87-pip-%E6%B7%BB%E5%8A%A0-waapi-client"><span class="toc-number">4.3.2.</span> <span class="toc-text">配置 Anaconda 并在本地环境中通过 pip 添加 waapi-client</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-VS-Code-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">4.3.3.</span> <span class="toc-text">配置 VS Code 开发环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8-Wwise-%E4%B8%AD%E5%BC%80%E5%90%AF-WAAPI-%E6%94%AF%E6%8C%81"><span class="toc-number">4.3.4.</span> <span class="toc-text">在 Wwise 中开启 WAAPI 支持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Functions%EF%BC%88%E6%89%A7%E8%A1%8C%E7%B1%BB%EF%BC%89%E4%B8%8E-Topics%EF%BC%88%E8%AE%A2%E9%98%85%E7%B1%BB%EF%BC%89%E5%9C%A8%E5%8A%9F%E8%83%BD%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.4.</span> <span class="toc-text">4.4. Functions（执行类）与 Topics（订阅类）在功能上的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E4%BB%80%E4%B9%88%E6%98%AF-JSON-%E4%B8%8E-WAAPI-%E6%96%87%E6%A1%A3%E7%9A%84%E9%98%85%E8%AF%BB%E6%96%B9%E6%B3%95"><span class="toc-number">4.5.</span> <span class="toc-text">4.5. 什么是 JSON 与 WAAPI 文档的阅读方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSON-%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">4.5.1.</span> <span class="toc-text">JSON 的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5-ak-wwise-core-object-create-%E4%B8%BA%E4%BE%8B%E8%AF%A6%E8%A7%A3-Arguments-%E5%92%8C-Result-%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-number">4.5.2.</span> <span class="toc-text">以 ak.wwise.core.object.create 为例详解 Arguments 和 Result 的含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-ak-wwise-core-object-create-%E7%90%86%E8%A7%A3-JSON"><span class="toc-number">4.5.3.</span> <span class="toc-text">通过 ak.wwise.core.object.create 理解 JSON</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%8A%8A-JSON-%E7%9A%84%E8%AF%AD%E6%B3%95%E8%A1%A8%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A5%E6%96%B9%E4%BE%BF%E9%98%85%E8%AF%BB%EF%BC%9F"><span class="toc-number">4.5.4.</span> <span class="toc-text">如何把 JSON 的语法表格式化以方便阅读？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Topics%EF%BC%88%E8%AE%A2%E9%98%85%E7%B1%BB%EF%BC%89%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89-Options-%E5%92%8C-Publish%EF%BC%9F"><span class="toc-number">4.5.5.</span> <span class="toc-text">Topics（订阅类）中的参数为什么会有 Options 和 Publish？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-%E6%9D%A5%E4%B8%80%E6%9D%AF-Hello-Wwise%EF%BC%81"><span class="toc-number">4.6.</span> <span class="toc-text">4.6. 来一杯 Hello Wwise！</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E4%BD%BF%E7%94%A8%E5%93%AA%E4%B8%AA-API"><span class="toc-number">4.6.1.</span> <span class="toc-text">确定使用哪个 API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="toc-number">4.6.2.</span> <span class="toc-text">实现代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="toc-number">4.6.3.</span> <span class="toc-text">执行效果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAAPI-%E4%B8%A4%E7%A7%8D%E5%BA%94%E7%94%A8%EF%BC%88%E6%B3%A8%E9%87%8A%E5%86%99%E5%88%B0%E6%AF%8F%E4%B8%80%E8%A1%8C%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">WAAPI 两种应用（注释写到每一行）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Functions%EF%BC%88%E6%89%A7%E8%A1%8C%E7%B1%BB%EF%BC%89%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. Functions（执行类）示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0"><span class="toc-number">5.1.1.</span> <span class="toc-text">不带参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0"><span class="toc-number">5.1.2.</span> <span class="toc-text">带参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Topics%EF%BC%88%E8%AE%A2%E9%98%85%E7%B1%BB%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">5.2. Topics（订阅类）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E8%AE%B2%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">6.</span> <span class="toc-text">接下来讲什么？</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">溪夜</div><div class="author-info__description text-center">一个 Technical Sound Designer / Sound Engineer / iOS Music Maker / Gearslut / Synth-Lover / Extreme Metal Vocalist / Guitarist / LLer / 惠海人 / 明日香老缠粉 / 音频行业恐怖分子</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">17</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">7</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">1</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">友情链接</div><a class="author-info-links__name text-center" href="https://sololand.moe/">zpan的独奏乡</a><a class="author-info-links__name text-center" href="http://jazzlost.me/">李AA的博客</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://cdn.cnn.com/cnnnext/dam/assets/170407220916-04-iconic-mountains-matterhorn-restricted.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">溪夜的音频博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/about">About Me</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">人人都能用 WAAPI（一）概述</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-09-01</time><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">5.9k</span><span class="post-meta__separator">|</span><span>阅读时长: 20 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>大家好，我是溪夜。<br>去年下半年我接触到了 WAAPI（Wwise Authoring API），作为头脑不怎么灵光的非专业程序员，看到 WAMP、JSON 等陌生概念直犯晕。毕竟除了官方文档，只有极少数的开发者分享视频、文章和项目可参考。因为不太好意思麻烦别人，只好自己在这一年中断断续续的闷头尝试，踩了不少坑。<br>引用 Linus 的一句名言：</p>
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="大家好，我是溪夜。去年下半年我接触到了 WAAPI（Wwise Authoring API），作为头脑不怎么灵光的非专业程序员，看到 WAMP、JSON 等陌生概念直犯晕。毕竟除了官方文档，只有极少数的开发者分享视频、文章和项目可参考。因为不太好意思麻烦别人，只好自己在这一年中断断续续的闷头尝试，踩了不少坑。引用 Linus 的一句名言：  In open source, we feel stro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人人都能用 WAAPI（一）概述">
+<meta property="og:url" content="http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="溪夜的音频博客">
+<meta property="og:description" content="大家好，我是溪夜。去年下半年我接触到了 WAAPI（Wwise Authoring API），作为头脑不怎么灵光的非专业程序员，看到 WAMP、JSON 等陌生概念直犯晕。毕竟除了官方文档，只有极少数的开发者分享视频、文章和项目可参考。因为不太好意思麻烦别人，只好自己在这一年中断断续续的闷头尝试，踩了不少坑。引用 Linus 的一句名言：  In open source, we feel stro">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xiye.art/images/%E7%B9%81%E7%90%90%E7%9A%84API.png">
+<meta property="og:image" content="http://xiye.art/images/%E5%AF%BC%E5%9B%BE1.png">
+<meta property="og:image" content="http://xiye.art/images/%E5%AF%BC%E5%9B%BE2.png">
+<meta property="og:image" content="http://xiye.art/images/%E5%AF%BC%E5%9B%BE3.png">
+<meta property="og:image" content="http://xiye.art/images/%E5%8F%82%E6%95%B01.png">
+<meta property="og:image" content="http://xiye.art/images/%E7%BB%93%E6%9E%9C1-1.png">
+<meta property="og:image" content="http://xiye.art/images/%E5%AF%B9%E7%85%A7%E8%A1%A8.png">
+<meta property="og:image" content="http://xiye.art/images/%E5%8F%82%E6%95%B02.png">
+<meta property="og:image" content="http://xiye.art/images/JSON1.png">
+<meta property="og:image" content="http://xiye.art/images/JSON2.png">
+<meta property="og:image" content="http://xiye.art/images/%E7%BB%93%E6%9E%9C1.png">
+<meta property="og:image" content="http://xiye.art/images/%E7%BB%93%E6%9E%9C2.png">
+<meta property="og:image" content="http://xiye.art/images/%E7%BB%93%E6%9E%9C3-1.png">
+<meta property="og:image" content="http://xiye.art/images/%E7%BB%93%E6%9E%9C4.png">
+<meta property="article:published_time" content="2020-09-01T08:46:00.000Z">
+<meta property="article:modified_time" content="2024-08-31T18:26:19.660Z">
+<meta property="article:author" content="溪夜">
+<meta property="article:tag" content="音频编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xiye.art/images/%E7%B9%81%E7%90%90%E7%9A%84API.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>人人都能用 WAAPI（一）概述</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2020/09/02/%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E9%80%82%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B9%A6%E4%BB%A5%E5%8F%8A%E6%80%8E%E4%B9%88%E8%AF%BB/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2020/08/28/%E4%B8%80%E7%AF%87%E6%96%87%E7%AA%81%E7%A0%B4%E9%9F%B3%E6%95%88%E5%8D%95%E8%AF%8D%E9%9A%9C%E7%A2%8D/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&text=人人都能用 WAAPI（一）概述"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&title=人人都能用 WAAPI（一）概述"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&is_video=false&description=人人都能用 WAAPI（一）概述"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=人人都能用 WAAPI（一）概述&body=Check out this article: http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&title=人人都能用 WAAPI（一）概述"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&title=人人都能用 WAAPI（一）概述"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&title=人人都能用 WAAPI（一）概述"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&title=人人都能用 WAAPI（一）概述"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&name=人人都能用 WAAPI（一）概述&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&t=人人都能用 WAAPI（一）概述"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-WAAPI%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">为什么要用 WAAPI？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E8%AF%B7%E9%97%AE%E4%BD%A0%E5%9C%A8%E7%94%A8-Wwise-%E6%97%B6%E6%80%80%E7%96%91%E8%BF%87%E4%BB%A5%E4%B8%8B%E4%BA%BA%E7%94%9F%E5%90%97%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 请问你在用 Wwise 时怀疑过以下人生吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-WAAPI-%E7%9A%84%E7%9B%AE%E7%9A%84%EF%BC%9A%E8%A7%A3%E6%94%BE%E7%B9%81%E7%90%90%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. WAAPI 的目的：解放繁琐的工作流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%AE%98%E6%96%B9%E7%9A%84%E8%B5%84%E6%96%99%E4%B8%8D%E5%A4%9F%E5%85%A8%E5%90%97%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. 官方的资料不够全吗？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%99%E7%94%A8%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E6%95%B4%E7%90%86-WAAPI"><span class="toc-number">2.</span> <span class="toc-text">妙用思维导图整理 WAAPI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%80%9A%E8%BF%87%E5%AF%BC%E5%9B%BE%E7%90%86%E6%B8%85-WAAPI-%E8%84%89%E7%BB%9C"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 通过导图理清 WAAPI 脉络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AF%BC%E5%85%A5%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BF%9B%E8%A1%8C%E7%9F%A5%E8%AF%86%E5%AE%8C%E5%A4%87"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 导入知识库进行知识完备</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">系列文章架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAAPI-%E5%9F%BA%E7%A1%80"><span class="toc-number">4.</span> <span class="toc-text">WAAPI 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E4%BB%80%E4%B9%88%E6%98%AF-WAAPI%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 什么是 WAAPI？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-WAAPI-%E6%94%AF%E6%8C%81%E7%9A%84%E8%AF%AD%E8%A8%80%E7%B1%BB%E5%9E%8B%E5%92%8C%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. WAAPI 支持的语言类型和使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80"><span class="toc-number">4.2.1.</span> <span class="toc-text">可用的编程语言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">4.2.2.</span> <span class="toc-text">使用方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%85%8D%E7%BD%AE%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 配置开发环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Anaconda"><span class="toc-number">4.3.1.</span> <span class="toc-text">安装 Anaconda</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Anaconda-%E5%B9%B6%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E4%B8%AD%E9%80%9A%E8%BF%87-pip-%E6%B7%BB%E5%8A%A0-waapi-client"><span class="toc-number">4.3.2.</span> <span class="toc-text">配置 Anaconda 并在本地环境中通过 pip 添加 waapi-client</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-VS-Code-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">4.3.3.</span> <span class="toc-text">配置 VS Code 开发环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8-Wwise-%E4%B8%AD%E5%BC%80%E5%90%AF-WAAPI-%E6%94%AF%E6%8C%81"><span class="toc-number">4.3.4.</span> <span class="toc-text">在 Wwise 中开启 WAAPI 支持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Functions%EF%BC%88%E6%89%A7%E8%A1%8C%E7%B1%BB%EF%BC%89%E4%B8%8E-Topics%EF%BC%88%E8%AE%A2%E9%98%85%E7%B1%BB%EF%BC%89%E5%9C%A8%E5%8A%9F%E8%83%BD%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.4.</span> <span class="toc-text">4.4. Functions（执行类）与 Topics（订阅类）在功能上的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E4%BB%80%E4%B9%88%E6%98%AF-JSON-%E4%B8%8E-WAAPI-%E6%96%87%E6%A1%A3%E7%9A%84%E9%98%85%E8%AF%BB%E6%96%B9%E6%B3%95"><span class="toc-number">4.5.</span> <span class="toc-text">4.5. 什么是 JSON 与 WAAPI 文档的阅读方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSON-%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">4.5.1.</span> <span class="toc-text">JSON 的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5-ak-wwise-core-object-create-%E4%B8%BA%E4%BE%8B%E8%AF%A6%E8%A7%A3-Arguments-%E5%92%8C-Result-%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-number">4.5.2.</span> <span class="toc-text">以 ak.wwise.core.object.create 为例详解 Arguments 和 Result 的含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-ak-wwise-core-object-create-%E7%90%86%E8%A7%A3-JSON"><span class="toc-number">4.5.3.</span> <span class="toc-text">通过 ak.wwise.core.object.create 理解 JSON</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%8A%8A-JSON-%E7%9A%84%E8%AF%AD%E6%B3%95%E8%A1%A8%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A5%E6%96%B9%E4%BE%BF%E9%98%85%E8%AF%BB%EF%BC%9F"><span class="toc-number">4.5.4.</span> <span class="toc-text">如何把 JSON 的语法表格式化以方便阅读？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Topics%EF%BC%88%E8%AE%A2%E9%98%85%E7%B1%BB%EF%BC%89%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89-Options-%E5%92%8C-Publish%EF%BC%9F"><span class="toc-number">4.5.5.</span> <span class="toc-text">Topics（订阅类）中的参数为什么会有 Options 和 Publish？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-%E6%9D%A5%E4%B8%80%E6%9D%AF-Hello-Wwise%EF%BC%81"><span class="toc-number">4.6.</span> <span class="toc-text">4.6. 来一杯 Hello Wwise！</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E4%BD%BF%E7%94%A8%E5%93%AA%E4%B8%AA-API"><span class="toc-number">4.6.1.</span> <span class="toc-text">确定使用哪个 API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="toc-number">4.6.2.</span> <span class="toc-text">实现代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="toc-number">4.6.3.</span> <span class="toc-text">执行效果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAAPI-%E4%B8%A4%E7%A7%8D%E5%BA%94%E7%94%A8%EF%BC%88%E6%B3%A8%E9%87%8A%E5%86%99%E5%88%B0%E6%AF%8F%E4%B8%80%E8%A1%8C%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">WAAPI 两种应用（注释写到每一行）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Functions%EF%BC%88%E6%89%A7%E8%A1%8C%E7%B1%BB%EF%BC%89%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. Functions（执行类）示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0"><span class="toc-number">5.1.1.</span> <span class="toc-text">不带参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0"><span class="toc-number">5.1.2.</span> <span class="toc-text">带参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Topics%EF%BC%88%E8%AE%A2%E9%98%85%E7%B1%BB%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">5.2. Topics（订阅类）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E8%AE%B2%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">6.</span> <span class="toc-text">接下来讲什么？</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        人人都能用 WAAPI（一）概述
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">溪夜</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-09-01T08:46:00.000Z" class="dt-published" itemprop="datePublished">2020-09-01</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E9%9F%B3%E9%A2%91%E7%BC%96%E7%A8%8B/" rel="tag">音频编程</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>大家好，我是溪夜。<br>去年下半年我接触到了 WAAPI（Wwise Authoring API），作为头脑不怎么灵光的非专业程序员，看到 WAMP、JSON 等陌生概念直犯晕。毕竟除了官方文档，只有极少数的开发者分享视频、文章和项目可参考。因为不太好意思麻烦别人，只好自己在这一年中断断续续的闷头尝试，踩了不少坑。<br>引用 Linus 的一句名言：</p>
 <blockquote>
 <p>In open source, we feel strongly that to really do something well, you have to get a lot of people involved.  — Linus Torvalds</p>
 </blockquote>
@@ -94,16 +263,148 @@
 <h4 id="带参数"><a href="#带参数" class="headerlink" title="带参数"></a>带参数</h4><p>请参考“来一杯 Hello Wwise！”的例子</p>
 <h3 id="5-2-Topics（订阅类）"><a href="#5-2-Topics（订阅类）" class="headerlink" title="5.2. Topics（订阅类）"></a>5.2. Topics（订阅类）</h3><p>通过 ak.wwise.core.object.nameChanged 功能订阅工程中对象名称被修改时的信息，当有对象被修改时返回新、旧名字及设定的返回值类型（本例中为 type）<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> waapi <span class="keyword">import</span> WaapiClient, CannotConnectToWaapiException</span><br><span class="line"><span class="keyword">from</span> pprint <span class="keyword">import</span> pprint</span><br><span class="line"></span><br><span class="line"><span class="comment"># Python 的异常处理 try…except…else… 语句</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    client = WaapiClient()</span><br><span class="line"></span><br><span class="line"><span class="keyword">except</span> CannotConnectToWaapiException:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Could not connect to Waapi: Is Wwise running and Wwise Authoring API enabled?&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># 建立 on_name_changed() 准备在订阅中作为回调函数，用来接收字典形式的返回参数</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">on_name_changed</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="comment"># 获取对象类型</span></span><br><span class="line">        obj_type = kwargs.get(<span class="string">&quot;object&quot;</span>, &#123;&#125;).get(<span class="string">&quot;type&quot;</span>)</span><br><span class="line">        <span class="comment"># 获取之前的名字</span></span><br><span class="line">        old_name = kwargs.get(<span class="string">&quot;oldName&quot;</span>)</span><br><span class="line">        <span class="comment"># 获取新名字</span></span><br><span class="line">        new_name = kwargs.get(<span class="string">&quot;newName&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用 format 格式化函数进行输出信息（其中的&#123;&#125;代表 format() 函数中的对应变量），告知用户XXX类型的对象从 A 改名到了 B</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Object &#x27;&#123;&#125;&#x27; (of type &#x27;&#123;&#125;&#x27;) was renamed to &#x27;&#123;&#125;&#x27;\n&quot;</span>.<span class="built_in">format</span>(old_name, obj_type, new_name))</span><br><span class="line">        <span class="comment"># 执行完成后断开 WAMP 连接，当然，要是想一直监控信息也可以不断开</span></span><br><span class="line">        client.disconnect()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 订阅所需主题，传入回调函数，使用选项 type 以让名称修改时传回的字典里直接有被修改的对象类型</span></span><br><span class="line">    handler = client.subscribe(<span class="string">&quot;ak.wwise.core.object.nameChanged&quot;</span>, on_name_changed, &#123;<span class="string">&quot;return&quot;</span>: [<span class="string">&quot;type&quot;</span>]&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 打印信息，提醒用户已经订阅了 ak.wwise.core.object.nameChanged 并建议用户执行重命名操作以验证脚本功能</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Subscribed &#x27;ak.wwise.core.object.nameChanged&#x27;, rename an object in Wwise&quot;</span>)</span><br></pre></td></tr></table></figure><br>代码执行后结果如下，如所希望的告知了对象的名称变化及类型<br><img src="/images/%E7%BB%93%E6%9E%9C4.png" alt="结果4"></p>
 <h2 id="接下来讲什么？"><a href="#接下来讲什么？" class="headerlink" title="接下来讲什么？"></a>接下来讲什么？</h2><p>在第二期中，会就执行类里比较重要的 wwise.core 分支进行分享。官网对于执行类的 API 大多提供了例子，但我可能会通过结合起来的小实例来进行演示，这样有便于大家更快掌握。如喜欢本文，请持续关注。</p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">溪夜</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://xiye.art/2020/09/01/WAAPI 一文通（一）/">http://xiye.art/2020/09/01/WAAPI 一文通（一）/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiye.art">溪夜的音频博客</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9F%B3%E9%A2%91%E7%BC%96%E7%A8%8B/">音频编程</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/09/02/%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E9%80%82%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B9%A6%E4%BB%A5%E5%8F%8A%E6%80%8E%E4%B9%88%E8%AF%BB/"><i class="fa fa-chevron-left">  </i><span>浅谈阅读路线、以及阅读和做笔记的方法</span></a></div><div class="next-post pull-right"><a href="/2020/08/28/%E4%B8%80%E7%AF%87%E6%96%87%E7%AA%81%E7%A0%B4%E9%9F%B3%E6%95%88%E5%8D%95%E8%AF%8D%E9%9A%9C%E7%A2%8D/"><span>如何在30天内彻底搞定声音设计英文 Keyword？</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="lv-container" data-id="city" data-uid="MTAyMC80MDk4Ny8xNzUxMg=="><script>(function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-    if (typeof LivereTower === 'function') { return; }
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-    e.parentNode.insertBefore(j, e);
-})(document, 'script');</script></div></div></div><footer class="footer-bg" style="background-image: url(https://cdn.cnn.com/cnnnext/dam/assets/170407220916-04-iconic-mountains-matterhorn-restricted.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2024 By 溪夜</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/lib/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.1"></script><script src="/js/fancybox.js?version=1.9.1"></script><script src="/js/sidebar.js?version=1.9.1"></script><script src="/js/copy.js?version=1.9.1"></script><script src="/js/fireworks.js?version=1.9.1"></script><script src="/js/transition.js?version=1.9.1"></script><script src="/js/scroll.js?version=1.9.1"></script><script src="/js/head.js?version=1.9.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
-  $('#nav').addClass('is-mobile')
-  $('footer').addClass('is-mobile')
-  $('#top-container').addClass('is-mobile')
-}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-WAAPI%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">为什么要用 WAAPI？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E8%AF%B7%E9%97%AE%E4%BD%A0%E5%9C%A8%E7%94%A8-Wwise-%E6%97%B6%E6%80%80%E7%96%91%E8%BF%87%E4%BB%A5%E4%B8%8B%E4%BA%BA%E7%94%9F%E5%90%97%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 请问你在用 Wwise 时怀疑过以下人生吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-WAAPI-%E7%9A%84%E7%9B%AE%E7%9A%84%EF%BC%9A%E8%A7%A3%E6%94%BE%E7%B9%81%E7%90%90%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. WAAPI 的目的：解放繁琐的工作流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%AE%98%E6%96%B9%E7%9A%84%E8%B5%84%E6%96%99%E4%B8%8D%E5%A4%9F%E5%85%A8%E5%90%97%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. 官方的资料不够全吗？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%99%E7%94%A8%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E6%95%B4%E7%90%86-WAAPI"><span class="toc-number">2.</span> <span class="toc-text">妙用思维导图整理 WAAPI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%80%9A%E8%BF%87%E5%AF%BC%E5%9B%BE%E7%90%86%E6%B8%85-WAAPI-%E8%84%89%E7%BB%9C"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 通过导图理清 WAAPI 脉络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AF%BC%E5%85%A5%E7%9F%A5%E8%AF%86%E5%BA%93%E8%BF%9B%E8%A1%8C%E7%9F%A5%E8%AF%86%E5%AE%8C%E5%A4%87"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 导入知识库进行知识完备</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">系列文章架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAAPI-%E5%9F%BA%E7%A1%80"><span class="toc-number">4.</span> <span class="toc-text">WAAPI 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E4%BB%80%E4%B9%88%E6%98%AF-WAAPI%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 什么是 WAAPI？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-WAAPI-%E6%94%AF%E6%8C%81%E7%9A%84%E8%AF%AD%E8%A8%80%E7%B1%BB%E5%9E%8B%E5%92%8C%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. WAAPI 支持的语言类型和使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80"><span class="toc-number">4.2.1.</span> <span class="toc-text">可用的编程语言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">4.2.2.</span> <span class="toc-text">使用方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%85%8D%E7%BD%AE%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. 配置开发环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Anaconda"><span class="toc-number">4.3.1.</span> <span class="toc-text">安装 Anaconda</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Anaconda-%E5%B9%B6%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E4%B8%AD%E9%80%9A%E8%BF%87-pip-%E6%B7%BB%E5%8A%A0-waapi-client"><span class="toc-number">4.3.2.</span> <span class="toc-text">配置 Anaconda 并在本地环境中通过 pip 添加 waapi-client</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-VS-Code-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">4.3.3.</span> <span class="toc-text">配置 VS Code 开发环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8-Wwise-%E4%B8%AD%E5%BC%80%E5%90%AF-WAAPI-%E6%94%AF%E6%8C%81"><span class="toc-number">4.3.4.</span> <span class="toc-text">在 Wwise 中开启 WAAPI 支持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Functions%EF%BC%88%E6%89%A7%E8%A1%8C%E7%B1%BB%EF%BC%89%E4%B8%8E-Topics%EF%BC%88%E8%AE%A2%E9%98%85%E7%B1%BB%EF%BC%89%E5%9C%A8%E5%8A%9F%E8%83%BD%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.4.</span> <span class="toc-text">4.4. Functions（执行类）与 Topics（订阅类）在功能上的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E4%BB%80%E4%B9%88%E6%98%AF-JSON-%E4%B8%8E-WAAPI-%E6%96%87%E6%A1%A3%E7%9A%84%E9%98%85%E8%AF%BB%E6%96%B9%E6%B3%95"><span class="toc-number">4.5.</span> <span class="toc-text">4.5. 什么是 JSON 与 WAAPI 文档的阅读方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSON-%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">4.5.1.</span> <span class="toc-text">JSON 的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5-ak-wwise-core-object-create-%E4%B8%BA%E4%BE%8B%E8%AF%A6%E8%A7%A3-Arguments-%E5%92%8C-Result-%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-number">4.5.2.</span> <span class="toc-text">以 ak.wwise.core.object.create 为例详解 Arguments 和 Result 的含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-ak-wwise-core-object-create-%E7%90%86%E8%A7%A3-JSON"><span class="toc-number">4.5.3.</span> <span class="toc-text">通过 ak.wwise.core.object.create 理解 JSON</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%8A%8A-JSON-%E7%9A%84%E8%AF%AD%E6%B3%95%E8%A1%A8%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A5%E6%96%B9%E4%BE%BF%E9%98%85%E8%AF%BB%EF%BC%9F"><span class="toc-number">4.5.4.</span> <span class="toc-text">如何把 JSON 的语法表格式化以方便阅读？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Topics%EF%BC%88%E8%AE%A2%E9%98%85%E7%B1%BB%EF%BC%89%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89-Options-%E5%92%8C-Publish%EF%BC%9F"><span class="toc-number">4.5.5.</span> <span class="toc-text">Topics（订阅类）中的参数为什么会有 Options 和 Publish？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-%E6%9D%A5%E4%B8%80%E6%9D%AF-Hello-Wwise%EF%BC%81"><span class="toc-number">4.6.</span> <span class="toc-text">4.6. 来一杯 Hello Wwise！</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E4%BD%BF%E7%94%A8%E5%93%AA%E4%B8%AA-API"><span class="toc-number">4.6.1.</span> <span class="toc-text">确定使用哪个 API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="toc-number">4.6.2.</span> <span class="toc-text">实现代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="toc-number">4.6.3.</span> <span class="toc-text">执行效果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAAPI-%E4%B8%A4%E7%A7%8D%E5%BA%94%E7%94%A8%EF%BC%88%E6%B3%A8%E9%87%8A%E5%86%99%E5%88%B0%E6%AF%8F%E4%B8%80%E8%A1%8C%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">WAAPI 两种应用（注释写到每一行）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Functions%EF%BC%88%E6%89%A7%E8%A1%8C%E7%B1%BB%EF%BC%89%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. Functions（执行类）示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0"><span class="toc-number">5.1.1.</span> <span class="toc-text">不带参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0"><span class="toc-number">5.1.2.</span> <span class="toc-text">带参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Topics%EF%BC%88%E8%AE%A2%E9%98%85%E7%B1%BB%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">5.2. Topics（订阅类）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E8%AE%B2%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">6.</span> <span class="toc-text">接下来讲什么？</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&text=人人都能用 WAAPI（一）概述"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&title=人人都能用 WAAPI（一）概述"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&is_video=false&description=人人都能用 WAAPI（一）概述"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=人人都能用 WAAPI（一）概述&body=Check out this article: http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&title=人人都能用 WAAPI（一）概述"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&title=人人都能用 WAAPI（一）概述"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&title=人人都能用 WAAPI（一）概述"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&title=人人都能用 WAAPI（一）概述"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&name=人人都能用 WAAPI（一）概述&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://xiye.art/2020/09/01/WAAPI%20%E4%B8%80%E6%96%87%E9%80%9A%EF%BC%88%E4%B8%80%EF%BC%89/&t=人人都能用 WAAPI（一）概述"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2025
+    溪夜
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tags</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
