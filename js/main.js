@@ -19,6 +19,70 @@ $(document).ready(function() {
     $("#header > #nav > ul").toggleClass("responsive");
   });
 
+  /**
+   * Prevent navigation from disappearing when clicking TOC links
+   */
+  var navigationForceVisible = false;
+  var navigationForceTimer = null;
+  
+  function forceNavigationVisible(duration) {
+    navigationForceVisible = true;
+    if ($(window).width() > 500) {
+      $("#header-post").show();
+      $("#menu").show();
+      $("#nav").show();
+    }
+    
+    // Clear existing timer and set new one
+    if (navigationForceTimer) {
+      clearTimeout(navigationForceTimer);
+    }
+    navigationForceTimer = setTimeout(function() {
+      navigationForceVisible = false;
+      navigationForceTimer = null;
+    }, duration || 1000);
+  }
+  
+  $(document).on('click', '#toc a[href^="#"], #toc-footer a[href^="#"]', function() {
+    forceNavigationVisible(1000);
+  });
+
+  // Monitor hash changes (for direct URL access with anchors)
+  $(window).on('hashchange', function() {
+    forceNavigationVisible(1000);
+  });
+
+  // Check on page load if there's a hash in URL
+  $(document).ready(function() {
+    if (window.location.hash) {
+      forceNavigationVisible(1000);
+    }
+  });
+
+  // Monitor keyboard navigation that might affect scroll position
+  var keyboardNavigationTimer = null;
+  $(document).on('keydown', function(e) {
+    var navigationKeys = ['Home', 'End', 'PageUp', 'PageDown', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+    
+    if (navigationKeys.includes(e.key) && $(window).width() > 500) {
+      // For repeated keyboard navigation, extend the protection time
+      forceNavigationVisible(2000);
+      
+      // Also add immediate protection that resets on each keypress
+      if (keyboardNavigationTimer) {
+        clearTimeout(keyboardNavigationTimer);
+      }
+      keyboardNavigationTimer = setTimeout(function() {
+        keyboardNavigationTimer = null;
+      }, 500);
+    }
+  });
+
+  // Monitor back-to-top clicks (both desktop and mobile versions)
+  $(document).on('click', 'a[href="#"], a[onclick*="scrollTop"]', function() {
+    forceNavigationVisible(1000);
+  });
+
 
   /**
    * Controls the different versions of  the menu in blog post articles 
@@ -56,6 +120,11 @@ $(document).ready(function() {
      */
     if (menu.length) {
       $(window).on("scroll", function() {
+        // Don't hide navigation if it's been forced visible due to anchor navigation or keyboard navigation
+        if (navigationForceVisible || keyboardNavigationTimer) {
+          return;
+        }
+        
         var topDistance = menu.offset().top;
 
         // hide only the navigation links on desktop
@@ -84,6 +153,11 @@ $(document).ready(function() {
     if ($( "#footer-post").length) {
       var lastScrollTop = 0;
       $(window).on("scroll", function() {
+        // Don't hide navigation if it's been forced visible due to anchor navigation or keyboard navigation
+        if (navigationForceVisible || keyboardNavigationTimer) {
+          return;
+        }
+        
         var topDistance = $(window).scrollTop();
 
         if (topDistance > lastScrollTop){
