@@ -14,7 +14,7 @@
 <meta property="og:description" content="大家好，我是溪夜。我对 iOS 音乐领域的了解，始于2011年在琴行见到的初代 iRig（IK Multimedia 生产的第一代 iOS 端吉他音频接口），它直接颠覆了我对电脑音乐制作的认知。对于当年在软件效果器中挣扎的我来说，使用电脑版 Guitar Rig（IK Multimedia 出品的电脑版的软件吉他效果器）意味着需要笨重的笔记本电脑+声卡，但 iRig 竟然只需要一台 iPhone">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-10T08:46:00.000Z">
-<meta property="article:modified_time" content="2021-03-24T08:35:01.890Z">
+<meta property="article:modified_time" content="2026-01-16T15:27:25.104Z">
 <meta property="article:author" content="溪夜">
 <meta property="article:tag" content="iOS 音乐制作">
 <meta name="twitter:card" content="summary">
@@ -172,8 +172,6 @@
 
   <div class="content e-content" itemprop="articleBody">
     <p>大家好，我是溪夜。<br>我对 iOS 音乐领域的了解，始于2011年在琴行见到的初代 iRig（IK Multimedia 生产的第一代 iOS 端吉他音频接口），它直接颠覆了我对电脑音乐制作的认知。<br>对于当年在软件效果器中挣扎的我来说，<strong>使用电脑版 Guitar Rig（IK Multimedia 出品的电脑版的软件吉他效果器）意味着需要笨重的笔记本电脑+声卡，但 iRig 竟然只需要一台 iPhone 甚至廉价的 iPod Touch 即可代替这套繁琐的组合，使用 iOS 版 Guitar Rig 竟然也还能提供说得过去的吉他音色</strong>。<br>自此，iOS 移动音乐制作领域的潜力就在我心中留下了印象。<br>在2019年北京的模块合成器交流方式上，我结识了 Dancing K 老师。作为前 Novation 大中华区代言人，他在 iOS 音乐制作领域深耕多年。基于在 iOS 移动音乐制作上的兴趣，我决定利用业余时间与 Dancing K 老师合作，共同推广移动音乐制作技术。<br>作为对 iOS 音乐制作相关知识的总结，我创作了一篇导论类文章。<strong>希望能为移动音乐制作领域添砖加瓦，更重要的是为后来人提供一套“关键概念”类的参考指南，方便大家更好的发掘 iOS 平台的潜力。</strong></p>
-<p>本文目录：</p>
-<p>[toc]</p>
 <h2 id="iOS-平台能为我提供什么便利？"><a href="#iOS-平台能为我提供什么便利？" class="headerlink" title="iOS 平台能为我提供什么便利？"></a>iOS 平台能为我提供什么便利？</h2><p>为了节约大家的时间，我不会在开篇就讲无聊的使用技巧。如果你没接触过 iOS 平台或不甚熟悉，不如先看看使用 <strong>iOS 平台究竟能为你提供什么</strong>。</p>
 <h3 id="1-1-对初学者-As-an-Entry-Level-Audio-Production-Solution（作为一个入门级音频制作解决方案）"><a href="#1-1-对初学者-As-an-Entry-Level-Audio-Production-Solution（作为一个入门级音频制作解决方案）" class="headerlink" title="1.1. 对初学者 - As an Entry-Level Audio Production Solution（作为一个入门级音频制作解决方案）"></a>1.1. 对初学者 - As an Entry-Level Audio Production Solution（作为一个入门级音频制作解决方案）</h3><h4 id="1-1-1-容易上手"><a href="#1-1-1-容易上手" class="headerlink" title="1.1.1. 容易上手"></a>1.1.1. 容易上手</h4><p><strong>如果推荐初学者去尝试去玩音乐，相信任何桌面级的 DAW，甚至 iOS 上的 Garageband 在开始都有可能让初学者们感到迷惑</strong>。毕竟不是每个人都对音轨、插件、信号流等有概念，虽然现在学习新技能的成本愈发降低，但有些入门级用户就是想不费心的做点开心的旋律出来愉悦一下，并非每个人都有机会发展成深度用户。<br><strong>幸运的是，iOS 上是存在诸多帮助对初学者记录灵感或随性玩音乐的 App 的。</strong><br>【配图】<br>在 1.2.1 小节提到的 Music Memos（音乐备忘录）可以帮助初学者记录灵感，如果有需求，等有时间了也可以导出到稍专业的 App 中进行处理。<br>【配图】<br>Amadeus Code 这类 App 也可以辅助初学者的和声创作等，现在 AI 音乐有关的初创公司国内外都有很多，本质上大家都是在降低玩音乐的门槛。<br>【配图】<br>如果乐理知识都没，就是想轻松的制造出一些音乐愉悦心情，也可以选用 NodeBeat 这种 App 直接生成出并不逊色的声景。</p>
 <h4 id="1-1-2-节省时间"><a href="#1-1-2-节省时间" class="headerlink" title="1.1.2. 节省时间"></a>1.1.2. 节省时间</h4><p><strong>最简单的桌面级音乐制作平台需要多少配件？</strong><br>当然，作为硬件爱好者我可以轻松的告诉你一台电脑就足矣。只需要：装好 DAW，根据电脑的平平台选用 ASIO（或 WASAPI）或 CoreAudio，配合电脑键盘虚拟的 MIDI Keyboard，弄个便宜的耳机接上去，也不是不能玩。<br><strong>但如此折腾下来，跟直接在 iPad 上轻松的打开 Garageband 相比，究竟谁比较省事？</strong><br>而且如上一小节所提到的，iOS 平台 App 还有很多超级容易上手的，这也是桌面端攒机无法比拟的。</p>

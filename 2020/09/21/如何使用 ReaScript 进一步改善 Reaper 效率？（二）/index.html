@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://xiye.art/images/%E6%89%A7%E8%A1%8C%E5%89%8D.png">
 <meta property="og:image" content="http://xiye.art/images/%E6%89%A7%E8%A1%8C%E5%90%8E.png">
 <meta property="article:published_time" content="2020-09-21T08:46:00.000Z">
-<meta property="article:modified_time" content="2021-01-01T18:38:36.290Z">
+<meta property="article:modified_time" content="2026-01-16T15:27:29.193Z">
 <meta property="article:author" content="溪夜">
 <meta property="article:tag" content="REAPER">
 <meta name="twitter:card" content="summary">
@@ -190,8 +190,6 @@
 <li>对 REAPER 的功能比较了解。</li>
 </ul>
 </blockquote>
-<p>本文目录：</p>
-<p>[toc]</p>
 <h2 id="缘起：对暴雪声音设计师工作流的思考"><a href="#缘起：对暴雪声音设计师工作流的思考" class="headerlink" title="缘起：对暴雪声音设计师工作流的思考"></a>缘起：对暴雪声音设计师工作流的思考</h2><h3 id="1-1-Wwise-Tour-2016-Blizzard-Overwatch"><a href="#1-1-Wwise-Tour-2016-Blizzard-Overwatch" class="headerlink" title="1.1. Wwise Tour 2016 - Blizzard Overwatch"></a>1.1. Wwise Tour 2016 - Blizzard Overwatch</h3><p>在 Wwise Tour 2016 中，守望先锋的开发者分享了关于音频设计的内容。<br>当他们演示 TED 引擎时，通过按住 Record 按钮录制语音，引擎就自动完成了一系列调用。其所执行的步骤大概是是完成录音、调用 REAPER 进行处理、调用 LMB（现在的 AMB）进行响度处理、调用 Wwise 生成 WEM 等。要知道去年我对这种自动化流程还不太熟悉，这种流畅的工作流让我印象非常深刻。</p>
 <h3 id="1-2-我的思索"><a href="#1-2-我的思索" class="headerlink" title="1.2. 我的思索"></a>1.2. 我的思索</h3><p>他们调用 REAPER 的方法我非常感兴趣，因当时知识有限，不知还有命令行的用法（REAPER、LMB、Wwise 都支持 Command Line），所以甚至想到了会不是走 Win32 API 调用 REAPER 时做到隐藏页面再调 ReaScript API 来做到的……<br>因为去年只会 Python，就想着怎么用它来玩 ReaScript，所以<strong>在探索过程中找到了 reapy</strong>，发现它大大增加了 Python 程序员使用 ReaScript 时的易用性。<br><strong>这段探索故事的结尾，正是本篇文章的来源。</strong></p>
 <h2 id="为什么要用-reapy？"><a href="#为什么要用-reapy？" class="headerlink" title="为什么要用 reapy？"></a>为什么要用 reapy？</h2><h3 id="2-1-ReaScript-支持的三种脚本语言对比"><a href="#2-1-ReaScript-支持的三种脚本语言对比" class="headerlink" title="2.1. ReaScript 支持的三种脚本语言对比"></a>2.1. ReaScript 支持的三种脚本语言对比</h3><p>在上篇文章中我们提到，除了支持 C/C++，<strong>ReaScript 支持的三门脚本语言分别是自有的 EEL、Lua 及 Python。</strong><br>对于使用 Python 来进行 ReaScript 开发来说，除了会性能略差于 EEL 和 Lua，使用 Tkinter 这种 GUI 框架也容易出现问题（尤其是 macOS 中）。但我们也知道，<strong>Python 有着海量的第三方资源，reapy 正是我挖掘到的一个很棒的 ReaScript Wrapper。</strong><br>首先我们来看看这三种脚本语言的 API 调用名称，它们是略有区别的，拿测试 API 连通性的 <code>APITest()</code> 举例：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EEL2:</span><br><span class="line">APITest();</span><br><span class="line"></span><br><span class="line">Lua:</span><br><span class="line">reaper.APITest()</span><br><span class="line"></span><br><span class="line">Python:</span><br><span class="line">RPR_APITest()</span><br></pre></td></tr></table></figure><br>可以发现，只有 EEL 保持了最简略的 API 调用名称。而 Lua 需要加入 <code>reaper.</code> 的前缀（当然，对于 Lua 我们可以通过加入一行 <code>local r = reaper</code> 让脚本写法变成 <code>r.APITest()</code>，<strong>这也是 Moy 老师文章中所提到的小技巧，与 Python 的 as 重命名同理</strong>）。<br>但是对于 Python 的 API 而言，这个 RPR_ 的讨厌前缀就很难在使用时去掉了。而这篇文章所介绍的 reapy 却可以轻松去掉这个前缀，这只是它的一个小优点。</p>

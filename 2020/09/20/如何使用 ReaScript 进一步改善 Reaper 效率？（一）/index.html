@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://xiye.art/images/%E8%84%9A%E6%9C%AC4.png">
 <meta property="og:image" content="http://xiye.art/images/%E8%84%9A%E6%9C%AC5.png">
 <meta property="article:published_time" content="2020-09-20T08:46:00.000Z">
-<meta property="article:modified_time" content="2021-01-01T18:36:27.470Z">
+<meta property="article:modified_time" content="2026-01-16T15:27:32.931Z">
 <meta property="article:author" content="溪夜">
 <meta property="article:tag" content="REAPER">
 <meta name="twitter:card" content="summary">
@@ -198,8 +198,6 @@
 <li>掌握基本的 GUI 设计知识。</li>
 </ul>
 </blockquote>
-<p>本文目录：</p>
-<p>[toc]</p>
 <h2 id="ReaScript-基础"><a href="#ReaScript-基础" class="headerlink" title="ReaScript 基础"></a>ReaScript 基础</h2><h3 id="1-1-补完-REAPER-效率链的最后一环"><a href="#1-1-补完-REAPER-效率链的最后一环" class="headerlink" title="1.1. 补完 REAPER 效率链的最后一环"></a>1.1. 补完 REAPER 效率链的最后一环</h3><p><strong>既然 REAPER 现有的东西已经这么厉害，为什么还要学 ReaScript 来自己写脚本？</strong><br>其实我们很容易发现，在声音设计或者音乐混音的工作中，<strong>很多需求都需要去定制才能做到</strong>，只用现有的脚本和功能是远远不够的。<br>举个例子，在 WAAPI 中有通过“制表符分割文件”进行自动导入音频文件的 API，即通过文本文件中定义的文件名、文件路径、属性等信息，自动导入并创建 Wwise 中的对象。但显然，REAPER 本身没有功能能做到从文件中读取信息并创建轨道且设置相关属性的功能。<br><strong>我们先用脚本小白的思维做一下探索</strong>，试着搜索一下有没有人已经做过类似的脚本。</p>
 <ul>
 <li>X-Raym 曾做过一个 <code>Import tracks from file</code> 脚本，可以快速的从 txt 或 csv 文件中创建音轨，但这个脚本做不到同时导入音频文件，只能快速创建音轨标题。</li>

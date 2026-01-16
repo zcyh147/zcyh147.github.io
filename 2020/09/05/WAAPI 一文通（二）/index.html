@@ -15,7 +15,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://xiye.art/images/wwisecore.png">
 <meta property="article:published_time" content="2020-09-05T08:46:00.000Z">
-<meta property="article:modified_time" content="2020-12-21T14:03:00.710Z">
+<meta property="article:modified_time" content="2026-01-16T15:27:53.608Z">
 <meta property="article:author" content="溪夜">
 <meta property="article:tag" content="音频编程">
 <meta name="twitter:card" content="summary">
@@ -184,8 +184,6 @@
 <li><strong>因为 WAAPI 的功能也是随版本更新逐渐添加的，建议安装最新版 Wwise 进行学习。</strong>当报错信息提示 “The procedure URI is unknown.” 时，就代表你的当前 WAAPI 版本并不支持此 API。</li>
 </ul>
 </blockquote>
-<p>本文目录：</p>
-<p>[toc]</p>
 <h2 id="wwise-core-概览"><a href="#wwise-core-概览" class="headerlink" title="wwise.core 概览"></a>wwise.core 概览</h2><p><img src="/images/wwisecore.png" alt="wwisecore"><br><strong>作为 WAAPI 中最大的模块（以我在上一篇提出的分类逻辑），<code>wwise.core</code> 承载着最多的功能。</strong>除了它与 <code>soundengine</code> 模块外，执行类剩余的几个模块的功能相对简单，所以 <code>wwise.core</code> 会成为我们投入精力最多的一个部分。<br>简单的看一下上面的思维导图，不难看出本模块的功能主要针对 Wwise 音频设计部分，而不是对声音引擎。这也代表<strong>如果你有一些对 Wwise 操作级的优化想法，这会是对你最为重要的章节。</strong><br>注意：图中划线的部分代表 WAAPI 中已被新功能替代的部分。</p>
 <h2 id="audio（导入音频并创建对象）"><a href="#audio（导入音频并创建对象）" class="headerlink" title="audio（导入音频并创建对象）"></a>audio（导入音频并创建对象）</h2><h3 id="功能简介"><a href="#功能简介" class="headerlink" title="功能简介"></a>功能简介</h3><p><code>audio</code> 分支下有 <code>import</code> 和 <code>importTabDelimited</code>，根据名字容易看出这是负责导入音频资源的功能。这两者的区别是<strong>前者只能导入音频并创建对象</strong>，<strong>后者为根据“制表符分割文件”中所定制的规则导入音频并执行相关操作</strong>。<br>所谓制表符分割文件导入文件，即<strong>在音频文件导入时使用一个制表符分割的文本文件读取提前规定的被导入相关属性（例如音频文件在本机的储存位置、Wwise 中它要所产生对象在各个层级〔各种容器、Event、Output Bus〕的位置、设定属性值和引用、Switch 指派子元素等）。</strong><br>这种文本文件可使用 Excel 或者其它电子表格工具生成，其中的第一行所填写的内容定义了每列的标题所定义的属性，每列中的内容决定了在 Wwise 中建立什么内容。</p>
 <h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>不难看出，<code>audio</code> 分支是最重要的资源导入分支，<strong>也是大部分实用性 WAAPI 程序的起点。</strong>这类工具的功能致力于帮助减少人工导入大量文件时带来的繁琐操作，同时根据所定义的信息能够自动完成层级、属性、流播放等设定。<br><strong>如果想通过 <code>import</code> 导入音频文件，就需要再文件名上定义其在工程中的各种位置和属性。为此，要建立一个词典对应文件名中的代号，以减少文件名过长带来的报错可能。</strong><br>因为操作系统对于文件名和路径的长度有所限制，所以 Wwise 中的文件名长度要受此约束，理论只支持最大256字符长度文件名的资源导入。再加上系统路径所占用的字符数，最后往往给不到用户那么多可用字符，也会直接带来错误。<br>我们也可利用 <code>importTabDelimited</code> 通过制表符分割文件完成导入工作，因为需在 Excel 中定义符合 Wwise 可识别信息规则的制表符分隔 txt 文件。对于这个步骤其实也可进行优化。例如可通过 VBA 给声音设计师创建一个在 Excel 中快速对制表符分割文件结构构建的程序，或使用 Python 创建一个更完备的 GUI 程序以完成制表符分割文件的快速创建等。</p>
