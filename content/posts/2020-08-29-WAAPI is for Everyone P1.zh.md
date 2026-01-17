@@ -1,0 +1,343 @@
+---
+title: 人人都能用 WAAPI（一）概述
+date: 2020-09-01T16:46:00+08:00
+tags:
+  - 音频编程
+aliases:
+  - /2020/08/29/WAAPI 一文通（一）/
+---
+大家好，我是溪夜。
+去年下半年我接触到了 WAAPI（Wwise Authoring API），作为头脑不怎么灵光的非专业程序员，看到 WAMP、JSON 等陌生概念直犯晕。毕竟除了官方文档，只有极少数的开发者分享视频、文章和项目可参考。因为不太好意思麻烦别人，只好自己在这一年中断断续续的闷头尝试，踩了不少坑。
+引用 Linus 的一句名言：
+> In open source, we feel strongly that to really do something well, you have to get a lot of people involved.  --- Linus Torvalds
+
+**思想只有被传播才能体现价值**，为了体现开源精神，决定分享一系列 WAAPI 指南给大家。《人人都能用 WAAPI》系列文则更贴近对官方文档的补充，会更加友好且详细。
+对初学者友好不代表从零讲起，人人都能用 WAAPI 只是代表大家都有潜力去掌握这门优秀的技能。**因为个人习惯使用 Python，所以前置知识只讨论与其相关的内容。你也可以使用 WAAPI 支持的其他语言来进行远程调用（使用 C# 调用 WAAPI 其实也很简单）。**
+> 本系列文章阅读需要的前置知识：
+> - 会配置开发环境，掌握 Python、Anaconda、pip、VS Code、PyCharm 等的安装使用。
+> - 掌握简单的 Python 语法。
+> - 对 Wwise 功能有较全面的认知，因为 WAAPI 涉及的功能比较广。
+> - 对现有 Wwise 工作流有优化的构思。
+> - 对思维导图有些许认知。
+
+## 为什么要用 WAAPI？
+### 1.1. 请问你在用 Wwise 时怀疑过以下人生吗？
+- 能不能少一些点击和拖拽操作？？
+- 成百上千（3A 项目上万也正常）的资源导入后做播放规则想死怎么办？？
+- 使用 Game Sync、Event、SoundBank 时能不能智能连接逻辑？？
+- 不能把 DAW 和 Wwise 联动吗？？
+- 如何联动 CI 系统优化持续集成管线？？
+- etc.
+
+### 1.2. WAAPI 的目的：解放繁琐的工作流
+如果你有上面的烦恼，WAAPI 对你无疑是必备利器。
+作为 Wwise 2017.1 中的重要的功能补充，WAAPI 诞生就被赋予了解决一切繁琐的使命。
+从简单操作中的获取工程信息、导入音频文件、设定容器层级，到声音引擎级的发送事件、设定 Game Sync 等操作，WAAPI 均可完成。是 Wwise 音频设计师工作流改进中的必备一环，**利用好 WAAPI，能够节省大量时间，让声音设计师有更多精力放在艺术创作上。**
+在本文发布的当下，可能仍有公司未对技术音频（Game Audio Programmer / Technical Sound Designer）这个职位进行配备。如果碰巧你是这些公司的雇员，本文会对你很有帮助。**对工作中重复和可优化的步骤进行不断优化，这才是智者的工作模式。与其等待戈多，不如自己动手。**
+### 1.3. 官方的资料不够全吗？
+Wwise 的官方文档是目前所有音频中间件中内容最完善，且本地化做的最好的一个。但文档中关于 WAAPI 的内容，对阅读对象的要求**更偏向是有一定技术背景的人**，存在些许门槛也是必然的。这系列文章的写作目的正是针对这一点，希望能对官网文档做出有用的补充，
+官方博客中也有关于 WAAPI 好文，学有余力的朋友可以抽空翻阅。
+## 妙用思维导图整理 WAAPI
+### 2.1 通过导图理清 WAAPI 脉络
+思维导图作为一个重要的学习工具，在长达七八年中曾承载过我无数的发散思维。
+如下图所示，** WAAPI 这种点语法套大饼形式的 API（例如重要的查询 API 为 ak.wwise.core.object.get）在文档中检索时非常不便。**
+![繁琐的API](/images/%E7%B9%81%E7%90%90%E7%9A%84API.png)
+
+那么有什么办法能够优雅的解决这个需求呢?
+Bingo！思维导图一下出现在我脑中。
+我通过对 WAAPI 进行逻辑归纳并整理为导图，以 ak.wwise.core.object.get 为例：
+1. 忽略 ak（复用时可把 ak 视为等同为导图中心），分别把其拆为 wwise.core - object - get 形式的节点。
+2. 在此基础上，将 API 按功能重新排布顺序，并使用外框整理同类型的功能。
+
+![导图1](/images/%E5%AF%BC%E5%9B%BE1.png)
+导图概览
+
+![导图2](/images/%E5%AF%BC%E5%9B%BE2.png)
+局部样例
+
+### 2.2. 导入知识库进行知识完备
+在此基础上就已完成 WAAPI 逻辑体系的初级构建，随后导入 MarginNote 3，在我的 Wwise 知识库中进行相关完善。
+![导图3](/images/%E5%AF%BC%E5%9B%BE3.png)
+MN3 中的知识完备版
+
+至此，WAAPI 的整体脉络清晰的出现在我眼前。对于 API 这种工具性极强的存在，用合理逻辑建立的“武器库”是高效利用的前提。这也是更最符合我自己理解记忆的方法，大家亦可根据自己的思维习惯选择适合自己的整理方法。
+**这个导图我不会直接分享，**原因很简单：看我的描述相信大家都能做出一样的导图，而知识库版本导图，这系列文章正是基于它的展开（会比导图详细的多），分享并没有什么意义。
+相信有心的同学也会根据自己的想法重做一次，用什么思路无所谓。幕布和 XMind 这种导图工具或者笔记类软件均可，**重点是亲自上手实现自己的版本，否则毫无意义。**
+
+## 系列文章架构
+了解我的 WAAPI 分类方法后，我们聊聊这系列文章的编写架构。
+因 WAAPI 功能分为 Functions（执行）与 Topics（订阅）两种，两者的区别会在下面的章节中讲解。我会以这两者为主干，对下属分支进行拆分编写（注：我仍然省略了开头的“ak.“） 。
+按照字数来划分，预计架构如下：
+1. 概述
+2. wwise.core（2-4为 Functions 类）
+3. wwise.ui, wwise.debug, wwise.waapi
+4. soundengine
+5. wwise.core, wwise.debug, wwise.ui（Topics 类）
+6. 在游戏引擎中调用 WAAPI
+7. 完整实例
+
+## WAAPI 基础
+### 4.1. 什么是 WAAPI？
+WAAPI（Wwise Authoring API）作为 Wwise 的重要组件，通过调用 API 即可让 Wwise 直接执行大量操作，而不必通过传统方式操作鼠标键盘达成同样目的。
+它的可控制范围很广，从 Wwise 的界面层级控制（视图、选项、命令）到核心功能控制（例如快速添加音频文件），到声音引擎层级的功能（RTPC Value、Post Event 等）均可完成。
+文档中关于 WAAPI 的简介：
+https://www.audiokinetic.com/zh/library/edge/?source=SDK&id=waapi.html
+### 4.2. WAAPI 支持的语言类型和使用方式
+#### 可用的编程语言
+WAAPI 可通过 C++、C#、JavaScript、Python 等多种语言调用，对于初学者来说后三者都比较简单（其中 Python 需3.6以上版本，Python 2使用起来比较麻烦，并不推荐）。如果没有在插件中调用 WAAPI 的需求，可不考虑使用 C++。
+#### 使用方式
+WAAPI 提供三种调用方式：WAMP、HTTP POST、Wwise 插件中调用。
+通常情况下我们只会使用 WAMP，因为只有这种方式才能支持执行和订阅两种类型的使用方法。
+那么什么是 WAMP 呢？
+这是一种通过 WebSocket 进行通信的方式。如果对网络通信原理没有了解的话，可以把它简单理解成是通过网络传输信息的方法，它需要 IP 地址和端口来满足通讯需求，所以 WAAPI 的使用过程中需要提供这两个参数。
+当我们的程序通过 WAMP 和 Wwise 建立连接后，才能执行之后所需的操作。
+官方文档中关于调用方式的介绍：
+https://www.audiokinetic.com/zh/library/edge/?source=SDK&id=waapi_gettingstarted.html
+### 4.3. 配置开发环境
+> 出于个人的写作习惯，开发环境这种重复造轮子的事情我不会再写一次。但会分享给大家较好的教程连接，请大家根据文内介绍的方法进行开发环境配置，顺便感谢文中作者的无私分享！
+
+**因为 Conda 中并没有 WAAPI 所需的 waapi-client 包，所以初学者懒得折腾 Anaconda 的话，建议直接用 pip 安装 waapi-client。**
+如果跟我一样使用 Anaconda 管理开发环境，**我推荐使用官方文档中的方法安装 Conda 中没收录的包。即先在环境中安装 pip ，再通过 Conda 里的 pip 管理 Conda 中没有的包。**此部分文档我在下方有附上链接。
+（初学者请不要看这句话）至于 `conda skeleton pypi package` 再 `conda build package` 这种 Conda 装 pypi 的方法我没试过，就不在这里讨论了。
+#### 安装 Anaconda
+https://segmentfault.com/a/1190000022797661
+#### 配置 Anaconda 并在本地环境中通过 pip 添加 waapi-client
+https://zhuanlan.zhihu.com/p/25198543
+https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#installing-non-conda-packages
+**注意：使用 pip 的同学可直接在 Python 3 环境下执行 `pip install waapi-client`**
+#### 配置 VS Code 开发环境
+https://zhuanlan.zhihu.com/p/30324113
+#### 在 Wwise 中开启 WAAPI 支持
+https://www.audiokinetic.com/zh/library/edge/?source=SDK&id=waapi_prepare.html
+### 4.4. Functions（执行类）与 Topics（订阅类）在功能上的区别
+> 这里“执行类”和“订阅类”属于个人的称呼习惯，“执行类”代表功能为执行某些操作的 API，“订阅类”为执行后等待某些结果返回的 API。在 Wwise 官方文档中的对应术语为“远程调用”和“发布&订阅”。
+
+Functions（执行类）：
+与名字相同，其中所有的 API 均为执行具体的操作。
+通过代码调用某个 API 后，会执行一次对应的操作。WAAPI 的三种使用方式中都可完成对“执行类”接口的调用，但 HTTP POST 方式下不具有最佳性能。
+Topics（订阅类）：
+当调用“订阅类”接口后，程序会等待 Wwise 中对应的动作发生。如果订阅了一个对象创建的动作，那只有动作被执行后才会收到发回的信息。这种调用方法只有 WAMP 能够做到，其余两种使用方法无法完成。
+### 4.5. 什么是 JSON 与 WAAPI 文档的阅读方法 
+#### JSON 的概念
+非专业程序员出身的人（比如我本人）第一次看到 WAAPI 的参数时都会奇怪，JSON 到底是什么东西？
+**JSON（JavaScript Object Notation）是一种轻量的数据交换格式，用独立的文本格式在编程语言外存储和表示数据，本质上就是被格式化的字符串。**如果有同学熟悉 XML 的格式，看到 JSON 应该比较眼熟这种定义格式。
+之所以要了解它，是因为在远程调用 WAAPI 时无论传入参数还是返回值都要使用此类格式，**作为阅读文档之前的基础，我们先要花点时间搞清它。**为了方便理解，我们先看一下简单的例子。
+#### 以 `ak.wwise.core.object.create` 为例详解 Arguments 和 Result 的含义
+我们先看一下 `create` 的文档，会发现网页中存在两个表格。
+![参数1](/images/%E5%8F%82%E6%95%B01.png)
+文档页面中的 Arguments 表格
+![结果1](/images/%E7%BB%93%E6%9E%9C1-1.png)
+文档页面中的 Result 表格
+可见表格中三列的分别为参数名、参数类型、功能描述。
+我们都知道，定义了参数且设定 return 语句的函数在使用过程中可以传入参数与获得返回值。**这两个表中，Arguments（参数）即函数调用时要传入的参数，Result（结果）则是它完成远程调用后返回的结果，并且如本小节开头所述，均为 JSON 格式。**
+请注意，**在 Arguments（参数）底部备注了星号代表必须提供的参数，这些参数必须提供，不带星号的参数则根据所需选填。**
+我们先看 Arguments 表格，其中有三种代表性的参数模式：
+1. `name *` 行只需要一个 string（字符串）作为参数用来定义名字，即在 JSON 参数中只需要提供一个字符串格式的名字即可。但为什么 `parent *` 却有四行参数？请看 `parent *` 的第一行表格，发现是 `any of:`，这就代表其实我们可选用下面三种参数类型的任意一种来定义参数。我们仔细观察，果然下面三行分别为父级的名字（需全局唯一）、GUID、父级完整路径。
+2. `notes` 行没有星号，这是一个非必须参数，由此可知在使用 `create` 时我们可根据需求决定是否传入笔记。
+3. `children` 可能让大家产生疑问，为什么表示方法和前面不是一个模式。其实因为它是一个数组，需要传入的参数要写在数组内。所以必须的两项参数 `children[...].type *` 和 `children[...].name *` 中的 type 和 name 实际上是要写在数组当中的。
+
+对于 Result（结果）表来说，大多数情况下只要你能弄明白传入的 Arguments，一般都能猜出来会有什么返回值。比如当你使用 `create` 创建了一些对象，根据自然逻辑来判断， Wwise 应该会返回已创建的对象名称、GUID、层级信息。毕竟如果创建不成功肯定会报错，所以创建成功后应该返回刚创建的对象才符合逻辑。观察 Result 表后发现确实如此，的确是这三条返回值。
+#### 通过 `ak.wwise.core.object.create` 理解 JSON
+在上小节中理解完文档中参数和返回值表格的含义后，你肯定会想，这些参数需要怎么写才能让 WAAPI 正确接收呢？
+为此，我们看一下本功能所使用的参数与返回值在实际中的样子，它们就是以 JSON 格式定义的。
+```python
+# 执行 ak.wwise.core.object.create 所需的参数
+args = {
+    "parent": parent_guid, 
+    "type": "Sound", 
+    "name": "Simple_SFX"
+}
+
+# 执行 ak.wwise.core.object.create 并传入 args 后获得的结果
+result = {
+    "id": object_guid, 
+    "name": "Simple_SFX"
+}
+```
+由例子可见，**实际上 JSON 格式在 Python 中相当于一个字典。**但与字典不同的是 JSON 内所有引号都需要使用双引号，而且 JSON 块应该为字符串类型。**不过在 Python + WAAPI 的环境下似乎对这两条规则并没有进行严格校验**，在使用过程中不必使用 Python 的 `json` 模块进行格式转换，直接按照字典格式书写也可正常工作。
+![对照表](/images/%E5%AF%B9%E7%85%A7%E8%A1%A8.png)
+对照 Python 和 JSON 格式的对照表，亦可看出两者在数据结构上的对应关系。在使用 WAAPI 时这会是我们主要的操作对象，根据文档合理的设定参数才能获得我们想要的结果。
+#### 如何把 JSON 的语法表格式化以方便阅读？
+WAAPI 的参数文档使用 JSON 来进行定义，这类格式的可读性非常不好。为了方便在使用 WAAPI 更清晰的参考各种参数。**我们需要对其进行格式化，以把 JSON 彻底拆成方便阅读的形态。**
+下面是 `create` 的传入参数语法：
+![参数2](/images/%E5%8F%82%E6%95%B02.png)
+
+可读性非常的糟糕。**在此我们使用 JSON 格式化工具进行操作，**对于这个需求，个人习惯使用 JSON Editor（https://jsoneditoronline.org/）
+还记得上图混乱的格式吗？用 JSON Editor 处理后会变的非常清晰！
+![JSON1](/images/JSON1.png)
+
+当 Arguments 经过格式化后，可清晰看到 required 中注明了所需参数，properties 中提供了各种参数的类型和描述。下面还有两个属性。其中 `localDefinitions` 里实际就是上面提过的 `children` 里的定义，作为子类放进了这里。而 `patternProperties` 是通过 @propertyName 设置对象属性时可能出现的值的类型。
+
+![JSON2](/images/JSON2.png)
+
+Result 经过格式化后也是一样，现在清晰可见其默认的三个返回值：GUID、创建的子对象、名称。在经过格式化后，JSON 无论是作为参数还是返回值来说都更易读了。
+**当你想要调用某个 WAAPI 功能时，只需要在 JSON 的框架下依据文档修改所需的传入参数，再进行远程调用即可。**
+如果想要清晰的理解 JSON 和参数之间对应的关系，一开始需要多阅读示例。我建议大家闲暇之余阅读 Wwise Authoring API Examples Index 中的所有例子。因其书写很简约，建议读透本文的描述再去阅读。
+下面我们看一下参数的在完整程序中的用法。在官方文档中有个例子，功能是创建一个 Random Container 并且在其中同时创建两个 Sound SFX，这是它所提供 Arguments 的正确使用方法：
+```python
+# 1. 示例代码里提供的 Arguments
+{
+    # 父级的 GUID、类型、名称、属性值
+    "parent": "{7A12D08F-B0D9-4403-9EFA-2E6338C197C1}", 
+    "type": "RandomSequenceContainer", 
+    "name": "Boom", 
+    "@RandomOrSequence": 1, 
+    # 子级新对象的名称与类型
+    "children": [
+        {
+            "type": "Sound", 
+            "name": "A"
+        }, 
+        {
+            "type": "Sound", 
+            "name": "B"
+        }
+    ]
+}
+
+# 2. 真实应用情况下的 Arguments
+from waapi import WaapiClient, CannotConnectToWaapiException
+
+try:
+    with WaapiClient() as client:
+        # 把 JSON 格式的 Arguments 赋值给 args
+        args = {
+            "parent": "{7A12D08F-B0D9-4403-9EFA-2E6338C197C1}", 
+            "type": "RandomSequenceContainer", 
+            "name": "Boom", 
+            "@RandomOrSequence": 1, 
+            "children": [
+                {
+                    "type": "Sound", 
+                    "name": "A"
+                }, 
+                {
+                    "type": "Sound", 
+                    "name": "B"
+                }
+            ]
+        }
+        # 执行远程调用，第一个参数为 API 名，第二个为传入的 JSON 参数
+        client.call("ak.wwise.core.object.create", args)
+        
+except CannotConnectToWaapiException:
+    print("Could not connect to Waapi: Is Wwise running and Wwise Authoring API enabled?")
+    
+# 3. 远程调用结束后控制台返回的结果，包括父级 GUID、父级容器名、子级 GUID、子级名称
+{
+    "id": "{66666666-7777-8888-9999-AAAAAAAAAAAA}", 
+    "name": "Boom", 
+    "children": [
+        {
+            "id": "{46813545-2168-3547-8328-681AB678D6F5}", 
+            "name": "A"
+        }, 
+        {
+            "id": "{68465134-2548-2377-3541-321354318ABD}", 
+            "name": "B"
+        }
+    ]
+}
+```
+#### Topics（订阅类）中的参数为什么会有 Options 和 Publish？
+如果你仔细看过文档，会发现 Topics 类中的参数有所不同，**它们的文档中只有 Options 和 Publish，这两个新参数和 Functions 类的 Arguments、Result 有什么区别吗？**
+其实意思差不多，大家要知道 **Topics 类的功能实现是基于话题发布时被执行的回调函数。**所以其中的 Options 用来定义在回调函数内的返回值类型，从而避免不必要的查询。而 Publish 可理解为 Result 的另一种形式，本质上还是用 JSON 格式返回信息，只不过返回的是被订阅话题被更改后所发布的信息。
+另外，在 Functions 类中的也有特例，比如 `ak.wwise.core.audio.importTabDelimited`、`ak.wwise.core.object.get`、`ak.wwise.core.profiler.getBusses`、`ak.wwise.core.profiler.getVoices`，它们同时拥有 Arguments 和 Options，所以在使用的时候需要传入查询范围（Arguments）和查询选项（Options，可选）两个参数，这部分功能会在 `wwise.core` 分支再加以讨论。
+### 4.6. 来一杯 Hello Wwise！
+说了这么多理论，现在“麻烦给我的爱人来一杯 Hello Wwise 吧！”
+#### 确定使用哪个 API
+很明显，对于 Hello World 这种需求应该使用 Functions（执行类）完成。
+通过寻找，我们发现一条美妙的 `ak.soundengine.postMsgMonitor` 可以完成需求。
+#### 实现代码
+为了方便理解，我直接在代码里写上详细的注释，请大家对照每行的代码来阅读。
+```python
+from waapi import WaapiClient, CannotConnectToWaapiException
+
+# Python 的异常处理 try…except… 语句，为 WAAPI 连接不上的情况增加了错误输出。
+try:
+    # 通过默认的地址连接 Wwise，如果想连接本地不同的 Wwise 可在这里修改对应的端口
+    with WaapiClient() as client:
+
+        # WAAPI 传入和传回的参数都使用 JSON 格式，我们使用字典定义一段要打印出的信息为 "Hello Wwise!"
+        print_args = {
+            "message": "Hello Wwise!"
+        }
+        # 远程调用 ak.soundengine.postMsgMonitor，并传入刚才设定好的参数
+        client.call("ak.soundengine.postMsgMonitor", print_args)
+
+except CannotConnectToWaapiException:
+    print("Could not connect to Waapi: Is Wwise running and Wwise Authoring API enabled?")
+```
+#### 执行效果
+运行脚本之前记住点击 Start Capture 来让 Profiler 开始采集信息。当脚本运行后，我们可获得以下信息：
+![结果1](/images/%E7%BB%93%E6%9E%9C1.png)
+在 Logs 的 WAAPI 选项卡中，可看到产生了 WAMP 类型连接。
+
+![结果2](/images/%E7%BB%93%E6%9E%9C2.png)`children`
+在 Profiler 中可看到打印出的信息 "Hello Wwise!"
+
+## WAAPI 两种应用（注释写到每一行）
+### 5.1. Functions（执行类）示例
+#### 不带参数
+通过 getInfo 功能获得当前工程的信息
+```python
+from waapi import WaapiClient, CannotConnectToWaapiException
+from pprint import pprint
+
+# 略
+try:
+    # 通过默认的地址连接 Wwise
+    with WaapiClient() as client:
+        
+        # 调用 ak.wwise.core.getInfo 来获取 Wwise 的全局信息并存到 result 中
+        result = client.call("ak.wwise.core.getInfo")
+        # 为了避免 print 单行打印，需通过 pprint 来打印刚得到 JSON 结果
+        pprint(result)
+
+except CannotConnectToWaapiException:
+    print("Could not connect to Waapi: Is Wwise running and Wwise Authoring API enabled?")
+```
+代码执行后结果如下，如所希望的返回了工程信息
+![结果3](/images/%E7%BB%93%E6%9E%9C3-1.png)
+
+#### 带参数
+请参考“来一杯 Hello Wwise！”的例子
+### 5.2. Topics（订阅类）
+通过 ak.wwise.core.object.nameChanged 功能订阅工程中对象名称被修改时的信息，当有对象被修改时返回新、旧名字及设定的返回值类型（本例中为 type）
+```python
+from waapi import WaapiClient, CannotConnectToWaapiException
+from pprint import pprint
+
+# Python 的异常处理 try…except…else… 语句
+try:
+    client = WaapiClient()
+
+except CannotConnectToWaapiException:
+    print("Could not connect to Waapi: Is Wwise running and Wwise Authoring API enabled?")
+
+else:
+    # 建立 on_name_changed() 准备在订阅中作为回调函数，用来接收字典形式的返回参数
+    def on_name_changed(*args, **kwargs):
+        # 获取对象类型
+        obj_type = kwargs.get("object", {}).get("type")
+        # 获取之前的名字
+        old_name = kwargs.get("oldName")
+        # 获取新名字
+        new_name = kwargs.get("newName")
+
+        # 使用 format 格式化函数进行输出信息（其中的{}代表 format() 函数中的对应变量），告知用户XXX类型的对象从 A 改名到了 B
+        print("Object '{}' (of type '{}') was renamed to '{}'\n".format(old_name, obj_type, new_name))
+        # 执行完成后断开 WAMP 连接，当然，要是想一直监控信息也可以不断开
+        client.disconnect()
+
+    # 订阅所需主题，传入回调函数，使用选项 type 以让名称修改时传回的字典里直接有被修改的对象类型
+    handler = client.subscribe("ak.wwise.core.object.nameChanged", on_name_changed, {"return": ["type"]})
+
+    # 打印信息，提醒用户已经订阅了 ak.wwise.core.object.nameChanged 并建议用户执行重命名操作以验证脚本功能
+    print("Subscribed 'ak.wwise.core.object.nameChanged', rename an object in Wwise")
+```
+代码执行后结果如下，如所希望的告知了对象的名称变化及类型
+![结果4](/images/%E7%BB%93%E6%9E%9C4.png)
+
+## 接下来讲什么？
+在第二期中，会就执行类里比较重要的 wwise.core 分支进行分享。官网对于执行类的 API 大多提供了例子，但我可能会通过结合起来的小实例来进行演示，这样有便于大家更快掌握。如喜欢本文，请持续关注。

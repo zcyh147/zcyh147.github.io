@@ -1,0 +1,177 @@
+baseURL = 'https://xiye.art/'
+title = "Xiye's Blog"
+theme = "PaperMod"
+defaultContentLanguage = "en"
+
+[pagination]
+  pagerSize = 15
+
+# Global params
+[params]
+  author = "Thomas Wang (Xiye)"
+  displayFullLangName = true
+  
+  # Theme Settings
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = true
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = true
+  tocopen = false
+
+  [params.assets]
+    disableHLJS = false
+    disableFingerprinting = false
+
+# Taxonomies
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  series = "series"
+
+# Output formats for search
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# ========================================
+# English Language Configuration
+# ========================================
+[languages.en]
+  languageName = "English"
+  languageCode = "en"
+  weight = 1
+  title = "Thomas's Blog"
+  
+  [languages.en.params]
+    description = "Xiye's Audio Blog"
+    
+    [languages.en.params.homeInfoParams]
+      Title = "Welcome to Thomas's Blog"
+      Content = """
+Hi, this is Thomas (Xiye). I'm documenting my audio learning notes in this blog since 2020. Based on the clarity or ambiguity of the expressions in my posts, you can tell how far I was from the answer at that time.
+"""
+
+  # Social Icons for English
+  [[languages.en.params.socialIcons]]
+    name = "github"
+    url = "https://github.com/zcyh147"
+
+  [[languages.en.params.socialIcons]]
+    name = "twitter"
+    url = "https://x.com/zcyh_147"
+  
+  [[languages.en.params.socialIcons]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/xiye147"
+  
+  [[languages.en.params.socialIcons]]
+    name = "rss"
+    url = "/en/index.xml"
+
+  # English Menu
+  [[languages.en.menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
+
+  [[languages.en.menu.main]]
+    identifier = "archive"
+    name = "Archive"
+    url = "/archives/"
+    weight = 20
+
+  [[languages.en.menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 30
+
+  [[languages.en.menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 40
+
+  [[languages.en.menu.main]]
+    identifier = "faq"
+    name = "FAQ"
+    url = "/faq/"
+    weight = 50
+
+# ========================================
+# Chinese Language Configuration
+# ========================================
+[languages.zh]
+  languageName = "中文"
+  languageCode = "zh-cn"
+  weight = 2
+  title = "溪夜的博客"
+  
+  [languages.zh.params]
+    description = "溪夜的音频技术博客"
+    
+    [languages.zh.params.homeInfoParams]
+      Title = "欢迎来到溪夜的博客"
+      Content = """
+大家好，我是溪夜。自 2020 年以来，我一直在这个博客记录音频学习笔记。
+
+从文中表述的清晰或模糊程度，或许可以推断出我当时离答案还有多远。
+"""
+
+  # Social Icons for Chinese
+  [[languages.zh.params.socialIcons]]
+    name = "github"
+    url = "https://github.com/zcyh147"
+
+  [[languages.zh.params.socialIcons]]
+    name = "twitter"
+    url = "https://x.com/zcyh_147"
+  
+  [[languages.zh.params.socialIcons]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/xiye147"
+  
+  [[languages.zh.params.socialIcons]]
+    name = "rss"
+    url = "/zh/index.xml"
+
+  # Chinese Menu
+  [[languages.zh.menu.main]]
+    identifier = "posts"
+    name = "文章"
+    url = "/zh/posts/"
+    weight = 10
+
+  [[languages.zh.menu.main]]
+    identifier = "archive"
+    name = "归档"
+    url = "/zh/archives/"
+    weight = 20
+
+  [[languages.zh.menu.main]]
+    identifier = "search"
+    name = "搜索"
+    url = "/zh/search/"
+    weight = 30
+
+  [[languages.zh.menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/zh/tags/"
+    weight = 40
+
+  [[languages.zh.menu.main]]
+    identifier = "faq"
+    name = "常见问题"
+    url = "/zh/faq/"
+    weight = 50

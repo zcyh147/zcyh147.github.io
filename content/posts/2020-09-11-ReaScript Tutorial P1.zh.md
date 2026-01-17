@@ -1,0 +1,694 @@
+---
+title: 补完 REAPER 效率链的最后一环（一）ReaScript 基础
+date: 2020-09-20T16:46:00+08:00
+tags:
+  - REAPER
+aliases:
+  - /2020/09/11/如何使用 ReaScript 进一步改善 Reaper 效率？（一）/
+---
+大家好，我是溪夜。
+REAPER 的强大无需多言。无论是 Action List 中琳琅满目的功能，亦或是 SWS Extension 和 ReaPack 带来的超强拓展，对每一个从传统 DAW 转过来的人都是极大的惊喜。**毕竟 REAPER 最大的问题不是它能不能做到，而是你能不能想到。**通常你能想到的问题和需求，都能通过在 REAPER 找到对应功能或脚本来搞定。
+**但你是否好奇过 ReaPack 中那些脚本是怎么写出来的？你是否曾不满于现有的脚本的功能？**这篇文章会帮助你解决这些疑惑，让我们彻底从头学习一下脚本的构建。
+
+> 本系列文章阅读需要的前置知识：
+> - 有一定的英文基础，能够看懂 ReaScript 文档。最好有在 Cockos 论坛上搜索答案的能力。
+> - 了解过一门编程语言，有 Lua 基础最好。零基础也不怕，我会快速讲解一下 Lua 语法基础，非常简单。
+> - 对 REAPER 的功能比较了解，并已安装好 ReaPack。
+> - 掌握基本的 GUI 设计知识。
+
+## ReaScript 基础
+### 1.1. 补完 REAPER 效率链的最后一环
+**既然 REAPER 现有的东西已经这么厉害，为什么还要学 ReaScript 来自己写脚本？**
+其实我们很容易发现，在声音设计或者音乐混音的工作中，**很多需求都需要去定制才能做到**，只用现有的脚本和功能是远远不够的。
+举个例子，在 WAAPI 中有通过“制表符分割文件”进行自动导入音频文件的 API，即通过文本文件中定义的文件名、文件路径、属性等信息，自动导入并创建 Wwise 中的对象。但显然，REAPER 本身没有功能能做到从文件中读取信息并创建轨道且设置相关属性的功能。
+**我们先用脚本小白的思维做一下探索**，试着搜索一下有没有人已经做过类似的脚本。
+- X-Raym 曾做过一个 `Import tracks from file` 脚本，可以快速的从 txt 或 csv 文件中创建音轨，但这个脚本做不到同时导入音频文件，只能快速创建音轨标题。
+- 继续搜索，会发现他还做过一个付费的脚本 `Import items and regions from CSV`，功能虽比上一个稍多一点，但也不做不到我们的要求。
+
+**当然，在这篇文章里我不会讨论搜索技巧，或者如何撞大运找到现成的轮子。**
+**我们真正要思考的问题是：**
+1. 现在有个现成的轮子无法满足我们，怎么在它的基础上增改代码以符合我们的需求？
+2. 如果真没现成的脚本，该如何从零搭个新的？
+
+**如果你对技术尚存追求，那么学习 ReaScript 就是你必修的一门 REAPER 功课。**
+### 1.2. 为什么要做这系列教程
+在创作这篇文章之前，国内领域也有一些朋友做了关于 ReaScript 的教程。**比如 Moy 老师曾做过几篇关于 ReaScript 的实例教学**，在知乎、音频应用、声音设计论坛等社区中也有些朋友在分享自己所做的脚本。
+之所以我还要做一系列新的教程，原因有几点：
+1. **这个领域应该有一套更友好且更系统的教程**，尤其要解答初学者在学习与使用 ReaScript 时的一些疑惑。
+2. 补充一些重要的内容，比如**阅读文档的方法、给脚本设计 UI、在 REAPER 外调用 ReaScript 等。**
+3. 奔着开源精神触发，**我希望更多有创意的脚本被大家开发出来。**
+
+下面就让我们一起先从 ReaScript 基础开始。
+### 1.3. ReaScript API 基础
+#### 1.3.1. 简介
+ReaScript API 是 REAPER 中重要的功能补充，与 Action 的不同之处就是它更贴近底层。我们都知道，REAPER 的 Action 能瞬间完成一个具体的功能（这个功能实际上帮你一下子完成了多个功能步骤)。但在 API 中想是做到同样的效果，就要把这个功能拆解成**细小步骤**，并用代码实现每一步的操作后才能做到同样的事情。
+**Action 和在 ReaPack 中下载的诸多脚本其实一样，本质上是一种对底层多步骤操作的封装。**而我们“做脚本”这件事，就是重新封装属于我们自己的“功能想象”。
+拿 `Item edit: Move position of item under mouse to edit cursor` 举例，当我们执行这个 Action，当前鼠标光标下的对象会直接移动到光标处，听起来似乎非常简单。
+**但如果用脚本来实现，步骤就多了很多：**
+1. 获取鼠标下的对象：`BR_GetMouseCursorContext_Item()`
+2. 获取游标的位置：`GetCursorPosition()`
+3. 把对象的左边缘移动到游标的位置：`SetMediaItemInfo_Value()`
+
+可以看到，除了把这个 Action 拆成了三个步骤外，我还找到了对应的 API 功能，这是复刻这条 Action 的基础。
+REAPER 脚本的原理，即**要想办法把我们的需求不断拆解，最终达到每个细节步骤都能通过调用一条 API 完成（如上例所示）。**最后再通过基本的程序结构为它们设计执行逻辑，就能得到具有功能性的脚本。
+- **把大象放进冰箱需要三步，打开冰箱门，把大象放进去，把冰箱门关上。**
+
+很多人都听说过小品中的这句话，但可思考过它背后的逻辑？**拆解一个看似想当然的行为，这也是脚本开发的基础逻辑。**
+而事实上把大象放进冰箱里还有着很多前提：
+冰箱（容器）能否装载这么大的动物（数据类型），这个大象是否需要麻醉（类似 Profiler 中时间点的概念），通过什么工具运载大象到冰箱里（中间变量，甚至压缩算法）……
+**让读者有能力进行功能的拆解和找到对应的 API，这也是本系列文章所讲解的一个重点。**我认如果你学明白这部分，剩下的组装程序与 GUI 开发其实也就没什么难度了。
+REAPER 脚本开发的另一个优势在于已它已内置了编码工具，不需要配置开发环境就能直接在内部进行脚本编程（此处不包括 Python）。甚至，无需 Juce 这种框架就能进行插件（JSFX）的开发。
+![REAPER开发](/images/reaper%E5%BC%80%E5%8F%91.png)
+
+上图为我在脚本开发时的截图。虽图片被压缩，但仍容易看出，凭 REAPER 和 ReaPack 提供的开发工具，我们在 REAPER 中能获得从代码到 GUI 构建器一整套开发工作流。
+### 1.3.2. 支持的编程语言
+ReaScript 支持三种脚本编程语言，分别是 REAPER 自有的 EEL、Lua 和 Python（2.7-3.X）。其中 EEL 不仅可用于 ReaScript 的开发，亦可用于 JS 插件的开发。（ReaScript 对于 C/C++ 也有支持，但在本文暂不予讨论）。
+**本文会着重讨论 ReaScript 通过 Lua 的实现。**因为本人目前不熟悉 EEL，且 Python 在 REAPER 内的性能没有 EEL 或 Lua 好，亦无法实现 UI 或图形显示。
+不过对于在 REAPER 外调用 API 我们会在下一篇有额外的讨论，在那里我们会用到 Python。
+### 1.4. 简单实例
+既然是实例，我希望更有针对性。作为国际惯例，先从 Hello REAPER 开始。
+这种基本的字符串输出实例的意义就是一条，代表你跑通了当前的开发环境。
+```lua
+reaper.ShowConsoleMsg("Hello REAPER!")
+```
+![Hello REAPER](/images/Hello%20Reaper.png)
+执行这句代码可看到如上的返回结果。
+
+之后回过来看一下开头提到的那条 Action：`Item edit: Move position of item under mouse to edit cursor`。我们通过 ReaScript 复刻一下它的功能，这种学习方式会让你对它的功能实现过程认识的更加深刻。
+```lua
+item = reaper.BR_GetMouseCursorContext_Item()
+cursor_pos = reaper.GetCursorPosition()
+reaper.SetMediaItemInfo_Value(item, "D_POSITION", cursor_pos)
+```
+执行上面的脚本后，我们发现鼠标下面的对象如期望的移动到了光标处。
+严格来说，这个脚本还需要加上 Undo_BeginBlock() 和 Undo_EndBlock() 以满足 REAPER 的撤销记录功能。否则执行脚本后会无法撤销，这些暂且不加以讨论。
+**可能你还看不懂这部分代码，甚至不知道怎么执行它，不要担心，看完这篇文章后你就能轻松写出这样的脚本。**
+## Lua 基础
+**为了照顾没接触过 Lua 的朋友，下面我们简单讲解一下它的基本语法。**如果已有 Lua 基础，请直接跳到本文第三部分“如何阅读 ReaScript 文档”。
+Lua 作为一门上手容易的的脚本语言，无论是在 ReaScript 开发还是在使用 xLua 这种热更新框架时都会用到。与 Python 类似，Lua 的语法并不复杂，学习成本很低。
+### 2.1. 数据类型
+nil：表示没有任何有效值。
+```lua
+-- 打印尚未赋值的变量 a，可得到返回值 nil
+print(a)
+
+-- result: 
+nil
+```
+boolean：在 Lua 中布尔值的假对应的只有 false 和 nil，其余所有的均为真（包括数字0）.
+```lua
+print(type(nil))
+
+if 0 then
+    print("0 = true")
+else
+    print("0 = false")
+end
+
+-- result:
+boolean
+0 = true
+```
+number：数字类型，在 Lua 5.2 之前均为双精度浮点型，在之后分为64位整型 integer 和双精度浮点型 float，但它们也属于 number 类型。
+```lua
+-- 分别输出不带小数点和带小数点的数字类型
+print(type(3))
+print(type(3.0))
+-- 通过 math 模块判断数字是整型或浮点类型
+print(math.type(3))
+print(math.type(3.0))
+
+-- result:
+number
+number
+integer
+float
+```
+string：字符串，单引号或双引号均可定义字符串内容。
+```lua
+string1 = "string1"
+string2 = 'string2'
+```
+table：Lua 中的表与 Python 中的列表不同，table 还可以通过添加索引（数字或字符串）作为字典（关联数组）来使用.
+```lua
+-- 创建空 table，
+tbl1 = {}
+-- 直接初始化 table 并打印其中的元素，打印 table 指定索引之间的字符串。注意：Lua 的初始索引以1开始，而不是0。
+tbl2 = {"obj1", "obj2", "obj3", "obj4"}
+print(tbl2[1])
+print(table.concat(tbl2, ",", 2, 3))
+
+-- 创建空 table，并指派一个键值对 a: 20
+associative_arrays = {}
+key = "a"
+associative_arrays[key] = 20
+
+-- 打印 associative_arrays 中键值对，并分别通过变量 key 与字符串 a 来索引 table
+for k, v in pairs(associative_arrays) do
+    print(k .. " : " .. v)
+end
+print(associative_arrays[key])
+print(associative_arrays.a)
+
+-- result:
+obj1
+obj2,obj3
+a : 20
+20
+20
+```
+function：函数。
+```lua
+-- 不含参数的函数：
+function add_numbers()
+    a = 1
+    b = 2
+    c = a + b
+    print(c)
+end
+
+-- 含参数的函数：
+function add_numbers(a, b)
+    c = a + b
+    print(c)
+end
+```
+thread：线程，表示执行的独立线路，用于执行协同程序。
+userdata：用户自定义数据类型，可将 C/C++ 的任意数据类型的数据存储到 Lua 变量中调用。
+### 2.2. 逻辑判断
+if 语句：
+```lua
+a = 1
+
+if(a < 20)
+then
+   print("a 小于20");
+end
+```
+if...else 语句：
+```lua
+a = 2
+
+if(a < 20)
+then
+   print("a 小于20")
+else
+   print("a 大于20")
+end
+```
+if...elseif...else 语句：
+```lua
+a = 3
+
+if(a == 10)
+then
+   print("a 的值为10")
+elseif(a == 20)
+then  
+   print("a 的值为20")
+else
+   print("没有匹配 a 的值")
+end
+```
+### 2.3. 循环语句
+while 循环：
+```lua
+a = 4
+
+-- 当 a 小于20时持续执行循环体
+while(a < 20)
+do
+   print("a 的值为:", a)
+   a = a + 1
+end
+```
+数值 for 循环：
+```lua
+-- 没设置递增步长的 for 循环，每执行一次执行体后以1为单位递增 i
+for i = 1,5 do
+    print(i)
+end
+
+-- 以-1为递增步长的 for 循环，每执行一次执行体后以1为单位递增 -1
+for i = 10,1,-1 do
+    print(i)
+end
+```
+泛型 for 循环：
+```lua
+a = {"apple", "banana", "cherry"}
+
+-- 通过迭代器函数 ipairs 来遍历所有值
+for i, v in ipairs(a) do
+    print(i, v)
+end 
+```
+repeat...until：
+```lua
+a = 5
+
+-- 持续执行循环体，直到 a 大于20时跳出循环
+repeat
+   print("a 的值是：", a)
+   a = a + 1
+until(a > 20)
+```
+### 2.4. 循环控制语句
+break 语句：
+```lua
+-- 当 i 小于3时跳出循环体
+for i = 10,1,-1 do
+    print(i)
+    if (i < 3)
+    then
+        break
+    end
+end
+```
+goto 语句：
+```lua
+a = 6
+
+-- 设定 label
+::label:: print("a = ", a)
+
+-- 当 a 小于3的时候跳转到 label
+if a < 3 then
+    goto label 
+end
+```
+## 如何阅读 ReaScript 文档？
+### 3.1. 原版文档与优化后文档的取舍
+#### 3.1.1. 原版文档
+两种打开方法：
+1. 打开 Help 菜单，点击 ReaScript documentation
+2. 直接访问 https://www.reaper.fm/sdk/reascript/reascripthelp.html
+
+对于原版文档，建议大家采用第一种方法。官网的在线的 API 版本还停留在 REAPER 5 时代，时效性很差。
+![丑陋的 API 文档](/images/%E4%B8%91%E9%99%8B%E7%9A%84%20API%20%E6%96%87%E6%A1%A3.png)
+丑陋的原版文档
+
+不难发现，ReaScript API 原版文档过于简陋，排版很难看，不便于使用。**但原版文档，尤其是本机自带的原版文档具有最佳的时效性。**
+#### 3.1.2. X-Raym 版优化文档
+为了解决原版文档过于简陋的问题，X-Raym 做了一个优化版本的文档：
+https://www.extremraym.com/cloud/reascript-doc/
+![x-raym版 文档](/images/x-raym%E7%89%88%20%E6%96%87%E6%A1%A3.png)
+
+X-Raym 整理的这版文档的排版与格式都是上等，**并人性化的在左侧放置了搜索框。**这也是我主力推荐的版本。唯一的小缺点是更新稍有不及时，比如在本文发布的时间下 X-Raym 的这版文档停留在了5月3日。
+如果有对文档时效性的需求（一般来说看这版足矣），还是请以官方文档为准。
+#### 3.1.3. Mike Lacey 版 Wiki 文档
+Mike Lacey 在09年创建了 REAPER Wiki，其中也包括 ReaScript Wiki，但很久未更新。除非有朋友对 Wiki 有执念，否则不推荐这版本。
+地址：https://wiki.cockos.com/wiki/index.php/ReaScript
+![荒废版文档](/images/%E8%8D%92%E5%BA%9F%E7%89%88%E6%96%87%E6%A1%A3.png)
+许久不更新的 ReaScript Wiki
+
+### 3.2. 如何在文档中找到想要的 API
+ReaScript 的 API 数量庞大，算上扩展 API 近千个，显然是没有什么好方法去整理的。我曾试过通过思维导图进行分类，但因数量庞大，实在没有精力像 WAAPI 那样通过导图进行详细分类。
+但是要知道，**ReaScript 有些 API 可能你一辈子用不上，**所以明确自己的目的，寻找自己需要的 API 才是对的，而不是被庞大的 API 列表所击打。
+**一个简略且有效的文档查找步骤是：**
+1. 在逻辑抽象阶段想明白自己要的功能是什么分类，并抽象出关键词，如`get`、`media`、`midi`、`takefx`等。
+2. 利用 X-Raym 版优化文档强大的搜索功能，通过组合词搜索找到目标 API。
+3. 在现有的脚本中查找功能相似的，学习它们的 API 调用。
+4. 善用 Google。
+
+### 3.3. 通过实例学习文档的阅读方法
+相信大家也发现 ReaScript 的脚本出了名的简略，我以富有代表性的 API 作为例子分析一下，先看 `GetTrackName` 这条 API 在文档中的介绍：
+```lua
+boolean retval, string buf = reaper.GetTrackName(MediaTrack track)
+
+-- Returns "MASTER" for master track, "Track N" if track has no name.
+```
+根据文档我们可知，它的返回值有两个，一个是布尔类型的取回结果，一个是字符串类型的轨道名。文档中已注明特例的返回值，对于 master track 会返回 `MASTER`，如果轨道没有名字则会返回 `Track N`，看到这里似乎一切还很简单。
+**但是请注意，它的参数是 `MediaTrack track`，如果你想当然的用鼠标选择一条轨道后就直接执行这条 API，并不会得到想要的轨道名，这是为什么？**
+如果还记得“大象放进冰箱需要几步”就会明白，目前步骤细分的还不够。**实际上这个 API 需要的参数是 MediaTrack 类型的轨道对象。**所以如果想流畅使用 `GetTrackName`，先要想办法弄到这个 MediaTrack 类型的轨道对象。
+通过在文档中搜索 MediaTrack，我们定位到另外一条 API：
+```lua
+MediaTrack reaper.GetTrack(ReaProject proj, integer trackidx)
+
+-- get a track from a project by track count (zero-based) (proj=0 for active project)
+```
+终于，这条 API 的返回值是我们需要的 MediaTrack 对象，而它需要的输入值分别是工程编号及轨道编号。
+我们用以下代码进行测试：
+```lua
+track1 = reaper.GetTrack(0, 0)
+track2 = reaper.GetTrack(0, 1)
+
+retval1, name1 = reaper.GetTrackName(track1)
+retval2, name2 = reaper.GetTrackName(track2)
+
+print(track1, track2)
+print(retval1, name1)
+print(retval2, name2)
+
+-- result
+<userdata: 0x7fee19b28000>
+<userdata: 0x7fea89a58000>
+true  "Footsteps_Wood"
+true  "Track 1"
+```
+由结果可见，我们成功的获取了轨道名。
+实际上，**通过这个例子你就已经学会了在 ReaScript API 阅读时的两个重要技巧：**
+1. 当遇到不认识的参数时，要一步一步逆推出它的获取 API。
+2. 如果函数有不止一个返回值，需要用多个变量去接收其返回值。
+
+## 通过实例学习如何创建带 UI 的 ReaScript 脚本
+其实通过“简单实例”与“通过实例学习文档的阅读方法”中的两段程序，我们已经走完了脚本开发的整套流程。但为了演示关于 GUI 设计的部分，我们做一个简单的程序来体验一下在 REAPER 中做 GUI 有多么容易。
+绝大多数功能性脚本其实都不需要 GUI 的介入，但如果你要做一个 Variato（Nikola Lukic 开发的一个对选中区域内对象进行位置和属性随机化的插件）这样的工具。**脚本工作时需要用户指定一些属性，那么这时候制作一个 GUI 就十分有必要了。**
+为了让脚本有接收用户输入值需求，我们设计一个最简单的需求，把当前框选的所有 items 统一设置为用户需要的音量。
+### 4.1. 如何打开 REAPER 中的开发环境？
+在开始之前，我们先看看 REAPER 中会用到的开发环境，主要有两个。
+其一是 ReaScript 自带的开发环境，第二是 ReaPack 中的交互式开发环境。
+![reascript editor](/images/reascript%20editor.png)
+系统自带的脚本编辑器
+![交互式Lua](/images/%E4%BA%A4%E4%BA%92%E5%BC%8FLua.png)
+cfillion 开发的 Interactive ReaScript
+不难看出，系统自带的脚本编辑器会是我们开发时的主力工具。
+**而Interactive ReaScript 作为交互式开发环境，更多是为了让我们方便试用 Lua 命令而开发。**如果你想快速的尝试一些 API 功能，而不想打开编辑器大费周章，建议你使用这个。
+**如果想在 VS Code 中进行开发，**可安装 Lokasenna 开发的 REAPER tools for Visual Studio Code 进行自动补全，不过此版本已经两年未更新新的 API。我更建议使用 slsenseless 开发的 ReaScriptDocParser，与现有文档的同步速度会更好。这两者对 ReaScript 所支持的所有语言都具有自动补全，可按需选用。
+REAPER tools for Visual Studio Code：https://github.com/jalovatt/reaper-vs-code
+ReaScriptDocParser：https://github.com/slsenseless/ReaScriptDocParser/
+### 4.2. 抽象出功能逻辑
+在例子中，我们做一个简单的程序。当用户选择了 N 个媒体对象时，在程序中输入想要的目标音量值，点击按钮，就会自动执行脚本。当然，我需要它带 GUI。
+首先抽象出脚本的功能逻辑：
+1. 添加 Undo 开始块
+2. 获取用户的分贝输入值，并判断是否超过正常范围
+3. 判断用户选定的范围内是否有 item，如果没有及时报错
+4. 分别对每一个 item 执行音量设置
+5. 结束 Undo 块记录
+
+### 4.3. 选择 API
+依次填入对应的 API：
+1. 添加 Undo 开始块：Undo_BeginBlock()
+2. 获取用户的分贝输入值，并判断是否超过正常范围：GUI.Val()
+3. 判断用户选定的范围内是否有 item，如果没有及时报错：GetSelectedMediaItem()
+4. 分别对每一个 item 执行音量设置：SetMediaItemInfo_Value()
+5. 结束 Undo 块记录：Undo_EndBlock()
+
+### 4.4. 编写功能代码
+```lua
+-- 创建空表 sel_item，用来存储选中的媒体对象
+sel_item = {}
+ 
+-- 1. 音量换算函数，把用户输入的分贝数 dB_input 换算成数字音量 vol_value
+function ValFromdB(dB_input)
+    return 10^(dB_input/20)
+end
+
+-- 2. 对象音量调整函数，参数为数字音量值 vol_value
+function VolChanger(vol_value)
+    reaper.Undo_BeginBlock()
+
+  -- 保存选取的媒体对象在字典 sel_item 中
+  for i = 1, count_sel_items do
+    sel_item[i] = reaper.GetSelectedMediaItem(0, i - 1)
+  end
+
+  -- 对字典中的每一个对象执行音量改变操作
+  for w = 1, #sel_item do
+    reaper.SetMediaItemInfo_Value(sel_item[w], "D_VOL", vol_value)
+  end
+
+    reaper.Undo_EndBlock("Batch Volumes", -1)
+end
+
+-- 3. 输入值判断函数，因为推子最高为12 dB，需要判断用户的输入值是否在范围内并设置临界值
+function input_cal(vol_value)
+    if (vol_value > 12) then
+        -- 根据我的取小数算法12.05正好转换为12 dB
+        VolChanger(12.05)
+    else
+        VolChanger(vol_value)
+    end
+end
+
+-- 4. 主函数
+function main()    
+    -- 计算当前选中的对象数
+    count_sel_items = reaper.CountSelectedMediaItems(0)
+
+    -- 选取对象不为0才执行函数，否则弹窗提醒
+    if count_sel_items > 0 then
+        local t = type(dB_input)
+        if t == "number" then
+            -- 对分贝换算后的值保留1位小数
+            vol_value = (ValFromdB(dB_input) - ValFromdB(dB_input) % 0.1)
+            -- 执行音量调整函数
+            input_cal(vol_value)
+        else
+            reaper.ShowMessageBox("Check your input first!", "Warning", 0)
+        end
+            -- 脚本惯例，刷新页面
+            reaper.UpdateArrange()
+    else
+        reaper.ShowMessageBox("Please check your selected!", "Warning", 0)
+    end
+end
+```
+
+### 4.5. 绘制 GUI
+在 ReaPack 中可以找到由 Adam Lovatt 开发的 Lokasenna_GUI Builder，这是一个专门为 ReaScript 创建 GUI 的工具。目前它的第三版改名为 Scythe 也已经发布，但目前看起来只能用纯代码进行开发，有兴趣的朋友亦可自己尝试。
+在 Action List 里找到它并打开，我们看一下它的界面。
+![GUI Builder](/images/GUI%20Builder.png)
+
+本例中的程序只需三个控件：
+- 一行文字用来提示用户在这里输入，并提示数值范围
+- 文本框作为输入框
+- 按钮用来执行脚本
+
+![Project Settings](/images/Project%20Settings.png)
+先调整一下窗体大小为合适的尺寸，在 Settings - Project Settings 中设置 Width 和 Height 分别为400和200。并更改窗体 Name 为 Batch Change Volume。
+![完成后的GUI编辑器](/images/%E5%AE%8C%E6%88%90%E5%90%8E%E7%9A%84GUI%E7%BC%96%E8%BE%91%E5%99%A8.png)
+
+在布局中添加所需的控件，你会发现 GUI Builder 中的文本框左边是自带文字部分，所以我们实际上只需添加两个控件即可（Textbox 和 Button）。
+右键点击窗体后选取需要的控件名，添加控件完成后按住 Shift 拖拽控件到合适的位置。之后按需更改尺寸大小，并对控件的名称与尺寸进行修改。
+**注：按钮处的 Name 属性应填写为 input_value，GUI 中显示的名字以 Caption 为准，请自行设置。**
+![Export](/images/Export.png)
+
+当操作结束后，点击 File - Export 导出为 Change_Volume.lua 文件，我们的 GUI 就创建完成了。想找到创建好的 GUI 文件，需要在 REAPER 选项中显示资源路径，随后打开 `REAPER/Scripts/ReaTeam Scripts/Development/Lokasenna_GUI v2/Developer Tools/GUI Builder` 目录，即可找到制作好的文件，后缀名是 `.lua`。
+Windows 用户也可按照类似的路径寻找到 GUI 文件所在。
+### 4.6. 连接 GUI 与功能代码
+现在打开 GUI 文件，在这里我通过 VS Code 进行编辑。为了演示简单，我们不采用引用刚创建好的 Change_Volume.lua 文件的方式，直接把上面编写好的功能代码先复制到 GUI 代码中我标记的地方。
+```lua
+local lib_path = reaper.GetExtState("Lokasenna_GUI", "lib_path_v2")
+if not lib_path or lib_path == "" then
+    reaper.MB("Couldn't load the Lokasenna_GUI library. Please install 'Lokasenna's GUI library v2 for Lua', available on ReaPack, then run the 'Set Lokasenna_GUI v2 library path.lua' script in your Action List.", "Whoops!", 0)
+    return
+end
+loadfile(lib_path .. "Core.lua")()
+
+GUI.req("Classes/Class - Button.lua")()
+GUI.req("Classes/Class - Textbox.lua")()
+
+if missing_lib then return 0 end
+
+GUI.name = "Batch Change Volume"
+GUI.x, GUI.y, GUI.w, GUI.h = 0, 0, 400, 200
+GUI.anchor, GUI.corner = "mouse", "C"
+
+-- 将功能代码复制到这里
+
+GUI.New("Do it!", "Button", {
+    z = 11,
+    x = 144,
+    y = 112,
+    w = 100,
+    h = 50,
+    caption = "Do it!",
+    font = 3,
+    col_txt = "txt",
+    col_fill = "elm_frame"
+})
+
+GUI.New("input_value", "Textbox", {
+    z = 11,
+    x = 192,
+    y = 64,
+    w = 96,
+    h = 20,
+    caption = "Volume (<12dB)    ",
+    cap_pos = "left",
+    font_a = 3,
+    font_b = "monospace",
+    color = "txt",
+    bg = "wnd_bg",
+    shadow = true,
+    pad = 4,
+    undo_limit = 20
+})
+
+GUI.Init()
+GUI.Main()
+```
+代码复制过来了，但 GUI 怎么和代码之间产生互动呢？
+**根据逻辑推断我们可想出，按钮肯定是负责主函数的执行，而文本框负责接收用户输入的数据，并把这个数据传递给函数内部的变量 `dB_input`。**
+观察代码，其中只有 `GUI.New` 两处地方需要注意，因为这是按钮的代码实现区。
+首先，我们先修改按钮处的代码，为 Button 增加一个新的属性，`func = main`。
+（为了节约篇幅，功能代码以上的部分省略。）
+```lua
+-- 功能代码及上面的代码块省略
+
+GUI.New("Do it!", "Button", {
+    z = 11,
+    x = 144,
+    y = 112,
+    w = 100,
+    h = 50,
+    caption = "Do it!",
+    font = 3,
+    col_txt = "txt",
+    col_fill = "elm_frame",
+    -- 对这个 Button 指派为触发 main() 函数，这里的函数触发不需要写括号
+    func = main
+})
+
+GUI.New("input_value", "Textbox", {
+    z = 11,
+    x = 192,
+    y = 64,
+    w = 96,
+    h = 20,
+    caption = "Volume (<12dB)    ",
+    cap_pos = "left",
+    font_a = 3,
+    font_b = "monospace",
+    color = "txt",
+    bg = "wnd_bg",
+    shadow = true,
+    pad = 4,
+    undo_limit = 20
+})
+
+GUI.Init()
+GUI.Main()
+```
+之后我们需要让程序里的变量 `dB_input` 能够获取文本框控件 `input_value` 中的值，于是我们要在 `main()` 函数中加入一行 `local dB_input = tonumber(GUI.Val("input_value"))`。
+以下是最终完成的完整代码：
+```lua
+local lib_path = reaper.GetExtState("Lokasenna_GUI", "lib_path_v2")
+if not lib_path or lib_path == "" then
+    reaper.MB("Couldn't load the Lokasenna_GUI library. Please install 'Lokasenna's GUI library v2 for Lua', available on ReaPack, then run the 'Set Lokasenna_GUI v2 library path.lua' script in your Action List.", "Whoops!", 0)
+    return
+end
+loadfile(lib_path .. "Core.lua")()
+
+GUI.req("Classes/Class - Button.lua")()
+GUI.req("Classes/Class - Textbox.lua")()
+
+if missing_lib then return 0 end
+
+GUI.name = "Batch Change Volume"
+GUI.x, GUI.y, GUI.w, GUI.h = 0, 0, 400, 200
+GUI.anchor, GUI.corner = "mouse", "C"
+
+sel_item = {}
+ 
+function ValFromdB(dB_input)
+    return 10^(dB_input/20)
+end
+
+function VolChanger(vol_value)
+    reaper.Undo_BeginBlock()
+
+  for i = 1, count_sel_items do
+    sel_item[i] = reaper.GetSelectedMediaItem(0, i - 1)
+  end
+
+  for w = 1, #sel_item do
+    reaper.SetMediaItemInfo_Value(sel_item[w], "D_VOL", vol_value)
+  end
+
+    reaper.Undo_EndBlock("Batch Volumes", -1)
+end
+
+function input_cal(vol_value)
+    if (vol_value > 12) then
+        VolChanger(12.05)
+    else
+        VolChanger(vol_value)
+    end
+end
+
+function main()
+    -- 注意这行代码，从控件 input_value 中获取了用户的输入值，因为默认输入值都会被转为 string，所以这里我先强制把它转为 number，以满足接下来我们的判断需求
+    local dB_input = tonumber(GUI.Val("input_value"))
+
+    count_sel_items = reaper.CountSelectedMediaItems(0)
+
+    if count_sel_items > 0 then
+        local t = type(dB_input)
+
+        if t == "number" then
+            vol_value = (ValFromdB(dB_input) - ValFromdB(dB_input) % 0.1)
+            input_cal(vol_value)
+        else
+            reaper.ShowMessageBox("Check your input first!", "Warning", 0)
+        end
+
+        reaper.UpdateArrange()
+
+    else
+        reaper.ShowMessageBox("Please check your selected!", "Warning", 0)
+    end
+end
+
+GUI.New("do_it", "Button", {
+    z = 11,
+    x = 144,
+    y = 112,
+    w = 100,
+    h = 50,
+    caption = "Do it!",
+    font = 3,
+    col_txt = "txt",
+    col_fill = "elm_frame",
+    func = main
+})
+
+GUI.New("input_value", "Textbox", {
+    z = 11,
+    x = 192,
+    y = 64,
+    w = 96,
+    h = 20,
+    caption = "Volume (<12dB)    ",
+    cap_pos = "left",
+    font_a = 3,
+    font_b = "monospace",
+    color = "txt",
+    bg = "wnd_bg",
+    shadow = true,
+    pad = 4,
+    undo_limit = 20
+})
+
+GUI.Init()
+GUI.Main()
+```
+### 4.7. 完成效果
+打开 Action List，加载之前创建的 Change_Volume.lua 脚本进 Action List。随后运行它，看一下它的执行效果。
+![脚本1](/images/%E8%84%9A%E6%9C%AC1.png)
+主界面
+![脚本2](/images/%E8%84%9A%E6%9C%AC2.png)
+当未选择对象时点击按钮的提示
+![脚本3](/images/%E8%84%9A%E6%9C%AC3.png)
+当选择了对象，但输入的不是数字时点击按钮的提示
+![脚本4](/images/%E8%84%9A%E6%9C%AC4.png)
+选中两个对象
+![脚本5](/images/%E8%84%9A%E6%9C%AC5.png)
+输入-100，点击按钮，可见对象的音量已被调整
+## 通过举一反三学会更多脚本
+脚本语言（如 Python、Lua 等）属于解释型语言，执行过程中与编译型语言预先编译不同，脚本语言只有在执行的时候才需要翻译为机器语言。
+所以在 REAPER 中当你在编辑脚本时，你会发现所有的前辈们的代码都是以源码的方式展现在你面前，全部开源，毫无掩饰。**当你在编写自己的脚本的时候，前辈们的代码会是最有效的参考。**
+事实上，当你对某个脚本使用方法产生疑惑时，除了去 Cockos 论坛找原贴看介绍，脚本内的注释和更新 Log 一般也能找到答案。
+鉴于本人的智商不太高，所以一直在用土办法（好记性不如烂笔头）学习。遇到有兴趣的脚本就开始对写注释以加深理解。
+**建议在脚本学习过程中遵循以下步骤：**
+1. 主动学习对自己的工作流提升有用的代码片段，并做注释或做笔记总结。
+2. 不要只看不写，练习阶段甚至可以尝试写一个已有的脚本，然后看看跟前辈们的代码差在哪里。
+3. 举一反三，把不同类型和不同作者脚本中用到的代码技巧总结后融会贯通。
+
+## 致谢
+在本系列文的第一篇中，部分思路受到 Robert Randolph 先生的 ReaScript 教程影响。Raymond Radet（X-Raym）基于 REAPER 5 的老 ReaScript 教程也曾在我入门时给予帮助。Moy 老师关于脚本的几篇实例讲解在去年时也对我很有启发。（以上排名无先后）
+**在这里感谢他们在 REAPER 脚本编程领域付出的努力！**
+## 接下来讲什么？
+在本篇文章中，我们的 ReaScript 脚本构建基于 Lua，并且都是使用 REAPER 内部的编辑器和 GUI 设计工具实现的。
+下一篇中，**我们会通过 ReaScript 在 Python 中的第三方库 Reapy，在 REAPER 外实现 ReaScript API 的调用。**在实际工作中有时我们可能需要在外部调用 REAPER 的功能，这样只需让用户面对我们的脚本程序就可以了，通过减少用户与 REAPER 本身的纠缠，在某些场景下可能会比较方便。
