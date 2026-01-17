@@ -48,3 +48,11 @@
 .social-icons a:not(:last-child) {
     margin-right: 6px !important;
 }
+
+/* 移动端调整：增加欢迎区块的下边距，防止与文章列表过近 */
+@media screen and (max-width: 768px) {
+    .first-entry, 
+    .home-info {
+        margin-bottom: 2rem !important;
+    }
+}
