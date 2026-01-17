@@ -21,3 +21,6 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.bak
+
+# Local scripts
+ci/
