@@ -50,7 +50,7 @@ NotebookLM is a RAG notebook product launched by Google in 2023\. As a member of
 At the time of writing this article, its internal models have been upgraded to Gemini 3 (Flash and Pro mixed, handling text) and Gemini 3 Pro Image (i.e., Nano Banana Pro, handling images and slides). The product's underlying model capabilities are very robust.  
 Compared to other RAG solutions, NotebookLM has almost no rivals in performance and ease of use.  
 More importantly, it generates answers strictly based on documents provided by the user, effectively avoiding hallucination issues. In my half-year of using NotebookLM, it has never given imagined content detached from document sources, which makes me very reassured.  
-![](/images/Pasted image 20260113003438.png)
+![](/images/Pasted%20image%2020260113003438.png)
 
 ### **How to Ask a Good Question**
 Before looking at use cases, it is necessary to introduce how to ask questions. Often, the core reason for poor LLM results is the poor quality of the question itself.  
@@ -163,7 +163,7 @@ Each answer in NotebookLM is marked with a Source Grounding citation. Clicking t
 Taking Case 1 as an example, clicking the digital citation `2` next to `States are Global: A State change applies globally to the entire game environment` in the answer jumps to the source document on the left. You can see that this conclusion comes from this definition in `Wwise_Fundamentals_en.pdf`:  
 > States—a change that occurs in game that affects the properties of existing sounds, music, or motion on a global scale.
 
-![](/images/Pasted image 20260117165613.png)
+![](/images/Pasted%20image%2020260117165613.png)
 
 ## **Building the Knowledge Base**
 ### **Method 1: Using Pre-split Documents to Create a Knowledge Base**
@@ -180,11 +180,11 @@ For everyone's convenience, I have preprocessed the latest minor version documen
 
 Here is how to create a knowledge base (Notebook):
 1. The method is very simple, just open the NotebookLM homepage https://notebooklm.google.com  
-![](/images/Pasted image 20260117165641.png)
+![](/images/Pasted%20image%2020260117165641.png)
 2. Click New Notebook. In the popup window, drag and drop the required documents to upload to the notebook. Here, you can filter documents based on actual needs (for example, in integration documentation, choose the engine documentation used by the current project).  
-![](/images/Pasted image 20260117165713.png)
+![](/images/Pasted%20image%2020260117165713.png)
 3. Wait a moment. After the document analysis is finished, you can ask questions freely.  
-![](/images/Pasted image 20260117165747.png)
+![](/images/Pasted%20image%2020260117165747.png)
 
 ### **Method 2: Processing Documents Yourself to Create a Knowledge Base**
 If the Wwise version you are using is not in the compressed package, or you want to build knowledge bases for other fields, you can use the open-source tool DocWeaver developed by me to process documents yourself.  
@@ -196,13 +196,13 @@ DocWeaver provides the following functions:
 
 Below, I will create a Wwise notebook from scratch, assuming that the required documentation has been downloaded in the Audiokinetic Launcher.
 1. Find the required documentation. In Audiokinetic Launcher, you can click the question mark to the right of the version to open the documentation, or click the "wrench icon" on the right and click Open Containing Folder in the popup menu. Most documents can be found in the Wwise installation directory.  
-   ![](/images/Pasted image 20260114015608.png)
-   ![](/images/Pasted image 20260114015843.png)
+   ![](/images/Pasted%20image%2020260114015608.png)
+   ![](/images/Pasted%20image%2020260114015843.png)
 2. Open the DocWeaver GitHub Release page, find the required version (`arm64` is the version for macOS ARM architecture, `x86_64` is the version for Windows X86 64-bit architecture), download and unzip. Address: https://github.com/zcyh147/DocWeaver/releases  
-   ![](/images/Pasted image 20260113004754.png)
+   ![](/images/Pasted%20image%2020260113004754.png)
 3. After opening the tool, drag the files that need processing into the `Drag & Drop` area of the tool.  
 4. Wait a moment and check the estimated number of split files.  
-   ![](/images/Pasted image 20260113005026.png)
+   ![](/images/Pasted%20image%2020260113005026.png)
 5. Click `Split All`. In the popup window, set the output directory to start processing. After the work is finished, the output files will be named in the format `<Source_Filename>_<Number_Suffix>.pdf` (if Max Tokens is not reached, a copy will be made to the output directory as is), then follow Method 1 to create the notebook.
 
 ## **Supplementary Notes**
@@ -237,7 +237,7 @@ For a Wwise knowledge base notebook, a dozen sources can cover all documents, fa
 NotebookLM has a small drawback: it does not support folder and tag functions. When the number of notebooks increases, management becomes troublesome.  
 Fortunately, developers on GitHub have provided a solution—the NotebookLM Categorizer plugin. After installation, a custom tag column can be added to the webpage, making notebook management more convenient.  
 Address: https://github.com/muharamdani/notebooklm-categorizer
-![](/images/Pasted image 20260117165816.png)
+![](/images/Pasted%20image%2020260117165816.png)
 
 ## **Extended Use Cases**
 ### **Generating Audio Overview, Video Overview, Presentations, etc.**
@@ -248,11 +248,11 @@ NotebookLM provides rich content generation functions, which can convert noteboo
 * **Mind Maps**: Visualized knowledge structure.  
 
 These functions are very practical when learning new knowledge. Personalized customization can also be done through custom Prompt during generation. Regarding detailed usage and best practices, there are already a large number of excellent tutorials on the internet, so I won't repeat them here.  
-![](/images/Pasted image 20260117165837.png)
+![](/images/Pasted%20image%2020260117165837.png)
 ### **Combined Use with Gemini**
 In Gemini's Q&A box, click `+`, select `NotebookLM` in the popup menu, and you can let the notebook participate in the conversation. The NotebookLM notebook will serve as Gemini's external knowledge base, exerting the function of Agentic RAG. 
 At this time, Gemini can retrieve answers in NotebookLM and public information sources simultaneously, and in some use cases, can output more comprehensive answers.  
-![](/images/Pasted image 20260117165938.png)
+![](/images/Pasted%20image%2020260117165938.png)
 
 ### **Adding More Data to Build a More Valuable Knowledge Base**
 Besides official documents, any material (e.g., blog posts, speech records, YouTube videos) can be used as query sources for NotebookLM. Making reasonable use of this feature can build a richer and more targeted knowledge base.  
