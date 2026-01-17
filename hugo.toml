@@ -57,7 +57,9 @@ defaultContentLanguage = "en"
     [languages.en.params.homeInfoParams]
       Title = "Welcome to Thomas's Blog"
       Content = """
-Hi, this is Thomas (Xiye). I'm documenting my audio learning notes in this blog since 2020. Based on the clarity or ambiguity of the expressions in my posts, you can tell how far I was from the answer at that time.
+Hi, this is Thomas (Xiye). I'm documenting my audio learning notes in this blog since 2020.
+
+Based on the clarity or ambiguity of the expressions in my posts, you can tell how far I was from the answer at that time.
 """
 
   # Social Icons for English
