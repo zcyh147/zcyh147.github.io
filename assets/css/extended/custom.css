@@ -1,11 +1,22 @@
+/* 调整主容器，让内容向上移动 */
+.main {
+    padding-top: 0px !important;
+    margin-top: -20px !important;
+}
+
 .first-entry, 
 .home-info {
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
-    margin: 24px 0 48px !important;
-    min-height: 260px !important;
+    margin: 0 0 0 !important;
+    padding-top: 0 !important;
+}
+
+/* 确保内容区域间距一致 */
+.home-info .entry-header,
+.first-entry .entry-header {
+    margin-bottom: 0 !important;
 }
 
 /* 调整首页标题间距 */
