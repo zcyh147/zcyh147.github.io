@@ -1,0 +1,44 @@
+/* 调整整个首页主容器的 padding */
+.main {
+    padding-top: 0px !important;
+    margin-top: -20px !important;  /* 负边距，让内容向上移动 */
+}
+
+/* 调整欢迎区块的间距 */
+.first-entry, 
+.home-info,
+article.first-entry,
+.post-entry:first-child {
+    margin: 0 0 0px 0 !important;
+    padding-top: 0 !important;
+}
+
+/* 调整首页标题间距 */
+.home-info h1, 
+.first-entry h1 {
+    margin-bottom: 0.5rem !important;
+    margin-top: 0 !important;
+}
+
+/* 调整介绍文字和社交图标之间的间距 */
+.home-info .entry-content,
+.first-entry .entry-content {
+    margin-bottom: 1.5rem !important;
+}
+
+/* 恢复社交图标之间的正常间距 */
+.social-icons {
+    gap: 12px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+.social-icons a {
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-inline-end: 0 !important;
+}
+
+.social-icons a:not(:last-child) {
+    margin-right: 6px !important;
+}
