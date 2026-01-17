@@ -1,16 +1,11 @@
-/* 调整整个首页主容器的 padding */
-.main {
-    padding-top: 0px !important;
-    margin-top: -20px !important;  /* 负边距，让内容向上移动 */
-}
-
-/* 调整欢迎区块的间距 */
 .first-entry, 
-.home-info,
-article.first-entry,
-.post-entry:first-child {
-    margin: 0 0 0px 0 !important;
-    padding-top: 0 !important;
+.home-info {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    margin: 24px 0 48px !important;
+    min-height: 260px !important;
 }
 
 /* 调整首页标题间距 */
