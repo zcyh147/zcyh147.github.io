@@ -198,7 +198,7 @@ Below, I will create a Wwise notebook from scratch, assuming that the required d
 1. Find the required documentation. In Audiokinetic Launcher, you can click the question mark to the right of the version to open the documentation, or click the "wrench icon" on the right and click Open Containing Folder in the popup menu. Most documents can be found in the Wwise installation directory.  
    ![](/images/Pasted%20image%2020260114015608.png)
    ![](/images/Pasted%20image%2020260114015843.png)
-2. Open the DocWeaver GitHub Release page, find the required version (`arm64` is the version for macOS ARM architecture, `x86_64` is the version for Windows X86 64-bit architecture), download and unzip. Address: https://github.com/zcyh147/DocWeaver/releases  
+2. Open the DocWeaver GitHub Release page, find the required version (`arm64` is the version for macOS ARM architecture, `x86_64` is the version for Windows X86 64-bit architecture), download and unzip. Download Link: https://github.com/zcyh147/DocWeaver/releases  
    ![](/images/Pasted%20image%2020260113004754.png)
 3. After opening the tool, drag the files that need processing into the `Drag & Drop` area of the tool.  
 4. Wait a moment and check the estimated number of split files.  
@@ -236,7 +236,7 @@ For a Wwise knowledge base notebook, a dozen sources can cover all documents, fa
 ### **Why My NotebookLM Has Tags**
 NotebookLM has a small drawback: it does not support folder and tag functions. When the number of notebooks increases, management becomes troublesome.  
 Fortunately, developers on GitHub have provided a solution—the NotebookLM Categorizer plugin. After installation, a custom tag column can be added to the webpage, making notebook management more convenient.  
-Address: https://github.com/muharamdani/notebooklm-categorizer
+Download Link: https://github.com/muharamdani/notebooklm-categorizer
 ![](/images/Pasted%20image%2020260117165816.png)
 
 ## **Extended Use Cases**
