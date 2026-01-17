@@ -226,7 +226,7 @@ Every product has pros and cons, and NotebookLM is no exception.
 The reason for choosing PDF instead of TXT is mainly to retain image information:
 * NotebookLM already supports using handwritten file images as sources and can recognize notes and formulas within them, indicating that image understanding capabilities are gradually being released.  
 * I predict it will soon fully open image understanding functions, so retaining images through PDF has forward-looking significance—when this feature goes online, there is no need to remake documents to ask questions about images.  
-* The directory (Outline) of the PDF serves as the structure tree of the document, providing more precise context positioning during the splitting and retrieval process of RAG.
+* The outline of the PDF serves as the structure tree of the document, providing more precise context positioning during the splitting and retrieval process of RAG.
 
 ### **Why the Default Token Limit for a Single Source in DocWeaver is 500,000**
 NotebookLM has a limit on the Token count for each source file. Tests show that a single source around 800,000 Tokens can still maintain good retrieval accuracy.  
