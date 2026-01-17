@@ -7,8 +7,11 @@ aliases:
   - /2025/01/17/Building an Efficient Game Audio Q&A Knowledge Base/
 ---
 Hello everyone, I’m Thomas.
+
 In game audio development, consulting documentation is "daily routine." However, limited by inaccurate keyword matching or scattered information distribution, simple queries often turn into energy-draining "time black holes."
+
 Last year, I encountered **RAG** (Retrieval-Augmented Generation). I found it to be the perfect solution to documentation retrieval challenges, capable of precisely extracting information and curbing the hallucinations of large models.
+
 In this article, taking "How to Efficiently Search Wwise Documentation" as an example, I will share my complete implementation strategy. I hope this helps everyone say goodbye to inefficient retrieval and save time for more important creative design work.
 
 ## **Terminology**
