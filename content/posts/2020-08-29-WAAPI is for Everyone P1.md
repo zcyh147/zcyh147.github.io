@@ -2,7 +2,7 @@
 title: WAAPI is for Everyone | Part 1 Overview
 date: 2020-11-14T18:46:00+08:00
 tags:
-  - 音频编程
+  - Audio Middleware
 aliases:
   - /2020/11/14/WAAPI is for Everyone P1/
 ---

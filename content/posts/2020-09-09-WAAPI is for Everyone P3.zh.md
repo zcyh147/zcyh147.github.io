@@ -2,7 +2,7 @@
 title: 人人都能用 WAAPI（三）Functions（执行类 API）剩余部分及 Topics（订阅类 API）
 date: 2020-09-25T16:46:00+08:00
 tags:
-  - 音频编程
+  - 音频中间件
 aliases:
   - /2020/09/09/WAAPI 一文通（三）/
 ---

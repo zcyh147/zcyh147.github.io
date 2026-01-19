@@ -2,7 +2,7 @@
 title: 人人都能用 WAAPI（二）wwise.core 分支
 date: 2020-09-05T16:46:00+08:00
 tags:
-  - 音频编程
+  - 音频中间件
 aliases:
   - /2020/08/30/WAAPI 一文通（二）/
 ---
