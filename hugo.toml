@@ -116,6 +116,7 @@ Based on the clarity or ambiguity of the expressions in my posts, you can tell h
 [languages.zh]
   languageName = "中文"
   languageCode = "zh-cn"
+  hasCJKLanguage = true
   weight = 2
   title = "溪夜的博客"
   
