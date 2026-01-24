@@ -1,10 +1,10 @@
 ---
 title: 告别代码考古：技术音频源码的 AI 阅读实践
-date: 2025-01-22T10:00:00+08:00
+date: 2025-01-23T10:00:00+08:00
 tags:
   - 音频编程
 aliases:
-  - /2025/01/22/Understand Code By AI/
+  - /2025/01/23/Understanding Code with A/
 ---
 大家好，我是溪夜。
 
