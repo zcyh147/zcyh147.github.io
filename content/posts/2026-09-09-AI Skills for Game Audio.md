@@ -5,7 +5,7 @@ tags:
   - "Audio Programming"
 description: "Practical examples of Matt Pocock’s Skills for game audio, from sound design and Wwise API selection to a playable footstep prototype."
 ---
-Hi, I'm Xiye.
+Hi, I'm Thomas.
 
 AI-assisted coding has lowered the barrier to development. For many simple tasks, describing what you want to an agent is enough to get a result. As requirements grow more complex, however, it is easy to get stuck in repeated cycles of adding constraints and revising the design. Even writing a design document in advance does not eliminate the problem.
 
