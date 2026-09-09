@@ -1,0 +1,15 @@
+{{- $src := .Get "src" -}}
+{{- if not $src -}}
+  {{- errorf "The video shortcode requires src: %s" .Position -}}
+{{- end -}}
+{{- $caption := .Get "caption" -}}
+{{- $label := $caption | default "Video" -}}
+{{- $id := printf "video-caption-%d" .Ordinal -}}
+<figure class="post-video">
+  <video controls playsinline preload="metadata" width="1920" height="1080" aria-label="{{ $label }}"{{ with $caption }} aria-describedby="{{ $id }}"{{ end }}>
+    <source src="{{ $src | relURL }}" type="video/mp4">
+    {{ if eq .Page.Language.Lang "zh" }}您的浏览器无法播放此视频。{{ else }}Your browser cannot play this video.{{ end }}
+    <a href="{{ $src | relURL }}">{{ if eq .Page.Language.Lang "zh" }}下载 MP4{{ else }}Download the MP4{{ end }}</a>
+  </video>
+  {{ with $caption }}<figcaption id="{{ $id }}">{{ . }}</figcaption>{{ end }}
+</figure>
