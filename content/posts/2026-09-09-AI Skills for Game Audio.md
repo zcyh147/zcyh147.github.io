@@ -3,7 +3,6 @@ title: "From Clarifying Questions to Implementation: AI Skills in Game Audio Pra
 date: 2026-09-09T00:00:00+08:00
 tags:
   - "Audio Programming"
-description: "Practical examples of Matt Pocock’s Skills for game audio, from sound design and Wwise API selection to a playable footstep prototype."
 ---
 Hi, I'm Thomas.
 

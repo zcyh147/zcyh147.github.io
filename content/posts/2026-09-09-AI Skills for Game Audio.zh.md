@@ -3,7 +3,6 @@ title: "从反向追问到执行：游戏音频的 AI Skills 实践"
 date: 2026-09-09T00:00:00+08:00
 tags:
   - "音频编程"
-description: "先让 AI 问清需求，再动手实现。通过声音设计、Wwise 技术选型和脚步声原型，分享 Matt Pocock Skills 在游戏音频中的实践。"
 ---
 大家好，我是溪夜。
 
