@@ -1,5 +1,5 @@
 ---
-title: "WAAPI is for Everyone | Part 4 - waapi-skill"
+title: "WAAPI is for Everyone | Part 4 waapi-skill"
 date: 2026-09-14T00:00:00+08:00
 tags:
   - "Audio Programming"
