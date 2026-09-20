@@ -2,6 +2,7 @@ baseURL = 'https://xiye.art/'
 title = "Xiye's Blog"
 theme = "PaperMod"
 defaultContentLanguage = "en"
+ignoreFiles = ['\.wechat\.zh\.md$']
 
 [pagination]
   pagerSize = 15
