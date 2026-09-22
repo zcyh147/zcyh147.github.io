@@ -32,7 +32,7 @@ With the [NotebookLM Skill](https://github.com/PleasePrompto/notebooklm-skill), 
 - I have used the highest-resolution covers I could find, reducing larger images to 900 pixels wide and retaining smaller originals without enlarging them.
 - This article does not provide access to pirated copies. Please support legitimate editions if you can afford them. Books are inexpensive for the knowledge they contain. If you have used an unauthorized copy, consider buying the book when you can; that helps sustain the work behind it.
 - Most English-language titles are available through Amazon, with digital editions also available from publishers such as Focal Press and CRC Press. Chinese editions can be purchased through Chinese booksellers.
-- Where an English edition is available, the cover and publication details refer to that edition; the Chinese title is retained for cross-reference. Books without a verified English edition retain their Chinese covers and publication details. English book titles are italicized, while Chinese titles retain Chinese title marks. Titles marked "translated for reference" are English renderings of Chinese titles, not claims that an English edition exists.
+- Where an English edition is available, the cover and publication details refer to that edition. Books without a verified English edition retain their Chinese covers and publication details. English book titles are italicized, while Chinese titles retain Chinese title marks. Titles marked "translated for reference" are English renderings of Chinese titles, not claims that an English edition exists.
 
 ### What's Changed in This Update
 
@@ -79,9 +79,9 @@ With the [NotebookLM Skill](https://github.com/PleasePrompto/notebooklm-skill), 
 
 **[2.1 Theory, Analysis, and Research](#21-theory-analysis-and-research)**
 
-- [《视听：幻觉的构建》 (*Audio-Vision: Sound on Screen, 2nd edition*)](#视听幻觉的构建-audio-vision-sound-on-screen-2nd-edition)
-- [《声音》 (*Sound: An Acoulogical Treatise*)](#声音-sound-an-acoulogical-treatise)
-- [《放低话筒杆：电影声音批评》 (*Lowering the Boom: Critical Studies in Film Sound*)](#放低话筒杆电影声音批评-lowering-the-boom-critical-studies-in-film-sound)
+- [*Audio-Vision: Sound on Screen, 2nd edition*](#audio-vision-sound-on-screen-2nd-edition)
+- [*Sound: An Acoulogical Treatise*](#sound-an-acoulogical-treatise)
+- [*Lowering the Boom: Critical Studies in Film Sound*](#lowering-the-boom-critical-studies-in-film-sound)
 - [《审美空间延伸与拓展：电影声音艺术理论》 (*Extending and Expanding Aesthetic Space: Theories of Film Sound Art*) [English title translated for reference]](#审美空间延伸与拓展电影声音艺术理论-extending-and-expanding-aesthetic-space-theories-of-film-sound-art-english-title-translated-for-reference)
 - [*Sound Design and Science Fiction*](#sound-design-and-science-fiction)
 - [*Hollywood Sound Design and Moviesound Newsletter: A Case Study of the End of the Analog Age*](#hollywood-sound-design-and-moviesound-newsletter-a-case-study-of-the-end-of-the-analog-age)
@@ -97,9 +97,9 @@ With the [NotebookLM Skill](https://github.com/PleasePrompto/notebooklm-skill), 
 
 **[2.2 Creative Methods and Production Practice](#22-creative-methods-and-production-practice)**
 
-- [《声音设计：电影中语言、音乐和音响的表现力》 (*Sound Design: The Expressive Power of Music, Voice, and Sound Effects in Cinema*)](#声音设计电影中语言音乐和音响的表现力-sound-design-the-expressive-power-of-music-voice-and-sound-effects-in-cinema)
+- [*Sound Design: The Expressive Power of Music, Voice, and Sound Effects in Cinema*](#sound-design-the-expressive-power-of-music-voice-and-sound-effects-in-cinema)
 - [*Studying Sound: A Theory and Practice of Sound Design*](#studying-sound-a-theory-and-practice-of-sound-design)
-- [《音效圣经：好莱坞音效创作及录制技巧》 (*The Sound Effects Bible: How to Create and Record Hollywood Style Sound Effects*)](#音效圣经好莱坞音效创作及录制技巧-the-sound-effects-bible-how-to-create-and-record-hollywood-style-sound-effects)
+- [*The Sound Effects Bible: How to Create and Record Hollywood Style Sound Effects*](#the-sound-effects-bible-how-to-create-and-record-hollywood-style-sound-effects)
 - [Film and Television Sound Production References](#film-and-television-sound-production-references)
 - [*Designing Sound for Animation, 3rd edition*](#designing-sound-for-animation-3rd-edition)
 - [*Post Sound Design: The Art and Craft of Audio Post Production for the Moving Image*](#post-sound-design-the-art-and-craft-of-audio-post-production-for-the-moving-image)
@@ -107,14 +107,14 @@ With the [NotebookLM Skill](https://github.com/PleasePrompto/notebooklm-skill), 
 - [*A Filmmaker’s Guide to Sound Design: Bridging the Gap Between Filmmakers and Technicians to Realize the Storytelling Power of Sound*](#a-filmmakers-guide-to-sound-design-bridging-the-gap-between-filmmakers-and-technicians-to-realize-the-storytelling-power-of-sound)
 - [*Sound Design for the Visual Storyteller: Creating Sound for Visual Media*](#sound-design-for-the-visual-storyteller-creating-sound-for-visual-media)
 - [*Foundations in Sound Design for Linear Media: A Multidisciplinary Approach*](#foundations-in-sound-design-for-linear-media-a-multidisciplinary-approach)
-- [《电影之声：电影音效师访谈录》 (*Sound-On-Film: Interviews with Creators of Film Sound*)](#电影之声电影音效师访谈录-sound-on-film-interviews-with-creators-of-film-sound)
+- [*Sound-On-Film: Interviews with Creators of Film Sound*](#sound-on-film-interviews-with-creators-of-film-sound)
 
 **[2.3 Sound Synthesis](#23-sound-synthesis)**
 
 **[2.3.1 Synthesis Principles and Sound Design](#231-synthesis-principles-and-sound-design)**
 
 - [《自己动手做声音：声音合成与制作基础》 (*Making Sounds Yourself: Fundamentals of Sound Synthesis and Production*) [English title translated for reference]](#自己动手做声音声音合成与制作基础-making-sounds-yourself-fundamentals-of-sound-synthesis-and-production-english-title-translated-for-reference)
-- [《声音合成与采样技术（第3版）》 (*Sound Synthesis and Sampling, 3rd edition*)](#声音合成与采样技术第3版-sound-synthesis-and-sampling-3rd-edition)
+- [*Sound Synthesis and Sampling, 3rd edition*](#sound-synthesis-and-sampling-3rd-edition)
 - [《软件合成器技术实战手册：音色制作与模块编程》 (*A Practical Handbook of Software Synthesizers: Sound Programming and Modular Programming*) [English title translated for reference]](#软件合成器技术实战手册音色制作与模块编程-a-practical-handbook-of-software-synthesizers-sound-programming-and-modular-programming-english-title-translated-for-reference)
 - [*Creating Sounds from Scratch: A Practical Guide to Music Synthesis for Producers and Composers*](#creating-sounds-from-scratch-a-practical-guide-to-music-synthesis-for-producers-and-composers)
 - [*The Synthesizer: A Comprehensive Guide to Understanding, Programming, Playing, and Recording the Ultimate Electronic Music Instrument*](#the-synthesizer-a-comprehensive-guide-to-understanding-programming-playing-and-recording-the-ultimate-electronic-music-instrument)
@@ -134,7 +134,7 @@ With the [NotebookLM Skill](https://github.com/PleasePrompto/notebooklm-skill), 
 
 **[2.4 Procedural Sound Design](#24-procedural-sound-design)**
 
-- [《设计声音》 (*Designing Sound*)](#设计声音-designing-sound)
+- [*Designing Sound*](#designing-sound)
 
 **[2.5 Foley](#25-foley)**
 
@@ -159,8 +159,8 @@ With the [NotebookLM Skill](https://github.com/PleasePrompto/notebooklm-skill), 
 
 **[3.1 Principles and Technology](#31-principles-and-technology)**
 
-- [《3D 音频知识小百科》 (*All You Need to Know About 3D Audio*)](#3d-音频知识小百科-all-you-need-to-know-about-3d-audio)
-- [《空间声原理》 (*Spatial Sound: Principles and Applications*)](#空间声原理-spatial-sound-principles-and-applications)
+- [*All You Need to Know About 3D Audio*](#all-you-need-to-know-about-3d-audio)
+- [*Spatial Sound: Principles and Applications*](#spatial-sound-principles-and-applications)
 - [*Ambisonics*](#ambisonics)
 - [*Immersive Sound, Volumes 01–02*](#immersive-sound-volumes-0102)
 - [*3D Audio*](#3d-audio)
@@ -177,7 +177,7 @@ With the [NotebookLM Skill](https://github.com/PleasePrompto/notebooklm-skill), 
 **[4.1 Game Development Fundamentals](#41-game-development-fundamentals)**
 
 - [*Game Engine Architecture, 4th edition, Volumes 01–02*](#game-engine-architecture-4th-edition-volumes-0102)
-- [《游戏编程算法与技巧》 (*Game Programming Algorithms and Techniques: A Platform-Agnostic Approach*)](#游戏编程算法与技巧-game-programming-algorithms-and-techniques-a-platform-agnostic-approach)
+- [*Game Programming Algorithms and Techniques: A Platform-Agnostic Approach*](#game-programming-algorithms-and-techniques-a-platform-agnostic-approach)
 - [Unity Books](#unity-books)
 - [Unreal Books](#unreal-books)
 
@@ -383,7 +383,7 @@ This short book continues beyond job hunting to team expectations after joining,
 
 ### 2.1 Theory, Analysis, and Research
 
-#### 《视听：幻觉的构建》 (*Audio-Vision: Sound on Screen, 2nd edition*)
+#### *Audio-Vision: Sound on Screen, 2nd edition*
 
 ![Audio-Vision: Sound on Screen, 2nd edition cover](/images/game-audio-books-v3/en-audio-vision-2e.jpg)
 
@@ -391,21 +391,21 @@ Michel Chion. Edited and translated by Claudia Gorbman. Columbia University Pres
 
 Michel Chion's work on sound-image theory. Its three listening modes, causal, semantic, and reduced, direct attention toward the sound source, the meaning of information, and the characteristics of sound itself. The audiovisual contract considers how sound and image jointly affect perception when brought together. These concepts help explain why sound changes the sense of time, space, and meaning in an image, and are useful for analyzing sound-image relationships in cinematics, dialogue, and shots.
 
-#### 《声音》 (*Sound: An Acoulogical Treatise*)
+#### *Sound: An Acoulogical Treatise*
 
 ![Sound: An Acoulogical Treatise cover](/images/game-audio-books-v3/en-sound-acoulogical-treatise.jpg)
 
 Michel Chion. Translated by James A. Steintrager. Duke University Press, 2016
 
-While 《视听》 (*Audio-Vision*) focuses on sound-image relationships, this book starts with sound itself, discussing sources, time, language, noise, music, and technological media. It helps distinguish and describe different listening experiences, such as how we understand a sound when we cannot see its source. The two books have different emphases: the former helps analyze how sound and image work together, while this one provides further concepts and vocabulary for sound analysis.
+While *Audio-Vision* focuses on sound-image relationships, this book starts with sound itself, discussing sources, time, language, noise, music, and technological media. It helps distinguish and describe different listening experiences, such as how we understand a sound when we cannot see its source. The two books have different emphases: the former helps analyze how sound and image work together, while this one provides further concepts and vocabulary for sound analysis.
 
-#### 《放低话筒杆：电影声音批评》 (*Lowering the Boom: Critical Studies in Film Sound*)
+#### *Lowering the Boom: Critical Studies in Film Sound*
 
 ![Lowering the Boom: Critical Studies in Film Sound cover](/images/game-audio-books-v3/en-lowering-the-boom.jpg)
 
 Edited by Jay Beck and Tony Grajeda. University of Illinois Press, 2008
 
-This collection of film sound criticism connects dialogue, music, offscreen voices, and ambience with identity, history, and the viewing experience, using films such as *The Silence of the Lambs* and *Mulholland Drive*. Unlike the conceptual analysis of sound-image relationships in 《视听》 (*Audio-Vision*), it discusses the cultural meanings of sound primarily through individual films. Start with a familiar film or a topic that interests you.
+This collection of film sound criticism connects dialogue, music, offscreen voices, and ambience with identity, history, and the viewing experience, using films such as *The Silence of the Lambs* and *Mulholland Drive*. Unlike the conceptual analysis of sound-image relationships in *Audio-Vision*, it discusses the cultural meanings of sound primarily through individual films. Start with a familiar film or a topic that interests you.
 
 #### 《审美空间延伸与拓展：电影声音艺术理论》 (*Extending and Expanding Aesthetic Space: Theories of Film Sound Art*) [English title translated for reference]
 
@@ -507,7 +507,7 @@ These three collections do not need to be read from start to finish. Choose a bo
 
 ### 2.2 Creative Methods and Production Practice
 
-#### 《声音设计：电影中语言、音乐和音响的表现力》 (*Sound Design: The Expressive Power of Music, Voice, and Sound Effects in Cinema*)
+#### *Sound Design: The Expressive Power of Music, Voice, and Sound Effects in Cinema*
 
 ![Sound Design: The Expressive Power of Music, Voice, and Sound Effects in Cinema cover](/images/game-audio-books-v3/en-sound-design-sonnenschein.jpg)
 
@@ -523,7 +523,7 @@ Karen Collins. MIT Press, 2020
 
 This practical learning resource includes more than 175 exercises, beginning with quiet listening and keeping a daily sound journal before moving into recording, effects processing, mixing, and sonic storytelling. Later tasks include making a 30-second sound story without dialogue and preparing sound cue sheets, asset lists, and recording scripts. It turns concepts into exercises you can do yourself, making it particularly useful for training listening skills, describing sound, and organizing assets.
 
-#### 《音效圣经：好莱坞音效创作及录制技巧》 (*The Sound Effects Bible: How to Create and Record Hollywood Style Sound Effects*)
+#### *The Sound Effects Bible: How to Create and Record Hollywood Style Sound Effects*
 
 ![The Sound Effects Bible: How to Create and Record Hollywood Style Sound Effects cover](/images/game-audio-books-v3/en-sound-effects-bible.jpg)
 
@@ -535,9 +535,9 @@ For anyone recording a personal sound effects library, this book covers the fund
 
 Choose among these three books according to the scope of your work:
 
-《电影电视声音》 (*Sound for Film and Television, 3rd edition*) (Tomlinson Holman, Focal Press, 2010, 3rd edition): Covers hearing, sound capture, levels, and synchronization through to sound design, editing, rerecording, and exhibition. Useful for understanding how the different roles fit together and how production recording determines the conditions for postproduction.
+*Sound for Film and Television, 3rd edition* (Tomlinson Holman, Focal Press, 2010, 3rd edition): Covers hearing, sound capture, levels, and synchronization through to sound design, editing, rerecording, and exhibition. Useful for understanding how the different roles fit together and how production recording determines the conditions for postproduction.
 
-《电影声音制作实用技巧》 (*Practical Art of Motion Picture Sound, 4th edition*) (David Lewis Yewdall, Focal Press, 2011, 4th edition): Focuses on industry craft and production experience, discussing budgets, recording, asset management, dialogue, Foley, departmental collaboration, and rerecording. Looking at the optical soundtrack on 35 mm film makes you appreciate just how fortunate we are to design sound in a DAW.
+*Practical Art of Motion Picture Sound, 4th edition* (David Lewis Yewdall, Focal Press, 2011, 4th edition): Focuses on industry craft and production experience, discussing budgets, recording, asset management, dialogue, Foley, departmental collaboration, and rerecording. Looking at the optical soundtrack on 35 mm film makes you appreciate just how fortunate we are to design sound in a DAW.
 
 *Producing Great Sound for Film and Video, 4th edition* (Jay Rose, 2015, 4th edition): Geared more toward small teams, it combines budgets, equipment connections, location recording, speech editing, mixing, and troubleshooting. Useful for productions where you need to handle several parts of the sound process yourself.
 
@@ -589,7 +589,7 @@ Edited by Michael Filimowicz. Routledge, 2019
 
 This multi-author collection covers Foley, dialogue postproduction, media management, effects processing, and mixing, alongside music theory, soundscape composition, and auditory perception. Chapter 15 offers exercises such as listening through hidden microphones, group environmental recording, collaborative story writing, and designing sound from a script alone. Compared with the progressive foundational exercises in *Studying Sound*, it is better suited to filling gaps in specific topics or finding creative approaches through different kinds of exercises.
 
-#### 《电影之声：电影音效师访谈录》 (*Sound-On-Film: Interviews with Creators of Film Sound*)
+#### *Sound-On-Film: Interviews with Creators of Film Sound*
 
 ![Sound-On-Film: Interviews with Creators of Film Sound cover](/images/game-audio-books-v3/en-sound-on-film.jpg)
 
@@ -609,7 +609,7 @@ This book interviews 27 film sound practitioners working in production recording
 
 A classic synthesis book by 程伊兵. It begins by analyzing timbre through spectra, envelopes, and changes in dynamics, then develops algorithm block diagrams and uses Nord Modular G2 to build examples such as bells, Chinese stone chimes, and electric pianos. The tools are dated, but the method of analyzing a target sound before choosing a synthesis structure remains useful. It is closer to actual sound programming than simply memorizing what each knob does.
 
-##### 《声音合成与采样技术（第3版）》 (*Sound Synthesis and Sampling, 3rd edition*)
+##### *Sound Synthesis and Sampling, 3rd edition*
 
 ![Sound Synthesis and Sampling, 3rd edition cover](/images/game-audio-books-v3/en-sound-synthesis-sampling-3e.jpg)
 
@@ -631,7 +631,7 @@ A classic synthesizer book by 熊鹰, also known as 飞来音. It begins with so
 
 Andrea Pejrolo and Scott B. Metcalfe. Oxford University Press, 2017
 
-This textbook combines synthesis principles with sound programming, moving from oscillators, filters, and envelopes to subtractive, additive, FM, sampling, wavetable, and granular methods, with listening examples and exercises. Compared with the emphasis on principles and technical categories in 《声音合成与采样技术》 (*Sound Synthesis and Sampling*), it gives more attention to listening and making sounds, comparing how parameters and synthesis methods affect timbre. It is useful for putting scattered knowledge of modules into practice.
+This textbook combines synthesis principles with sound programming, moving from oscillators, filters, and envelopes to subtractive, additive, FM, sampling, wavetable, and granular methods, with listening examples and exercises. Compared with the emphasis on principles and technical categories in *Sound Synthesis and Sampling*, it gives more attention to listening and making sounds, comparing how parameters and synthesis methods affect timbre. It is useful for putting scattered knowledge of modules into practice.
 
 ##### *The Synthesizer: A Comprehensive Guide to Understanding, Programming, Playing, and Recording the Ultimate Electronic Music Instrument*
 
@@ -721,7 +721,7 @@ The preceding resources teach you to connect existing modules. This book goes in
 
 ### 2.4 Procedural Sound Design
 
-#### 《设计声音》 (*Designing Sound*)
+#### *Designing Sound*
 
 ![Designing Sound cover](/images/game-audio-books-v3/en-designing-sound.jpg)
 
@@ -731,7 +731,7 @@ This book uses Pure Data to explore sound design, but learning the interface is 
 
 To continue learning Pd, the following five books address different needs.
 
-《电子音乐技术》 (*The Theory and Technique of Electronic Music*) (Miller Puckette, World Scientific, 2007): connects oscillators, sampling, modulation, and filtering to theory and Pd examples. The author also provides a [free online English version](https://msp.ucsd.edu/techniques.htm).
+*The Theory and Technique of Electronic Music* (Miller Puckette, World Scientific, 2007): connects oscillators, sampling, modulation, and filtering to theory and Pd examples. The author also provides a [free online English version](https://msp.ucsd.edu/techniques.htm).
 
 《Pure Data 图形化音乐编程技术与应用》 (*Pure Data: Techniques and Applications of Graphical Music Programming*) [English title translated for reference] (compiled and written by 杨万钧, 2017, 1st edition): useful for building a foundation in dataflow and the tools through a Chinese-language resource.
 
@@ -809,7 +809,7 @@ This book explains loudness, LUFS/LKFS, time and frequency weighting, calibratio
 
 ### 3.1 Principles and Technology
 
-#### 《3D 音频知识小百科》 (*All You Need to Know About 3D Audio*)
+#### *All You Need to Know About 3D Audio*
 
 ![All You Need to Know About 3D Audio cover](/images/game-audio-books-v3/en-3d-audio-sound-particles.jpg)
 
@@ -819,7 +819,7 @@ Sound Particles provides this introductory 3D audio ebook for free, with a welco
 
 [Official English introduction and free download](https://soundparticles.com/resources/ebooks/3daudio)
 
-#### 《空间声原理》 (*Spatial Sound: Principles and Applications*)
+#### *Spatial Sound: Principles and Applications*
 
 ![Spatial Sound: Principles and Applications cover](/images/game-audio-books-v3/en-spatial-sound-principles-applications.jpg)
 
@@ -901,7 +901,7 @@ A systematic guide to game engine architecture, covering asset loading, memory, 
 
 This book is extremely helpful for understanding game engine architecture. It is also the only officially recommended book for GAMES104, the introductory game engine course.
 
-#### 《游戏编程算法与技巧》 (*Game Programming Algorithms and Techniques: A Platform-Agnostic Approach*)
+#### *Game Programming Algorithms and Techniques: A Platform-Agnostic Approach*
 
 ![Game Programming Algorithms and Techniques: A Platform-Agnostic Approach cover](/images/game-audio-books-v3/en-game-programming-algorithms-techniques.jpg)
 
