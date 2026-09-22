@@ -415,7 +415,7 @@ Jay Beck、Tony Grajeda 编，中国电影出版社，2013。
 
 #### *Sound Design and Science Fiction*
 
-![Sound Design and Science Fiction 封面](/images/game-audio-books-v3/game-design-sound-design-science-fiction.jpg)
+![Sound Design and Science Fiction 封面](/images/game-audio-books-v3/game-design-sound-design-science-fiction-hq.jpg)
 
 William Whittington 著，University of Texas Press，2007。
 

@@ -417,7 +417,7 @@ A collection of film sound theory in four parts: sound theory, artistic context,
 
 #### *Sound Design and Science Fiction*
 
-![Sound Design and Science Fiction cover](/images/game-audio-books-v3/game-design-sound-design-science-fiction.jpg)
+![Sound Design and Science Fiction cover](/images/game-audio-books-v3/game-design-sound-design-science-fiction-hq.jpg)
 
 William Whittington. University of Texas Press, 2007
 
