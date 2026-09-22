@@ -401,7 +401,7 @@ While *Audio-Vision* focuses on sound-image relationships, this book starts with
 
 #### *Lowering the Boom: Critical Studies in Film Sound*
 
-![Lowering the Boom: Critical Studies in Film Sound cover](/images/game-audio-books-v3/en-lowering-the-boom-pdf-900.jpg)
+![Lowering the Boom: Critical Studies in Film Sound cover](/images/game-audio-books-v3/en-lowering-the-boom-complete-900.jpg)
 
 Edited by Jay Beck and Tony Grajeda. University of Illinois Press, 2008
 
