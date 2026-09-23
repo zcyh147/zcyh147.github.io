@@ -1,10 +1,11 @@
 ---
 title: "Beyond Code Archaeology: AI-Powered Source Code Reading for Game Audio"
-date: 2025-01-23T10:00:00+08:00
+date: 2026-01-23T10:00:00+08:00
 tags:
   - Audio Programming
 aliases:
   - /2025/01/23/Understanding Code with AI/
+  - /posts/2025-01-22-understanding-code-with-ai/
 ---
 Hello, I'm Thomas.
 

@@ -21,7 +21,7 @@ AI 已经能帮助我们解决很多问题。获取答案变容易了，但判�
 
 ## AI 时代，如何更好地使用书籍？
 
-我曾在[《打造高效游戏音频问答知识库》](https://xiye.art/zh/posts/2025-01-15-rag-knowledge-base/)中推荐使用 NotebookLM（Gemini Notebook）进行知识检索，它也很适合辅助阅读。导入书籍 PDF 后，只要提出问题，AI 就会自行查找相关章节生成回答，还可以通过回答中的引用回看原文。无论是快速了解一本书，还是对照几本书研究同一个问题，效率都非常高。
+我曾在[《打造高效游戏音频问答知识库》](https://xiye.art/zh/posts/2026-01-15-rag-knowledge-base/)中推荐使用 NotebookLM（Gemini Notebook）进行知识检索，它也很适合辅助阅读。导入书籍 PDF 后，只要提出问题，AI 就会自行查找相关章节生成回答，还可以通过回答中的引用回看原文。无论是快速了解一本书，还是对照几本书研究同一个问题，效率都非常高。
 
 结合 [NotebookLM Skill](https://github.com/PleasePrompto/notebooklm-skill)，还可以在 Agent 中查阅书籍，再结合开发工具生成原型，或直接围绕工作中的问题查找资料。这样，书籍就不只是阅读材料，也能成为实际工作中的参考。
 

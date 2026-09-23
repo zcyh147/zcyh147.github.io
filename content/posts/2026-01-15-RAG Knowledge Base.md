@@ -1,10 +1,11 @@
 ---
 title: Building an Efficient Game Audio Q&A Knowledge Base
-date: 2025-01-17T10:00:00+08:00
+date: 2026-01-15T10:00:00+08:00
 tags:
   - Game Audio
 aliases:
   - /2025/01/17/Building an Efficient Game Audio Q&A Knowledge Base/
+  - /posts/2025-01-15-rag-knowledge-base/
 ---
 Hello everyone, I’m Thomas.
 

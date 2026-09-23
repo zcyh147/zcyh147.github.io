@@ -21,7 +21,7 @@ I hope this list helps you find the book you need.
 
 ## Making Better Use of Books with AI
 
-In [Building an Efficient Game Audio Q&A Knowledge Base](/posts/2025-01-15-rag-knowledge-base/), I recommended NotebookLM (Gemini Notebook) for retrieving information. It is also useful for reading. Import a book as a PDF, ask a question, and the AI finds relevant passages to build its answer. The citations let you check the original text. This is an efficient way to get an overview of a book or compare how several books approach the same question.
+In [Building an Efficient Game Audio Q&A Knowledge Base](/posts/2026-01-15-rag-knowledge-base/), I recommended NotebookLM (Gemini Notebook) for retrieving information. It is also useful for reading. Import a book as a PDF, ask a question, and the AI finds relevant passages to build its answer. The citations let you check the original text. This is an efficient way to get an overview of a book or compare how several books approach the same question.
 
 With the [NotebookLM Skill](https://github.com/PleasePrompto/notebooklm-skill), an agent can consult those books and use development tools to build a prototype, or look up material relevant to a problem at work. Books can then serve not only as reading material, but as references during the work itself.
 
