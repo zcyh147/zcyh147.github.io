@@ -1,6 +1,8 @@
 ---
-title: "FAQ"
-url: "/faq/"
+title: "About"
+url: "/about/"
+aliases:
+  - "/faq/"
 ---
 
 ## About Me
@@ -13,8 +15,8 @@ My research areas in audio include but are not limited to:
 - **Sound Engineering (Recording, Acoustic Design)**: Experience in orchestral recording, instrument recording, vocal recording, and independently designed small commercial recording studios with technical support
 - **Analog Synthesizer**: Beginner enthusiast of analog synthesizers and Eurorack
 
-## WeChat Official Account
-I'm also the founder of the WeChat official account **Helmholtz Lab (亥姆霍兹实验室)**, which features curated content from this blog.
-If you're interested in my research, feel free to subscribe!
+## Find Me
 
-![扫码_搜索联合传播样式-标准色版](/images/qr_code.bmp)
+- [LinkedIn](https://www.linkedin.com/in/xiye147)
+- [X](https://x.com/zcyh_147)
+- **Weixin Official Account**: Helmholtz Lab (亥姆霍兹实验室)

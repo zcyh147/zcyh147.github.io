@@ -106,9 +106,9 @@ Based on the clarity or ambiguity of the expressions in my posts, you can tell h
     weight = 40
 
   [[languages.en.menu.main]]
-    identifier = "faq"
-    name = "FAQ"
-    url = "/faq/"
+    identifier = "about"
+    name = "About"
+    url = "/about/"
     weight = 50
 
 # ========================================
@@ -175,7 +175,7 @@ Based on the clarity or ambiguity of the expressions in my posts, you can tell h
     weight = 40
 
   [[languages.zh.menu.main]]
-    identifier = "faq"
-    name = "常见问题"
-    url = "/zh/faq/"
+    identifier = "about"
+    name = "关于"
+    url = "/zh/about/"
     weight = 50

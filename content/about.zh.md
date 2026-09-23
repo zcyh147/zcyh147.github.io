@@ -1,6 +1,8 @@
 ---
-title: "FAQ"
-url: "/zh/faq/"
+title: "关于"
+url: "/zh/about/"
+aliases:
+  - "/zh/faq/"
 ---
 
 ## 关于我
@@ -13,8 +15,10 @@ url: "/zh/faq/"
 - **Sound Engineering（录音、声学设计）**：有过交响乐录音、乐器录音、人声录音等经验，并独立操刀设计过小型商业录音棚，做过技术支持
 - **Analog Synthesizer（模拟合成器）**：模拟合成器与 Eurorack 初级爱好者
 
-## 公众号
-此外我还是公众号**亥姆霍兹实验室（Helmholtz-Lab）**的创始人，其中的内容为本博客的精编版。
-如果您对我的研究有兴趣，欢迎扫码订阅！
+## 找到我
 
-![扫码_搜索联合传播样式-标准色版](/images/qr_code.bmp)
+- [LinkedIn](https://www.linkedin.com/in/xiye147)
+- [X](https://x.com/zcyh_147)
+- **微信公众号**：亥姆霍兹实验室（Helmholtz Lab）
+
+![亥姆霍兹实验室微信公众号二维码](/images/qr_code.bmp)
