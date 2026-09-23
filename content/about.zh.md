@@ -17,8 +17,8 @@ aliases:
 
 ## 找到我
 
-- [LinkedIn](https://www.linkedin.com/in/xiye147)
-- [X](https://x.com/zcyh_147)
+- **LinkedIn**：[linkedin.com/in/xiye147](https://www.linkedin.com/in/xiye147)
+- **X**：[x.com/zcyh_147](https://x.com/zcyh_147)
 - **微信公众号**：亥姆霍兹实验室（Helmholtz Lab）
 
 ![亥姆霍兹实验室微信公众号二维码](/images/qr_code.bmp)

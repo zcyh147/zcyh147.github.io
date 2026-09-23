@@ -17,6 +17,6 @@ My research areas in audio include but are not limited to:
 
 ## Find Me
 
-- [LinkedIn](https://www.linkedin.com/in/xiye147)
-- [X](https://x.com/zcyh_147)
+- **LinkedIn**: [linkedin.com/in/xiye147](https://www.linkedin.com/in/xiye147)
+- **X**: [x.com/zcyh_147](https://x.com/zcyh_147)
 - **Weixin Official Account**: Helmholtz Lab (亥姆霍兹实验室)
