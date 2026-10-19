@@ -1,5 +1,5 @@
 ---
-title: "ReWwire: Stream Wwise Audio to Your DAW in Sync"
+title: "ReWwire: Stream Wwise Buses to Your DAW"
 date: 2026-10-19T00:00:00+08:00
 slug: "2026-10-19-rewwire-wwise-to-daw"
 tags:
